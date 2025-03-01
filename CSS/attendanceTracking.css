@@ -1,0 +1,82 @@
+  .datetimeBox{
+    border-radius: 50px;
+    width: 100%; /* Makes it match the navbar width */
+    max-width: 1300px; /* Adjust based on navbar width */
+    height: 80px; /* Reduce height to fit better */
+    background-color: #f3aa92;
+    margin: 0 auto; /* Centers it */
+    
+  }
+  
+  .datetimeAlign{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 20%; 
+    padding-top: 30px;  
+  }
+
+  #clock{
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #date{
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    .datetimeBox {
+        max-width: 95%;
+        height: auto;
+    }
+
+    #clock {
+        font-size: 1.8em;
+    }
+
+    #date {
+        font-size: 1em;
+    }
+}
+#rfidContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 40%;
+}
+
+#rfidInput {
+  padding: 5px;
+  font-size:0.5 em;
+  border: 2px solid #555;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+}
+#attendanceContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+  padding-bottom: 50px; /* Adds space below the table */
+}
+
+#attendanceTable {
+  border-radius: 10px;
+  width: 80%;
+  max-width: 1300px;
+  background-color: lightgray;
+  padding: 6px;
+  margin: 0 auto;
+}
+
+
+th, td {
+    padding: 5px; /* Reduce padding */
+    text-align: center;
+    font-size: 0.9em; /* Adjust font size */
+}

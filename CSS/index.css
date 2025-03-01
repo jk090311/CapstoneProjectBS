@@ -1,0 +1,80 @@
+body{
+    background-image: url(/FinalCapstoneWebsite/Assets/468973258_10164631929353378_5372528642261658059_n.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-blend-mode: lighten;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 50px;
+    box-sizing: border-box;
+  }
+  
+  #welcomeBox {
+    border-radius: 50px;
+    width: 500px;
+    height: 300px;
+    background-color: #f3aa92;
+    margin-right: 150px;
+    padding-bottom: 60px;
+  }
+  
+  #loginBox {
+    border-radius: 50px;
+    width: 400px;
+    height: 500px;
+    background-color: #7791a1;
+    margin-left: 150px; /* Space from left edge */
+  }
+  
+  #welcomeText{
+    text-align: center;
+    text-shadow: -3px -3px #f65868;
+    color: #5375e2;
+    font-size: 76px;
+  }
+
+
+  #loginText{
+    text-align: center;
+    color: #D0E4FF;
+    font-size: 40px;
+  }
+
+  .formFormat{
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: left;
+    font-size: 20px;
+    color: #D0E4FF;
+  }
+  
+  p{
+    font-weight: bold;
+    border-bottom: solid 2px;
+    padding-bottom: 10px;
+  }
+
+.inputForm{
+border-radius: 20px;
+padding-right: 180px;
+}
+
+#loginButton{
+  border-radius: 20px;
+  background-color: #5375e2;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 14px;
+  display: block;
+  margin-top: 80px;
+  margin-left: 60px;
+  text-align: center;
+  width: 50%;
+}
