@@ -1,19 +1,24 @@
-#centerBox{
-    border-radius: 50px;
-    width: 400px;
-    height: 300px;
-    background-color: #f3aa92;
-    margin-top: 200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  #welcomeText{
-    text-align: center;
-    text-shadow: -3px -3px #f65868;
-    color: #5375e2;
-    font-size: 76px;
-  }
-  
-  
-  
+#centerBox {
+  border-radius: 25px;
+  width: 500px;
+  height: auto;
+  padding: 40px 20px;
+  background-color: #03127b;
+  margin-top: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+  position: relative; 
+  z-index: 10; 
+}
+
+#welcomeText {
+  text-align: center;
+  text-shadow: -3px -3px 0 #f65868, 
+               3px 3px 0 #f65868;
+  color: #ffffff;
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 1.2;
+}

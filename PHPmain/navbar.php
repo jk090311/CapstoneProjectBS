@@ -13,7 +13,7 @@
             <span>EduGuard: RFID Attendance</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
+            <li><a href="../PHPmain/homepage.php">Home</a></li>
             <li><a href="/FinalCapstoneWebsite/contact.php">Contact</a></li>
         </ul>
         <button id="timeInOut">In/Out</button>
