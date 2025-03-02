@@ -1,10 +1,10 @@
   .datetimeBox{
     border-radius: 50px;
     width: 100%; /* Makes it match the navbar width */
-    max-width: 1300px; /* Adjust based on navbar width */
+    max-width: 1600px; /* Adjust based on navbar width */
     height: 80px; /* Reduce height to fit better */
     background-color: #f3aa92;
-    margin: 0 auto; /* Centers it */
+    align-items: center;
   }
   
   .datetimeAlign{

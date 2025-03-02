@@ -9,14 +9,14 @@
 <body>
     <nav class="navbar">
         <div class="navLeft">
-            <img src="/FinalCapstoneWebsite/Assets/image.png" alt="Logo">
+            <img src="../Assets/111.png" alt="Logo">
             <span>EduGuard: RFID Attendance</span>
         </div>
         <ul class="nav-links">
             <li><a href="../PHPmain/homepage.php">Home</a></li>
             <li><a href="/FinalCapstoneWebsite/contact.php">Contact</a></li>
+            <li><a href="../PHPmain/attendanceTracking.php">In/Out</a></li>
         </ul>
-        <button id="timeInOut">In/Out</button>
     </nav>
 
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
