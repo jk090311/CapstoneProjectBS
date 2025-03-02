@@ -3,7 +3,7 @@
     width: 100%; /* Makes it match the navbar width */
     max-width: 1600px; /* Adjust based on navbar width */
     height: 80px; /* Reduce height to fit better */
-    background-color: #f3aa92;
+    background-color:  rgba(3, 18, 123, 0.8);;
     align-items: center;
   }
   
@@ -19,12 +19,14 @@
 
   #clock{
     font-size: 2.5em;
+    color: #fff;
     font-weight: bold;
     text-align: center;
   }
 
   #date{
     font-size: 1.5em;
+    color: #fff;
     font-weight: bold;
     text-align: center;
   }

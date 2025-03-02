@@ -39,7 +39,7 @@
             Teachers</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link active" aria-current="page" href="../PHPmain/attendanceTracking.php">
             <img id="iconLeft" src="../Assets/appointment_18491830.png">   
             Attendance</a>
           </li>
