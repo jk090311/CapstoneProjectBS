@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/Admin/adminNavbar.css">
+    <link rel="stylesheet" href="../CSS/Teacher/teacherNavbar.css">
 </head>
 <body>
   <nav class="navbar bg-body-tertiary fixed-top">
@@ -22,7 +22,7 @@
 
     <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">ADMIN</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">TEACHER</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
@@ -32,15 +32,24 @@
             <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
             Dashboard</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPmain/adminTeachers.php">
-            <img id="iconLeft" src="../Assets/woman_15286529.png">  
-            Teachers</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img id="iconLeft" src="../Assets/report_6896653.png">
+              Reports
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Subjects</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="../PHPmain/attendanceTracking.php">
             <img id="iconLeft" src="../Assets/appointment_18491830.png">   
-            Attendance</a>
+            Grade</a>
           </li>
         </ul>
       </div>
