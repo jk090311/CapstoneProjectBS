@@ -106,6 +106,11 @@ body, html {
     color: #555;
 }
 
+.subject-img{
+    width: 200px;
+    height: 100px;
+}
+
 /* For better alignment of the items when there are fewer than 4 items in the last row */
 @media (min-width: 993px) {
     .subject-container {

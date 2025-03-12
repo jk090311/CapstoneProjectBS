@@ -21,57 +21,57 @@
             
             <a href="science_link.html" class="subject-box">
                 <div class="subject-content">
+                    <img class="subject-img" src="../Assets/science.jpg">
                     <div class="subject-title">Science</div>
-                    <div class="subject-subtitle">Rizal 1</div>
                 </div>
             </a>
             
             <a href="mathematics_link.html" class="subject-box">
                 <div class="subject-content">
+                <img class="subject-img" src="../Assets/math.jpg">
                     <div class="subject-title">Mathematics</div>
-                    <div class="subject-subtitle">Rizal 1</div>
                 </div>
             </a>
             
             <a href="filipino_link.html" class="subject-box">
                 <div class="subject-content">
+                <img class="subject-img" src="../Assets/filipino.jpg">
                     <div class="subject-title">Filipino</div>
-                    <div class="subject-subtitle">Rizal 1</div>
                 </div>
             </a>
             
             <a href="english_link.html" class="subject-box">
                 <div class="subject-content">
+                <img class="subject-img" src="../Assets/english.jpg">
                     <div class="subject-title">English</div>
-                    <div class="subject-subtitle">Rizal 1</div>
                 </div>
             </a>
             
             <a href="mapeh_link.html" class="subject-box">
                 <div class="subject-content">
+                <img class="subject-img" src="../Assets/mapeh.jpg">
                     <div class="subject-title">MAPEH</div>
-                    <div class="subject-subtitle">Rizal 1</div>
                 </div>
             </a>
             
             <a href="tle_link.html" class="subject-box">
                 <div class="subject-content">
+                <img class="subject-img" src="../Assets/tle.jpg">
                     <div class="subject-title">T.L.E.</div>
-                    <div class="subject-subtitle">Rizal 1</div>
                 </div>
             </a>
             
             <a href="ap_link.html" class="subject-box">
                 <div class="subject-content">
+                <img class="subject-img" src="../Assets/ap.jpg">
                     <div class="subject-title">AP</div>
-                    <div class="subject-subtitle">Rizal 1</div>
                 </div>
             </a>
             
             <a href="esp_link.html" class="subject-box">
                 <div class="subject-content">
+                <img class="subject-img" src="../Assets/esp.jpg">
                     <div class="subject-title">ESP</div>
-                    <div class="subject-subtitle">Rizal 1</div>
                 </div>
             </a>
         </div>

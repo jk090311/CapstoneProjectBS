@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/FinalCapstoneProject/CSS/studentRegister.css">
+    <link rel="stylesheet" type="text/css" href="/CapstoneProjectBS/CSS/studentRegister.css">
     <title>Student Register</title>
 </head>
 <body>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="inputGroup">
                     <label for="rfidNo">RFID Number</label>
-                        <input type="text" id="rfidNo" name="rfidNo" placeholder="Scan Your RFID Cs" required>
+                        <input type="text" id="rfidNo" name="rfidNo" placeholder="Scan Your RFIDs" required>
                 </div>
             </div>
             
@@ -76,6 +76,14 @@
                         <option value="8">Grade 8</option>
                         <option value="9">Grade 9</option>
                         <option value="10">Grade 10</option>
+                    </select>
+                </div>
+                <div class="inputGroup">
+                    <label for="sectionName">Section</label>
+                    <select id="sectionName" name="sectionName" required>
+                        <option value="1">Aqua</option>
+                        <option value="2">Bronze</option>
+                        <option value="3">Crank</option>
                     </select>
                 </div>
             </div>
@@ -126,6 +134,6 @@
         </form>
         </div>
     </div>
-    <script src="/FinalCapstoneProject/JS/studentRegister.js"></script>
+    <script src="/CapstoneProjectBS/JS/studentRegister.js"></script>
 </body>
 </html>
