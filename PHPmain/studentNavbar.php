@@ -19,7 +19,7 @@
         </a>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="logout.php">
+      <a href="logout.php">
         <button class="btn btn-danger" type="button">Log Out</button>
         </a>
       </div>
@@ -27,7 +27,7 @@
 
     <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">ADMIN</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">STUDENT</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
@@ -38,14 +38,14 @@
             Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPmain/adminTeachers.php">
-            <img id="iconLeft" src="../Assets/woman_15286529.png">  
-            Teachers</a>
+            <a class="nav-link active" aria-current="page" href="#">
+            <img id="iconLeft" src="../Assets/report_6896653.png">  
+            Grade</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPmain/attendanceTracking.php">
-            <img id="iconLeft" src="../Assets/appointment_18491830.png">   
-            Attendance</a>
+            <a class="nav-link active" aria-current="page" href="#">
+            <img id="iconLeft" src="../Assets/message_4129700.png">   
+            Messages</a>
           </li>
         </ul>
       </div>

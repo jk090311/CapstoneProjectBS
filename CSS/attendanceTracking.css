@@ -5,6 +5,7 @@
     height: 80px; /* Reduce height to fit better */
     background-color:  rgba(3, 18, 123, 0.8);;
     align-items: center;
+    margin-top: 100px;
   }
   
   .datetimeAlign{

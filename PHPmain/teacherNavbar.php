@@ -18,6 +18,11 @@
           <span>EduGuard</span>
         </a>
       </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a href="logout.php">
+        <button class="btn btn-danger" type="button">Log Out</button>
+        </a>
+      </div>
     </div>
 
     <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
