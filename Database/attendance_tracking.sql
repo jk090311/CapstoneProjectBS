@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 17, 2025 at 03:11 AM
+-- Generation Time: Mar 18, 2025 at 03:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -82,12 +82,12 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `lrn`, `rfid_number`, `first_name`, `middle_name`, `last_name`, `birthdate`, `sex`, `contact_number`, `grade_level`, `address`, `email`, `parent_guardian_name`, `parent_guardian_number`, `parent_guardian_email`, `student_username`, `status`, `created_at`, `section`) VALUES
-(17, '954527163', '1308825062', 'Jerry', 'Libero', 'Castrudes', '2004-07-20', '', '09325520318', '7', '5264 STARAPPLE STREET GEN. T. DE LEON', 'blenderjk9@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'jk0903', 'Active', '2025-02-25 00:56:46', NULL),
-(19, '987654321', '1308396166', 'Juliana', 'Libero', 'Castrudes', '2003-01-16', '', '09325520318', '7', '5264 STARAPPLE STREET GEN. T. DE LEON', '110903kirby@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'wow', 'Active', '2025-02-25 01:25:18', NULL),
-(20, '104961090109', '1601793334', 'rianne', 'gonzales', 'saquez', '2004-09-13', '', '09463182232', '7', 'oslo, norway', 'rianne@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'assie', 'Active', '2025-02-25 01:53:36', NULL),
-(21, '104961090105', '1603665222', 'Marvin', 'Cyrill', 'Palomar', '2003-02-10', '', '09605470308', '7', '5264 STARAPPLE STREET GEN. T. DE LEON, VALENZUELA', 'marvin20@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'marvs', 'Active', '2025-02-25 03:26:05', NULL),
-(23, '987654321444', '1077729142', 'gfghfgf', 'hjghjghq', 'ghffgfghfqq', '2025-02-13', '', '09325520318', '7', 'nnbnbnmbnbnm', '123@gmail.com', 'ghhgfhgfgfdf', '22412154561654', 'fghfghfgf@gmail.com', 'hghgjhgg', 'Active', '2025-02-25 04:04:07', NULL),
-(31, '101909202303', '1309220678', 'Roger', 'Espina', 'Cabaylo', '2004-08-27', '', '09761206372', '7', '5264 STARAPPLE STREET GEN. T. DE LEON', 'rogerpogi@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'rogerpogi', 'Active', '2025-03-04 04:07:52', NULL);
+(17, '954527163', '1308825062', 'Jerry', 'Libero', 'Castrudes', '2004-07-20', '', '09325520318', '7', '5264 STARAPPLE STREET GEN. T. DE LEON', 'blenderjk9@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'jk0903', 'Active', '2025-02-25 00:56:46', 'Aqua'),
+(19, '987654321', '1308396166', 'Juliana', 'Libero', 'Castrudes', '2003-01-16', '', '09325520318', '7', '5264 STARAPPLE STREET GEN. T. DE LEON', '110903kirby@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'wow', 'Active', '2025-02-25 01:25:18', 'Aqua'),
+(20, '104961090109', '1601793334', 'rianne', 'gonzales', 'saquez', '2004-09-13', '', '09463182232', '7', 'oslo, norway', 'rianne@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'assie', 'Active', '2025-02-25 01:53:36', 'Aqua'),
+(21, '104961090105', '1603665222', 'Marvin', 'Cyrill', 'Palomar', '2003-02-10', '', '09605470308', '7', '5264 STARAPPLE STREET GEN. T. DE LEON, VALENZUELA', 'marvin20@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'marvs', 'Active', '2025-02-25 03:26:05', 'Aqua'),
+(23, '987654321444', '1077729142', 'gfghfgf', 'hjghjghq', 'ghffgfghfqq', '2025-02-13', '', '09325520318', '7', 'nnbnbnmbnbnm', '123@gmail.com', 'ghhgfhgfgfdf', '22412154561654', 'fghfghfgf@gmail.com', 'hghgjhgg', 'Active', '2025-02-25 04:04:07', 'Aqua'),
+(31, '101909202303', '1309220678', 'Roger', 'Espina', 'Cabaylo', '2004-08-27', '', '09761206372', '7', '5264 STARAPPLE STREET GEN. T. DE LEON', 'rogerpogi@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'rogerpogi', 'Active', '2025-03-04 04:07:52', 'Aqua');
 
 --
 -- Indexes for dumped tables
