@@ -37,9 +37,12 @@
             <img id="iconLeft" src="../Assets/report_6896653.png">
               Reports
             </a>
+            <a class="nav-link active" aria-current="page" href="../PHPmain/TeacherMessages.php">
+            <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
+            Messages</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="../PHPmain/reportSystem.php">Subjects</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Card reports</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
