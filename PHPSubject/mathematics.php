@@ -47,7 +47,7 @@
 
 <div class="page-content">
     <h1>Mathematics Subject</h1>
-    <p>Welcome to the Science subject page. Here you will find all the resources and information related to Science.</p>
+    <p>Welcome to the Mathematics subject page. Here you will find all the resources and information related to Mathematics.</p>
     
     <!-- Box for the list of students -->
     <div class="student-list-box">

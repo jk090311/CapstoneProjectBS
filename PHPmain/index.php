@@ -77,7 +77,7 @@ $conn = mysqli_connect("localhost", "root", "", "account_list");
         </form>
     </div>
     <div id="welcomeBox">
-        <h1 id="welcomeText">Welcome Malinta Students!</h1>
+        <h1 id="welcomeText">Welcome Malinta!</h1>
     </div>
 </div>
 

@@ -55,7 +55,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPmain/attendanceTracking.php">
+            <a class="nav-link active" aria-current="page" href="#">
             <img id="iconLeft" src="../Assets/appointment_18491830.png">   
             Grade</a>
           </li>

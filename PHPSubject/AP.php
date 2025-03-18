@@ -47,7 +47,7 @@
 
 <div class="page-content">
     <h1>Araling Panlipunan Subject</h1>
-    <p>Welcome to the Science subject page. Here you will find all the resources and information related to Science.</p>
+    <p>Welcome to the Araling Panlipunan subject page. Here you will find all the resources and information related to Araling Panlipunan.</p>
     
     <!-- Box for the list of students -->
     <div class="student-list-box">
