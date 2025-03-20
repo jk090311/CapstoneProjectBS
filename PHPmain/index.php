@@ -53,12 +53,17 @@ $conn = mysqli_connect("localhost", "root", "", "account_list");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/CapstoneProjectBS/CSS/index.css" rel="stylesheet">
-
     <title>Login</title>
 </head>
+
 <body>
-<div class = container>
+<header>
+    <h1>Welcome to Capstone Project</h1>
+
+</header>
+<div class="container">
     <div id="loginBox">
+    <div class="circle"> </div> 
         <h1 id="loginText">Login</h1>
         <p class="formFormat">Login your account</p>
 
@@ -67,19 +72,18 @@ $conn = mysqli_connect("localhost", "root", "", "account_list");
         </div>
 
         <form class="formFormat" action="" method="POST">
-
             <label>Email</label><br>
             <input type="text" class="inputForm" name="email" placeholder="example@gmail.com"><br><br>
             <label>Password</label><br>
             <input type="password" class="inputForm" name="password" placeholder="!password123"><br><br>
-            
-            <input type = "submit" id="loginButton" name="login" value = "Login">
+            <input type="submit" id="loginButton" name="login" value="Login">
         </form>
     </div>
-    <div id="welcomeBox">
-        <h1 id="welcomeText">Welcome Malinta!</h1>
-    </div>
 </div>
+
+<footer>
+    <p>&copy; 2025 Capstone Project. All rights reserved.</p>
+</footer>
 
 <script>
     // Show warning popup if there's a message
@@ -104,7 +108,6 @@ $conn = mysqli_connect("localhost", "root", "", "account_list");
     endif; ?>
 </script>
 
-
-      <script src="/FinalCapstoneWebsite/JS/login.js"></script>
+<script src="/FinalCapstoneWebsite/JS/login.js"></script>
 </body>
 </html>

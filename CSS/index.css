@@ -1,53 +1,96 @@
-body{
-    background-image: url(/FinalCapstoneWebsite/Assets/468973258_10164631929353378_5372528642261658059_n.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    background-color: rgba(241, 241, 243, 0.85);
-    background-blend-mode: lighten;
-  }
+body {
+  background-image: url("/CapstoneProjectBS/Assets/background.jpg");
+  background-size:  1950px 1100px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-top: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
+  background-color: #124E66;
+  background-blend-mode: lighten;
+
+}
+
   .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 50px;
+    margin-top: 40px;
     box-sizing: border-box;
   }
-  
-  #welcomeBox {
-    border-radius: 25px;
-    width: 500px;
-    height: auto;
-    padding: 20px 20px;
-    background-color: #03127b;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
-    position: relative; 
-    z-index: 10; 
-  }
-  
   #loginBox {
 
     width: 400px;
     height: 500px;
-    background-color: #7791a1;
-    margin-left: 150px; /* Space from left edge */
+    background-color: #748D92;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: center;
+    margin-left: 40%;
+    margin-top: 45px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
   }
-  
-  #welcomeText{
+
+  header {
+    background-color: #124E66;
+    color: white;
+    padding: 10px 0;
     text-align: center;
-  text-shadow: -3px -3px 0 #f65868, 
-               3px 3px 0 #f65868;
-  color: #ffffff;
-  font-size: 60px;
-  font-weight: bold;
-  line-height: 1.2;
-  }
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: rgb(16, 43, 117);
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background-image: url("/CapstoneProjectBS/Assets/241463411_379540937093962_5358002750396125332_n.png");
+  background-size: cover;
+  background-color: #5375e2;
+  border-radius: 50%;
+  position: absolute;
+  top: 140px; /* Adjust as needed */
+  left: 51%;
+  transform: translateX(-50%);
+}
+
+
+footer {
+  background-color: #124E66;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
 
 
   #loginText{
@@ -62,6 +105,7 @@ body{
     text-align: left;
     font-size: 20px;
     color: #D0E4FF;
+    text-emphasis: bold;
   }
   
   p{
@@ -71,19 +115,21 @@ body{
   }
 
 .inputForm{
-border-radius: 20px;
+  border-radius: 2px;
+  width: 50%;
+  height: 10%;
 padding-right: 180px;
 }
 
 #loginButton{
   border-radius: 20px;
-  background-color: #5375e2;
+  background-color: #124E66;
   color: #ffffff;
   font-size: 20px;
   padding: 14px;
   display: block;
-  margin-top: 80px;
-  margin-left: 60px;
+  margin-top: 40px;
+  margin-left: 90px;
   text-align: center;
   width: 50%;
 }

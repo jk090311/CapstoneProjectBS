@@ -1,17 +1,14 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
-    background-image: url('/CapstoneProjectBS/Assets/468973258_10164631929353378_5372528642261658059_n.jpg');
+    background-image: url("/CapstoneProjectBS/Assets/background.jpg");
+    background-size:  1950px 999px;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-}
+
+    background-color: #124E66;
+    background-blend-mode: lighten;
+  
+  }
 
 /* Background Overlay (Less Intense) */
 body::before {
@@ -21,11 +18,16 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(31, 81, 255, 0.15); /* Slightly lighter blue */
+    background-color: rgba(139, 47, 47, 0.15); /* Slightly lighter blue */
     pointer-events: none;
     z-index: -1; /* Keep it behind the content */
 }
-
+.text-white {
+    color: white !important;
+    font-weight: bold;
+ 
+    
+}
 .container-fluid {
     display: flex;
     align-items: center;
@@ -43,11 +45,11 @@ body::before {
 }
 
 .sidebar{
-    background-color: rgba(0, 0, 139, 1);
+    background-color: #124E66;
 
 }
 .navbar-nav a:hover{
-    background-color: #D3D3D3;
+    background-color: #009266;
 }
 
 #iconLeft{
