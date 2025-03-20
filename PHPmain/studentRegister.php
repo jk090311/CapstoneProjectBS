@@ -1,4 +1,4 @@
-<?php include "navbar.php"?>    
+<?php include "adminNavbar.php"?>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,14 +15,14 @@
             <div class="studentInfo">
                     <h2>Student Information</h2>
                 <div class="profilePic">
-                    <img id="profileImg" src="/FinalCapstoneWebsite/Assets/user_17827179.png" alt="Profile Picture">
+                    <img id="profileImg" src="/CapstoneProjectBS/Assets/user_17827179.png" alt="Profile Picture">
                     </div>
                     <input type="file" id="uploadPic" accept="image/*">
                 <label for="uploadPic" class="uploadBtn">Upload Picture</label>
             </div>
         
 
-            <form class="formFormat" id="studentForm" action="\FinalCapstoneWebsite\PHP\saveStudData.php" method="POST">
+            <form class="formFormat" id="studentForm" action="\CapstoneProjectBS\PHP\saveStudData.php" method="POST">
             <div class="inputRow">
                 <div class="inputGroup">
                     <label for="lrn">LRN</label>
@@ -79,11 +79,11 @@
                     </select>
                 </div>
                 <div class="inputGroup">
-                    <label for="sectionName">Section</label>
-                    <select id="sectionName" name="sectionName" required>
-                        <option value="1">Aqua</option>
-                        <option value="2">Bronze</option>
-                        <option value="3">Crank</option>
+                    <label for="section">Section</label>
+                    <select id="section" name="section" required>
+                        <option value="Aqua">Aqua</option>
+                        <option value="Bronze">Bronze</option>
+                        <option value="Crank">Crank</option>
                     </select>
                 </div>
             </div>
