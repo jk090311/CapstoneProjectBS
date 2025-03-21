@@ -11,6 +11,79 @@ body {
   
   }
 
-.container-fluid{
-    
+/* Center the entire table container */
+.container-fluid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Full width row but centered content */
+.row.justify-content-center {
+  width: 100%;
+  max-width: 1200px;
+  margin: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Card container for the table */
+.card {
+  width: 90%;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+/* Force table to take full width of its container */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  table-layout: fixed;
+}
+
+/* Column width adjustments based on the image */
+.table th:nth-child(1), .table td:nth-child(1) { /* Full Name */
+  width: 20%;
+}
+
+.table th:nth-child(2), .table td:nth-child(2) { /* Contact Number */
+  width: 20%;
+}
+
+.table th:nth-child(3), .table td:nth-child(3) { /* Grade Level */
+  width: 15%;
+}
+
+.table th:nth-child(4), .table td:nth-child(4) { /* Section */
+  width: 15%;
+}
+
+.table th:nth-child(5), .table td:nth-child(5) { /* Email */
+  width: 20%;
+}
+
+.table th:nth-child(6), .table td:nth-child(6) { /* Action */
+  width: 10%;
+}
+
+/* Ensure Bootstrap column takes appropriate width */
+.col-md-8 {
+  width: 100%;
+  flex: 0 0 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+      width: 100%;
+  }
+  
+  .col-md-8 {
+      max-width: 100%;
+  }
 }

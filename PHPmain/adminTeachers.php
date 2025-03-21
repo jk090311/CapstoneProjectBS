@@ -1,118 +1,127 @@
 <?php include "adminNavbar.php" ?>
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet.cs" href="../CSS/Admin/adminTeachers.css">
+    <link rel="stylesheet" href="../CSS/Admin/adminTeachers.css">
 </head>
+
 <body>
 
-<div class="modal fade" id="addTeacher" tabindex="-1" aria-labelledby="addTeacherLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addTeacherLabel">Create New Teacher Account</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+    <div class="modal fade" id="addTeacher" tabindex="-1" aria-labelledby="addTeacherLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addTeacherLabel">Create New Teacher Account</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-      <form action="adviserRegister.php" method="POST">
+                <form action="../PHP/adviserRegister.php" method="POST">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group mb-3">
+                                <label for="adviserFullName" class="form-label">Full Name</label>
+                                <input type="text" id="adviserFullName" name="adviserFullName" class="form-control" placeholder="Full Name" required>
+                            </div>
+                        </div>
 
-      <div class="modal-body">
-        <div class="form-row">
-        <div class="form-group mb-3">
-            <label for="adviserFullName" class="form-label" name="adviserFullName">Full Name</label>
-            <input type="text" id="adviserFullName" class="form-control" placeholder="Full Name" required>
-        </div>
-        </div>
+                        <div class="form-row">
+                            <div class="form-group mb-3">
+                                <label for="adviserContactNumber" class="form-label">Contact Number</label>
+                                <input type="tel" id="adviserContactNumber" name="adviserContactNumber" class="form-control" placeholder="Contact Number" pattern="[0-9]+" required>
+                            </div>
 
-        <div class="form-row">
-        <div class="form-group mb-3">
-            <label for="adviserContactNumber" class="form-label" name="adviserContactNumber">Contact Number</label>
-            <input type="tel" id="adviserContactNumber" class="form-control" placeholder="Contact Number" pattern="[0-9]+" required>
-        </div>
-        
+                            <div class="form-group mb-3">
+                                <label for="adviserGrLvl" class="form-label">Grade Level</label>
+                                <select id="adviserGrLvl" name="adviserGrLvl" class="form-control" required>
+                                    <option value="7">Grade 7</option>
+                                    <option value="8">Grade 8</option>
+                                    <option value="9">Grade 9</option>
+                                    <option value="10">Grade 10</option>
+                                </select>
+                            </div>
 
-        <div class="form-group mb-3">
-            <label for="adviserGrLvl" class="form-label">Grade Level</label>
-            <select id="adviserGrLvl" name="adviserGrLvl" required>
-                        <option value="7">Grade 7</option>
-                        <option value="8">Grade 8</option>
-                        <option value="9">Grade 9</option>
-                        <option value="10">Grade 10</option>
-                    </select>
-        </div>
+                            <div class="form-group mb-3">
+                                <label for="adviserSection" class="form-label">Section</label>
+                                <select id="adviserSection" name="adviserSection" class="form-control" required>
+                                    <option value="Aqua">Aqua</option>
+                                    <option value="Bronze">Bronze</option>
+                                    <option value="Crank">Crank</option>
+                                </select>
+                            </div>
+                        </div>
 
-        <div class="form-group mb-3">
-            <label for="adviserSection" class="form-label">Section</label>
-            <select id="adviserSection" name="adviserSection" required>
-                        <option value="Aqua">Aqua</option>
-                        <option value="Bronze">Bronze</option>
-                        <option value="Crank">Crank</option>
-                    </select>
-        </div>
-        </div>
+                        <div class="form-row">
+                            <div class="form-group mb-3">
+                                <label for="adviserEmail" class="form-label">Email Address</label>
+                                <input type="email" id="adviserEmail" name="adviserEmail" class="form-control" placeholder="Email" required>
+                            </div>
 
-        <div class="form-row">
-        <div class="form-group mb-3">
-            <label for="adviserEmail" class="form-label">Email Address</label>
-            <input type="email" id="adviserEmail" class="form-control" name="adviserEmail" placeholder="Email" required>
-        </div>
+                            <div class="form-group mb-3">
+                                <label for="adviserPassword" class="form-label">Password</label>
+                                <input type="text" id="adviserPassword" name="adviserPassword" class="form-control" placeholder="Password" required>
+                            </div>
+                        </div>
 
-        <div class="form-group mb-3">
-            <label for="adviserPassword" class="form-label">Password</label>
-            <input type="text" id="adviserPassword" class="form-control" name="adviserPassword" placeholder="Password" required>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" name="adviserRegister" class="btn btn-primary">Register</button>
-      </div>
-    </form>
-    </div>
-  </div>
-</div>
-</div>
-
-    <div class="container-fluid">
-        <div class="teacherBox">
-            <h4><strong> Manage Teachers <>/strong></h4>
-            <div class="d-flex justify-content-between">
-            <div></div>
-            <div>
-                <label><strong> Search: </strong><input type="text" class="form-control d-inline w-auto"></label>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="adviserRegister" class="btn btn-primary">Register</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <table class="table table-bordered mt-3">
-            <thead class="table-light">
-                <tr>
-                    <th>Full Name</th>
-                    <th>Contact Number</th>
-                    <th>Section</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button class="btn-edit">Edit</button>
-                        <button class="btn-remove">Remove</button>
-                </td>
-                </tr>
-            </tbody>
-        </table>
-        <p><strong>Showing 1 to 4 of 4 entries</strong>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTeacher">
- Add Teachers
-</button>
     </div>
     </div>
 
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <?php
+                if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+                ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Hey !</strong> <?php echo $_SESSION['status']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php
+                    unset($_SESSION['status']);
+                }
+                ?>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Teachers</h4>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTeacher">Add Teacher</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Contact Number</th>
+                                    <th>Grade Level</th>
+                                    <th>Section</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table data goes here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src=""></script>
 </body>
+
 </html>
