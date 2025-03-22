@@ -8,7 +8,14 @@ if(!isset($_SESSION['user_email']))
 {
     header("location:../PHPmain/index.php");
 }
-
+else if($_SESSION['user_role'] == "admin")
+{
+    header("location:../PHPmain/index.php");
+}
+else if($_SESSION['user_role'] == "adviser")
+{
+    header("location:../PHPmain/index.php");
+}
 
 ?>
 
