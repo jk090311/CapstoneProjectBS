@@ -104,17 +104,45 @@ session_start();
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Full Name</th>
-                                    <th>Contact Number</th>
-                                    <th>Grade Level</th>
-                                    <th>Section</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Grade Level</th>
+                                    <th scope="col">Section</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Table data goes here -->
+                                <?php
+
+                                $connection = mysqli_connect("localhost", "root", "", "adviser_list");
+                                $fetch_query = "SELECT * FROM advisers";
+                                $fetch_query_run = mysqli_query($connection, $fetch_query);
+
+                                if (mysqli_num_rows($fetch_query_run) > 0) {
+                                    while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                ?>
+                                        <tr>
+                                            <td><?php echo $row['adviserFullName'] ?></td>
+                                            <td><?php echo $row['adviserContactNumber'] ?></td>
+                                            <td><?php echo $row['adviserGrLvl'] ?></td>
+                                            <td><?php echo $row['adviserSection'] ?></td>
+                                            <td>
+                                                <button class="btn btn-warning btn-edit btn-sm">Edit</button>
+                                                <button class="btn btn-danger btn-remove btn-sm">Remove</button>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    }
+                                } else {
+                                    ?>
+                                    <tr colspan="4">No Records Found </tr>
+                                <?php
+                                }
+
+                                ?>
                             </tbody>
+                        </table>
+                        </tbody>
                         </table>
                     </div>
                 </div>
