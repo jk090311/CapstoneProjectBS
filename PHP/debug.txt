@@ -1,7 +1,4 @@
 POST data: Array
 (
-    [adviserFullName] => 
+    [adviserFullName] => Jesusa Saavedra
 )
-Attempting to delete Name: 
-Query: DELETE FROM advisers WHERE adviserFullName = ''
-Delete successful

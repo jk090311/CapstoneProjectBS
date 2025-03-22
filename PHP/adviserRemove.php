@@ -25,6 +25,6 @@ if (isset($_POST['adviserFullName'])) {
     $stmt->close();
     $connection->close();
 
-    header("Location: ../PHP/adminTeachers.php");
+    header("Location: ../PHPmain/adminTeachers.php");
     exit();
 }

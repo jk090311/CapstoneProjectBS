@@ -37,7 +37,7 @@ session_start();
                         <div class="form-row">
                             <div class="form-group mb-3">
                                 <label for="adviserContactNumber" class="form-label">Contact Number</label>
-                                <input type="tel" id="adviserContactNumber" name="adviserContactNumber" class="form-control" placeholder="Contact Number" required>
+                                <input type="tel" id="adviserContactNumber" name="adviserContactNumber" class="form-control" placeholder="Contact Number" value="" required>
                             </div>
 
                             <div class="form-group mb-3">
@@ -78,7 +78,7 @@ session_start();
                 if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                 ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>Hey !</strong> <?php echo $_SESSION['status']; ?>
+                        <?php echo $_SESSION['status']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php

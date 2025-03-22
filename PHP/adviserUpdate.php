@@ -2,44 +2,42 @@
 session_start();
 $connection = mysqli_connect("localhost", "root", "", "adviser_list");
 
-if(isset($_POST['adviserUpdate'])) {
+if (!$connection) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+if(isset($_POST['adviserFullName']) && $_POST['action_type'] === 'edit') {
     // Get form data
-    $adviser_id = mysqli_real_escape_string($connection, $_POST['adviser_id']);
+    $originalAdviserName = mysqli_real_escape_string($connection, $_POST['originalAdviserName']);  // The original name used to find the row
     $adviserFullName = mysqli_real_escape_string($connection, $_POST['adviserFullName']);
     $adviserContactNumber = mysqli_real_escape_string($connection, $_POST['adviserContactNumber']);
     $adviserGrLvl = mysqli_real_escape_string($connection, $_POST['adviserGrLvl']);
     $adviserSection = mysqli_real_escape_string($connection, $_POST['adviserSection']);
-    $adviserEmail = mysqli_real_escape_string($connection, $_POST['adviserEmail']);
 
-    // Check if email already exists for other advisers
-    $check_email_query = "SELECT * FROM advisers WHERE adviserEmail = '$adviserEmail' AND id != '$adviser_id'";
-    $check_email_query_run = mysqli_query($connection, $check_email_query);
+    if (empty($adviserFullName) || empty($adviserContactNumber) || empty($adviserGrLvl) || empty($adviserSection)) {
+        $_SESSION['status'] = "One or more fields are missing. Please fill all the fields.";
+        header('Location: ../PHPmain/adminTeachers.php');
+        exit();
+    }
 
-    if(mysqli_num_rows($check_email_query_run) > 0) {
-        $_SESSION['status'] = "Email ID already exists for another adviser";
+    // Update the adviser based on their original name
+    $update_query = "UPDATE advisers SET 
+                    adviserFullName = '$adviserFullName', 
+                    adviserContactNumber = '$adviserContactNumber', 
+                    adviserGrLvl = '$adviserGrLvl', 
+                    adviserSection = '$adviserSection'
+                    WHERE adviserFullName = '$originalAdviserName'";
+    
+    $update_query_run = mysqli_query($connection, $update_query);
+
+    if($update_query_run && mysqli_affected_rows($connection) > 0) {
+        $_SESSION['status'] = "Adviser updated successfully.";
     } else {
-        // Update data in database
-        $update_query = "UPDATE advisers SET 
-                        adviserFullName = '$adviserFullName', 
-                        adviserContactNumber = '$adviserContactNumber', 
-                        adviserGrLvl = '$adviserGrLvl', 
-                        adviserSection = '$adviserSection', 
-                        adviserEmail = '$adviserEmail' 
-                        WHERE id = '$adviser_id'";
-        
-        $update_query_run = mysqli_query($connection, $update_query);
-
-        if($update_query_run) {
-            $_SESSION['status'] = "Adviser updated successfully";
-        } else {
-            $_SESSION['status'] = "Failed to update adviser: " . mysqli_error($connection);
-        }
+        $_SESSION['status'] = "Failed to update adviser. Please try again.";
     }
 } else {
-    $_SESSION['status'] = "Direct access not allowed";
+    $_SESSION['status'] = "Invalid request or missing data.";
 }
 
-// Redirect back to the advisers list page
 header('Location: ../PHPmain/adminTeachers.php');
 exit();
-?>
