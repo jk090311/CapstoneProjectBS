@@ -1,0 +1,7 @@
+POST data: Array
+(
+    [adviserFullName] => 
+)
+Attempting to delete Name: 
+Query: DELETE FROM advisers WHERE adviserFullName = ''
+Delete successful

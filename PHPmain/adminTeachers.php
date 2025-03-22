@@ -23,6 +23,9 @@ session_start();
                 </div>
 
                 <form action="../PHP/adviserRegister.php" method="POST">
+                    <input type="hidden" id="action_type" name="action_type" value="add">
+                    <input type="hidden" id="adviser_id" name="adviser_id" value="">
+                    
                     <div class="modal-body">
                         <div class="form-row">
                             <div class="form-group mb-3">
@@ -34,7 +37,7 @@ session_start();
                         <div class="form-row">
                             <div class="form-group mb-3">
                                 <label for="adviserContactNumber" class="form-label">Contact Number</label>
-                                <input type="tel" id="adviserContactNumber" name="adviserContactNumber" class="form-control" placeholder="Contact Number" pattern="[0-9]+" required>
+                                <input type="tel" id="adviserContactNumber" name="adviserContactNumber" class="form-control" placeholder="Contact Number" required>
                             </div>
 
                             <div class="form-group mb-3">
@@ -57,21 +60,9 @@ session_start();
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group mb-3">
-                                <label for="adviserEmail" class="form-label">Email Address</label>
-                                <input type="email" id="adviserEmail" name="adviserEmail" class="form-control" placeholder="Email" required>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="adviserPassword" class="form-label">Password</label>
-                                <input type="text" id="adviserPassword" name="adviserPassword" class="form-control" placeholder="Password" required>
-                            </div>
-                        </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="adviserRegister" class="btn btn-primary">Register</button>
+                            <button type="submit" id="submitBtn" name="adviserRegister" class="btn btn-primary">Register</button>
                         </div>
                     </div>
                 </form>
@@ -97,8 +88,8 @@ session_start();
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>Teachers</h4>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTeacher">Add Teacher</button>
+                        <h4 >Adviser</h4>
+                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addTeacher">Add Adviser</button>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
@@ -127,29 +118,39 @@ session_start();
                                             <td><?php echo $row['adviserGrLvl'] ?></td>
                                             <td><?php echo $row['adviserSection'] ?></td>
                                             <td>
-                                                <button class="btn btn-warning btn-edit btn-sm">Edit</button>
-                                                <button class="btn btn-danger btn-remove btn-sm">Remove</button>
+                                                <a href="#" class="btn btn-warning btn-edit btn-sm edit_data" 
+                                                   data-name="<?php echo $row['adviserFullName']; ?>"
+                                                   data-contact="<?php echo $row['adviserContactNumber']; ?>"
+                                                   data-grade="<?php echo $row['adviserGrLvl']; ?>"
+                                                   data-section="<?php echo $row['adviserSection']; ?>"
+                                                   data-bs-toggle="modal" data-bs-target="#addTeacher">Edit</a>
+                                                
+                                                <button class="btn btn-danger btn-remove btn-sm" data-id="<?php echo $row['adviserFullName']; ?>">Remove</button>
                                             </td>
                                         </tr>
                                     <?php
                                     }
                                 } else {
                                     ?>
-                                    <tr colspan="4">No Records Found </tr>
+                                    <tr>
+                                        <td colspan="5">No Records Found</td>
+                                    </tr>
                                 <?php
                                 }
 
                                 ?>
                             </tbody>
                         </table>
-                        </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src=""></script>
+    
+   
+    
+    <script src="../JS/adviserList.js"></script>
+        
 </body>
 
 </html>
