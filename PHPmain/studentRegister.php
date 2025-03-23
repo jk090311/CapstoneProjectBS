@@ -127,7 +127,7 @@
             </div>
 
             <div class="buttons">
-                <button type="button" id="cancel">Cancel</button>
+                <button type="button" id="cancel" onclick="window.location.href='studentList.php'">Cancel</button>
                 <button type="submit" id="submit">Submit</button>
             </div>
 

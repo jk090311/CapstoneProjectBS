@@ -25,19 +25,21 @@ session_start();
                 <form action="../PHP/adviserRegister.php" method="POST">
                     <input type="hidden" id="action_type" name="action_type" value="add">
                     <input type="hidden" id="adviser_id" name="adviser_id" value="">
-                    
+
                     <div class="modal-body">
                         <div class="form-row">
                             <div class="form-group mb-3">
                                 <label for="adviserFullName" class="form-label">Full Name</label>
-                                <input type="text" id="adviserFullName" name="adviserFullName" class="form-control" placeholder="Full Name" required>
+                                <input type="text" id="adviserFullName" name="adviserFullName" class="form-control"
+                                    placeholder="Full Name" required>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group mb-3">
                                 <label for="adviserContactNumber" class="form-label">Contact Number</label>
-                                <input type="tel" id="adviserContactNumber" name="adviserContactNumber" class="form-control" placeholder="Contact Number" value="" required>
+                                <input type="tel" id="adviserContactNumber" name="adviserContactNumber"
+                                    class="form-control" placeholder="Contact Number" value="" required>
                             </div>
 
                             <div class="form-group mb-3">
@@ -62,7 +64,8 @@ session_start();
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" id="submitBtn" name="adviserRegister" class="btn btn-primary">Register</button>
+                            <button type="submit" id="submitBtn" name="adviserRegister"
+                                class="btn btn-primary">Register</button>
                         </div>
                     </div>
                 </form>
@@ -76,20 +79,21 @@ session_start();
             <div class="col-md-8">
                 <?php
                 if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                ?>
+                    ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <?php echo $_SESSION['status']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                <?php
+                    <?php
                     unset($_SESSION['status']);
                 }
                 ?>
 
                 <div class="card">
                     <div class="card-header">
-                        <h4 >Adviser</h4>
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addTeacher">Add Adviser</button>
+                        <h4>Adviser</h4>
+                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                            data-bs-target="#addTeacher">Add Adviser</button>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
@@ -111,31 +115,49 @@ session_start();
 
                                 if (mysqli_num_rows($fetch_query_run) > 0) {
                                     while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                ?>
+                                        ?>
                                         <tr>
                                             <td><?php echo $row['adviserFullName'] ?></td>
                                             <td><?php echo $row['adviserContactNumber'] ?></td>
                                             <td><?php echo $row['adviserGrLvl'] ?></td>
                                             <td><?php echo $row['adviserSection'] ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-warning btn-edit btn-sm edit_data" 
-                                                   data-name="<?php echo $row['adviserFullName']; ?>"
-                                                   data-contact="<?php echo $row['adviserContactNumber']; ?>"
-                                                   data-grade="<?php echo $row['adviserGrLvl']; ?>"
-                                                   data-section="<?php echo $row['adviserSection']; ?>"
-                                                   data-bs-toggle="modal" data-bs-target="#addTeacher">Edit</a>
-                                                
-                                                <button class="btn btn-danger btn-remove btn-sm" data-id="<?php echo $row['adviserFullName']; ?>">Remove</button>
+                                                <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
+                                                    data-name="<?php echo $row['adviserFullName']; ?>"
+                                                    data-contact="<?php echo $row['adviserContactNumber']; ?>"
+                                                    data-grade="<?php echo $row['adviserGrLvl']; ?>"
+                                                    data-section="<?php echo $row['adviserSection']; ?>" data-bs-toggle="modal"
+                                                    data-bs-target="#addTeacher">Edit</a>
+
+                                                <button class="btn btn-danger btn-remove btn-sm"
+                                                    data-id="<?php echo $row['adviserFullName']; ?>"
+                                                    onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">Remove</button>
                                             </td>
+                                            <script>
+                                                function removeAdviser(adviserFullName) {
+                                                    if (confirm("Are you sure you want to remove this adviser?")) {
+                                                        var xhr = new XMLHttpRequest();
+                                                        xhr.open("POST", "removeAdviser.php", true);
+                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                        xhr.onreadystatechange = function () {
+                                                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                                                alert(xhr.responseText);
+                                                                location.reload();
+                                                            }
+                                                        };
+                                                        xhr.send("adviserFullName=" + adviserFullName);
+                                                    }
+                                                }
+                                            </script>
                                         </tr>
-                                    <?php
+                                        <?php
                                     }
                                 } else {
                                     ?>
                                     <tr>
                                         <td colspan="5">No Records Found</td>
                                     </tr>
-                                <?php
+                                    <?php
                                 }
 
                                 ?>
@@ -146,11 +168,11 @@ session_start();
             </div>
         </div>
     </div>
-    
-   
-    
+
+
+
     <script src="../JS/adviserList.js"></script>
-        
+
 </body>
 
 </html>

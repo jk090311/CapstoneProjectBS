@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root"; 
 $password = ""; 
-$dbname = "attendance_tracking";
+$dbname = "account_list";
 
 // Create a connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -36,7 +36,7 @@ $sql = "INSERT INTO students (lrn, rfid_number, first_name, middle_name, last_na
 VALUES ('$lrn', '$rfidNo', '$fName', '$mName', '$lName', '$bDate', '$sex', '$cNumber', '$grLvl', '$address', '$email', '$pName', '$pNum', '$pEmail', '$username', '$status', '$section')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "<script>alert('Student registered successfully!'); window.location.href='/CapstoneProjectBS/PHPmain/dashboardAdmin.php';</script>";
+    echo "<script>alert('Student registered successfully!'); window.location.href='/CapstoneProjectBS/PHPmain/studentList.php';</script>";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }

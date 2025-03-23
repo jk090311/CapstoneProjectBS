@@ -41,10 +41,15 @@
             <a class="nav-link active text-white " aria-current="page" href="../PHPmain/adminTeachers.php">
             <img id="iconLeft" src="../Assets/woman_15286529.png">  
             Teachers</a>
-          <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="../PHPmain/studentRegister.php">
+            <li class="nav-item">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPmain/studentList.php">
             <img id="iconLeft" src="../Assets/student.png">   
             Students</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPmain/AddSection.php">
+            <img id="iconLeft" src="../Assets/section.jpg">   
+            Section</a>
           </li>
           </li>
           <li class="nav-item">
