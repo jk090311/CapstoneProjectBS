@@ -1,0 +1,46 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const removeButtons = document.querySelectorAll('.btn-remove');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const firstName = this.getAttribute('data-id');
+
+            if (confirm(`Are you sure you want to remove the student: ${firstName}?`)) {
+                fetch('../PHP/studentRemove.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `first_name=${encodeURIComponent(firstName)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    location.reload(); // Refreshes the page to show the updated list
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    });
+});
+
+document.querySelectorAll('.edit_data').forEach(button => {
+    button.addEventListener('click', function() {
+        const firstName = this.getAttribute('data-firstname');
+        const middleName = this.getAttribute('data-middlename');
+        const lastName = this.getAttribute('data-lastname');
+        const contact = this.getAttribute('data-contact');
+        const grade = this.getAttribute('data-grade');
+        const section = this.getAttribute('data-section');
+
+        document.getElementById('originalFirstName').value = firstName;
+        document.getElementById('originalMiddleName').value = middleName;
+        document.getElementById('originalLastName').value = lastName;
+
+        document.getElementById('edit_studentFirstName').value = firstName;
+        document.getElementById('edit_studentMiddleName').value = middleName;
+        document.getElementById('edit_studentLastName').value = lastName;
+        document.getElementById('edit_studentContactNumber').value = contact;
+        document.getElementById('edit_studentGrLvl').value = grade;
+        document.getElementById('edit_studentSection').value = section;
+    });
+});

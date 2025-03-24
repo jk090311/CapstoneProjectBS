@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("localhost", "root", "", "account_list");
+$connection = mysqli_connect("localhost", "root", "", "attendance_tracking");
 
 if (isset($_POST['first_name'])) {
     $first_name = $_POST['first_name'];

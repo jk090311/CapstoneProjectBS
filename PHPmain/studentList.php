@@ -23,8 +23,11 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form action="../PHP/studentRegister.php" method="POST">
-                    <input type="hidden" id="edit_student_id" name="student_id" value="">
+                <form action="../PHP/studentUpdate.php" method="POST">
+                    <!-- Hidden fields to capture original names -->
+                    <input type="hidden" id="originalFirstName" name="originalFirstName" value="">
+                    <input type="hidden" id="originalMiddleName" name="originalMiddleName" value="">
+                    <input type="hidden" id="originalLastName" name="originalLastName" value="">
 
                     <div class="modal-body">
                         <div class="form-row">
@@ -79,37 +82,17 @@ session_start();
         </div>
     </div>
 
-    <script>
-        document.querySelectorAll('.edit_data').forEach(button => {
-            button.addEventListener('click', function () {
-                const firstName = this.getAttribute('data-firstname');
-                const middleName = this.getAttribute('data-middlename');
-                const lastName = this.getAttribute('data-lastname');
-                const contact = this.getAttribute('data-contact');
-                const grade = this.getAttribute('data-grade');
-                const section = this.getAttribute('data-section');
-
-                document.getElementById('edit_studentFirstName').value = firstName;
-                document.getElementById('edit_studentMiddleName').value = middleName;
-                document.getElementById('edit_studentLastName').value = lastName;
-                document.getElementById('edit_studentContactNumber').value = contact;
-                document.getElementById('edit_studentGrLvl').value = grade;
-                document.getElementById('edit_studentSection').value = section;
-            });
-        });
-    </script>
-
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <?php
                 if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                    ?>
+                ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <?php echo $_SESSION['status']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['status']);
                 }
                 ?>
@@ -124,25 +107,24 @@ session_start();
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Middle Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Contact Number</th>
-                                    <th scope="col">Grade Level</th>
-                                    <th scope="col">Section</th>
-                                    <th scope="col">Action</th>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                    <th>Contact Number</th>
+                                    <th>Grade Level</th>
+                                    <th>Section</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-
-                                $connection = mysqli_connect("localhost", "root", "", "account_list");
+                                $connection = mysqli_connect("localhost", "root", "", "attendance_tracking");
                                 $fetch_query = "SELECT * FROM students";
                                 $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                 if (mysqli_num_rows($fetch_query_run) > 0) {
                                     while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                        ?>
+                                ?>
                                         <tr>
                                             <td><?php echo $row['first_name'] ?></td>
                                             <td><?php echo $row['middle_name'] ?></td>
@@ -152,7 +134,6 @@ session_start();
                                             <td><?php echo $row['section'] ?></td>
                                             <td>
                                                 <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
-                                                    data-id="<?php echo $row['id']; ?>"
                                                     data-firstname="<?php echo $row['first_name']; ?>"
                                                     data-middlename="<?php echo $row['middle_name']; ?>"
                                                     data-lastname="<?php echo $row['last_name']; ?>"
@@ -162,20 +143,18 @@ session_start();
                                                     data-bs-target="#editStudentModal">Edit</a>
 
                                                 <button class="btn btn-danger btn-remove btn-sm"
-                                                    data-id="<?php echo $row['first_name']; ?>"
-                                                    onclick="removeStudent('<?php echo $row['first_name']; ?>')">Remove</button>
+                                                    data-id="<?php echo $row['first_name']; ?>">Remove</button>
                                             </td>
                                         </tr>
-                                        <?php
+                                    <?php
                                     }
                                 } else {
                                     ?>
                                     <tr>
                                         <td colspan="7">No Records Found</td>
                                     </tr>
-                                    <?php
+                                <?php
                                 }
-
                                 ?>
                             </tbody>
                         </table>
@@ -185,31 +164,7 @@ session_start();
         </div>
     </div>
 
-
-
-    <script>
-
-        document.querySelectorAll('.edit_data').forEach(button => {
-        button.addEventListener('click', function() {
-            const id = this.getAttribute('data-id');
-            const firstName = this.getAttribute('data-firstname');
-            const middleName = this.getAttribute('data-middlename');
-            const lastName = this.getAttribute('data-lastname');
-            const contact = this.getAttribute('data-contact');
-            const grade = this.getAttribute('data-grade');
-            const section = this.getAttribute('data-section');
-
-            document.getElementById('edit_student_id').value = id;
-            document.getElementById('edit_studentFirstName').value = firstName;
-            document.getElementById('edit_studentMiddleName').value = middleName;
-            document.getElementById('edit_studentLastName').value = lastName;
-            document.getElementById('edit_studentContactNumber').value = contact;
-            document.getElementById('edit_studentGrLvl').value = grade;
-            document.getElementById('edit_studentSection').value = section;
-        });
-    });
-    </script>
+    <script src="../JS/studentList.js"></script>
 
 </body>
-
 </html>

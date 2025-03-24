@@ -137,7 +137,7 @@ session_start();
                                                 function removeAdviser(adviserFullName) {
                                                     if (confirm("Are you sure you want to remove this adviser?")) {
                                                         var xhr = new XMLHttpRequest();
-                                                        xhr.open("POST", "removeAdviser.php", true);
+                                                        xhr.open("POST", "../PHP/adviserRemove.php", true);
                                                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                         xhr.onreadystatechange = function () {
                                                             if (xhr.readyState === 4 && xhr.status === 200) {
