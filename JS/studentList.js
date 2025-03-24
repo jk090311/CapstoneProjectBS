@@ -1,4 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const modal = new bootstrap.Modal(document.getElementById('addStudentModal'));
+
+    // Function to show the selected part of the modal
+    function showPart(partNumber) { 
+        const parts = document.querySelectorAll('.part');
+        parts.forEach(part => part.style.display = 'none');
+        document.getElementById('part' + partNumber).style.display = 'block';
+    }
+
+    // Show the first part by default when modal opens
+    document.getElementById('addStudentModal').addEventListener('show.bs.modal', function () {
+        showPart(1);
+    });
+
+    // Make showPart globally accessible
+    window.showPart = showPart;
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
     const removeButtons = document.querySelectorAll('.btn-remove');
     removeButtons.forEach(button => {
         button.addEventListener('click', function () {

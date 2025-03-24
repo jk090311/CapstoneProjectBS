@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root"; 
 $password = ""; 
-$dbname = "account_list";
+$dbname = "attendance_tracking";
 
 // Create a connection
 $conn = new mysqli($servername, $username, $password, $dbname);

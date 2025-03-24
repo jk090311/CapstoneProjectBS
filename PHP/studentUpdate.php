@@ -15,7 +15,8 @@ if (isset($_POST['studentUpdate'])) {
     $section = $_POST['studentSection'];
 
     // Prepare and execute the update query
-    $update_query = "UPDATE students SET 
+    $update_query = "UPDATE students SET
+
                         first_name = '$firstName', 
                         middle_name = '$middleName', 
                         last_name = '$lastName', 

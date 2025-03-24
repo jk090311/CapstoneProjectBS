@@ -1,119 +1,165 @@
+/* Navbar styling to make it fixed */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Push content below the navbar */
 body {
-    background-image: url("/CapstoneProjectBS/Assets/background.jpg");
-    background-size: 1950px 1100px;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    margin-top: 1px;
-    margin-left: 1px;
-    margin-right: 1px;
-    background-color: #103a4e;
-    background-blend-mode: lighten;
+  padding-top: 80px; /* Adjust this value based on the navbar height */
+}
+
+/* Table container styling */
+.table-container {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-top: 20px; /* Adjusted margin to push below navbar */
+  padding: 10px;
+  overflow-x: auto;
+  max-width: 100%;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Base table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  table-layout: fixed; /* Prevents column misalignment */
+}
+
+/* Table header styling */
+.table thead th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px 8px;
+  border: 1px solid #dee2e6;
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Ensures the header stays on top */
+}
+
+/* Table cell styling */
+.table td {
+  padding: 8px;
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fix column widths to maintain proper alignment */
+.table th:nth-child(1), .table td:nth-child(1) { width: 12%; } /* First Name */
+.table th:nth-child(2), .table td:nth-child(2) { width: 12%; } /* Middle Name */
+.table th:nth-child(3), .table td:nth-child(3) { width: 12%; } /* Last Name */
+.table th:nth-child(4), .table td:nth-child(4) { width: 15%; } /* Contact Number */
+.table th:nth-child(5), .table td:nth-child(5) { width: 8%; } /* Grade Level */
+.table th:nth-child(6), .table td:nth-child(6) { width: 8%; } /* Section */
+.table th:nth-child(7), .table td:nth-child(7) { width: 15%; } /* Action */
+
+/* Action buttons styling */
+.table .btn {
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  margin: 2px auto;
+  border-radius: 4px;
+  display: inline-block;
+  width: auto;
+}
+
+/* Ensure buttons are aligned properly */
+.table .btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.table .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+/* Background color for alternating rows */
+.table tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Add Student button container */
+.add-student-container {
+  margin: 15px 0;
+  padding: 0 15px;
+  text-align: right;
+}
+
+/* Add Student button styling */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 4px;
+}
+
+/* Ensure proper spacing around the table heading */
+h2.page-title {
+  margin: 15px 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .table-container {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .table th, .table td {
+    padding: 6px 4px;
+    font-size: 0.85rem;
   }
   
-  /* Center the entire table container */
-  .container-fluid {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
+  .table .btn {
+    font-size: 0.8rem;
+    padding: 3px 8px;
   }
-  
-  /* Card styling */
-  .card {
+
+  /* Adjust button width for better mobile display */
+  .table .btn-warning, .table .btn-danger {
     width: 90%;
-    margin: 0 auto;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: white;
+    text-align: center;
   }
-  
-  /* Card header with flexbox for alignment */
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Fix for mobile view */
+@media (max-width: 576px) {
+  .table th, .table td {
+    font-size: 0.8rem;
+    padding: 5px 3px;
   }
-  
-  /* Styling for the header title */
-  .card-header h4 {
-    margin: 0;
-    font-weight: 500;
-  }
-  
-  /* Full width row but centered content */
-  .row.justify-content-center {
+
+  .table .btn {
+    display: block;
     width: 100%;
-    max-width: 1200px;
-    margin: 100px auto;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Table styling */
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 0;
-    table-layout: fixed;
-  }
-  
-  /* Column width adjustments based on the image */
-  .table th:nth-child(1), .table td:nth-child(1) { /* fist Name */
-    width: 20%;
-  }
-  
-  .table th:nth-child(2), .table td:nth-child(2) { /* middle Name */
-    width: 20%;
-  }
-  
-  .table th:nth-child(3), .table td:nth-child(3) { /* Last Name */
-    width: 15%;
-  }
-  
-  .table th:nth-child(4), .table td:nth-child(4) { /* Contact Number */
-    width: 17%;
     text-align: center;
   }
-  
-  .table th:nth-child(5), .table td:nth-child(5) { /* Grade Level */
-    width: 15%;
-    text-align: center;
+
+  .table .btn-warning, .table .btn-danger {
+    padding: 5px;
   }
-  .table th:nth-child(6), .table td:nth-child(6) { /* Section */
-    width: 15%;
-    text-align: center;
-  }
-  .table th:nth-child(7), .table td:nth-child(7) { /* Action */
-    width: 20%;
-    text-align: center;
-  }
-  /* Button styling */
-  .btn-edit {
-    margin-right: 5px;
-  }
-  
-  /* Ensure Bootstrap column takes appropriate width */
-  .col-md-8 {
-    width: 100%;
-    flex: 0 0 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .card {
-        width: 100%;
-    }
-    
-    .col-md-8 {
-        max-width: 100%;
-    }
-    
-    .card-header {
-        flex-direction: column;
-        gap: 10px;
-    }
-  }
+}
