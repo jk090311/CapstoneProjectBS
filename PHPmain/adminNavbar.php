@@ -47,6 +47,11 @@
             Students</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPmain/adminSubject.php">
+            <img id="iconLeft" src="../Assets/books.png">   
+            Subject</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="../PHPmain/AddSection.php">
             <img id="iconLeft" src="../Assets/section.jpg">   
             Section</a>

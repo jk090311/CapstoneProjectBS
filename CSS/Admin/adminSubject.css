@@ -1,0 +1,9 @@
+/* Add margin to push the table below the navbar */
+body {
+    padding-top: 70px; /* Adjust this value based on your navbar height */
+}
+
+/* Center the card horizontally */
+.card {
+    margin: 0 auto;
+}
