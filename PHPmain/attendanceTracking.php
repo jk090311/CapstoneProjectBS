@@ -6,7 +6,7 @@ include "../PHP/insertAttendance.php"; // This might close $conn
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "attendance_tracking";
+$dbname = "educguarddb";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/CapstoneProjectBS/CSS/attendanceTracking.css" rel="stylesheet">
+    <link href="/CapstoneProjectBS/CSS/attendanceTrackingg.css" rel="stylesheet">
     <title>Attendance</title>
 </head>
 <body>

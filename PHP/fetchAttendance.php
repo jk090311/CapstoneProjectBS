@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "attendance_tracking";
+$dbname = "educguarddb";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

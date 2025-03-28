@@ -1,7 +1,7 @@
 <?php 
 session_start();
 error_reporting(0);
-$conn = mysqli_connect("localhost", "root", "", "account_list");
+$conn = mysqli_connect("localhost", "root", "", "educguarddb");
 
     if(isset($_POST['login']))
     {

@@ -1,4 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const modal = new bootstrap.Modal(document.getElementById('addTeacher'));
+
+    // Function to show the selected part of the modal
+    function showPart(partNumber) { 
+        const parts = document.querySelectorAll('.part');
+        parts.forEach(part => part.style.display = 'none');
+        document.getElementById('part' + partNumber).style.display = 'block';
+    }
+
+    // Show the first part by default when modal opens
+    document.getElementById('addTeacher').addEventListener('show.bs.modal', function () {
+        showPart(1);
+    });
+
+    // Make showPart globally accessible
+    window.showPart = showPart;
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
     // Handle Edit button click
     const editButtons = document.querySelectorAll('.edit_data');
     editButtons.forEach(button => {
@@ -6,12 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
             // Get data from data attributes
             const name = this.getAttribute('data-name');
             const contact = this.getAttribute('data-contact');
+            const email = this.getAttribute('data-email');
+            const password = this.getAttribute('data-password');
             const grade = this.getAttribute('data-grade');
             const section = this.getAttribute('data-section');
 
             // Populate the form
             document.getElementById('adviserFullName').value = name;
             document.getElementById('adviserContactNumber').value = contact;
+            document.getElementById('adviserEmailAddress').value = email;
+            document.getElementById('adviserPassword').value = password;
             document.getElementById('adviserGrLvl').value = grade;
             document.getElementById('adviserSection').value = section;
 
@@ -47,6 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('adviserFullName').value = '';
         document.getElementById('adviserContactNumber').value = '';
         document.getElementById('adviserGrLvl').value = '7';
+        document.getElementById('adviserEmailAddress').value = '';
+        document.getElementById('adviserPassword').value ='';
         document.getElementById('adviserSection').value = 'Aqua';
 
         // Remove hidden input field if exists
