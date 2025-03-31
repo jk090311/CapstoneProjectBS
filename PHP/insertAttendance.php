@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Received RFID: $rfid_number<br>"; //Debugging
 
     //Check if student exists in students table
-    $studentQuery = "SELECT first_name, last_name FROM students WHERE rfid_number = '$rfid_number'";
+    $studentQuery = "SELECT first_name, last_name FROM student WHERE rfid_number = '$rfid_number'";
     $studentResult = $conn->query($studentQuery);
 
     if (!$studentResult) {
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Student Found: $first_name $last_name<br>"; // Debugging
 
         //Check if student already has an active time-in
-        $checkExisting = "SELECT id, time_out FROM attendance WHERE rfid_number = '$rfid_number' ORDER BY date_logged DESC LIMIT 1";
+        $checkExisting = "SELECT id, time_out FROM attendance_list WHERE rfid_number = '$rfid_number' ORDER BY date_logged DESC LIMIT 1";
         $existingResult = $conn->query($checkExisting);
 
         if (!$existingResult) {
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($existingResult->num_rows > 0) {
             $existingRow = $existingResult->fetch_assoc();
             if ($existingRow['time_out'] === NULL) {
-                $updateTimeOut = "UPDATE attendance SET time_out = NOW() WHERE id = " . $existingRow['id'];
+                $updateTimeOut = "UPDATE attendance_list SET time_out = NOW() WHERE id = " . $existingRow['id'];
                 if ($conn->query($updateTimeOut) === TRUE) {
                     echo "Time Out Updated!";
                     exit();
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insert Time In
-        $insertAttendance = "INSERT INTO attendance (rfid_number, first_name, last_name, time_in, date_logged) 
+        $insertAttendance = "INSERT INTO attendance_list (rfid_number, first_name, last_name, time_in, date_logged) 
                              VALUES ('$rfid_number', '$first_name', '$last_name', NOW(), NOW())";
 
         if ($conn->query($insertAttendance) === TRUE) {

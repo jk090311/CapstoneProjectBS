@@ -48,7 +48,7 @@
                             // Fetch subjects from the database
                             include '../PHP/dbconnectionSubjects.php'; // Ensure you have a database connection file
                             mysqli_select_db($conn, 'adviser_list') or die("Database not found!");
-                            $query = "SELECT * FROM subjects";
+                            $query = "SELECT * FROM subject";
                             $result = mysqli_query($conn, $query);
 
                             while ($row = mysqli_fetch_assoc($result)) {

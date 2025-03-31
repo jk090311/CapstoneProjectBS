@@ -28,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Update the database
     if (!empty($file_name)) {
-        $sql = "UPDATE subjects SET subject_name='$subject_name', subject_picture='$file_name' WHERE id='$subject_id'";
+        $sql = "UPDATE subject SET subject_name='$subject_name', subject_picture='$file_name' WHERE id='$subject_id'";
     } else {
-        $sql = "UPDATE subjects SET subject_name='$subject_name' WHERE id='$subject_id'";
+        $sql = "UPDATE subject SET subject_name='$subject_name' WHERE id='$subject_id'";
     }
 
     if ($conn->query($sql) === TRUE) {

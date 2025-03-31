@@ -32,7 +32,7 @@ $status = $_POST['status'];
 $section = $_POST['section'];
 
 // Insert into the database
-$sql = "INSERT INTO students (lrn, rfid_number, first_name, middle_name, last_name, birthdate, sex, contact_number, grade_level, address, email, parent_guardian_name, parent_guardian_number, parent_guardian_email, student_username, status, section) 
+$sql = "INSERT INTO student (lrn, rfid_number, first_name, middle_name, last_name, birthdate, sex, contact_number, grade_level, address, email, parent_guardian_name, parent_guardian_number, parent_guardian_email, student_username, status, section) 
 VALUES ('$lrn', '$rfidNo', '$fName', '$mName', '$lName', '$bDate', '$sex', '$cNumber', '$grLvl', '$address', '$email', '$pName', '$pNum', '$pEmail', '$username', '$status', '$section')";
 
 if ($conn->query($sql) === TRUE) {

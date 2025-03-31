@@ -49,7 +49,7 @@ if ($conn->connect_error) {
         </tr>
         <?php
         $dateFilter = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
-        $query = "SELECT * FROM attendance WHERE date_logged = ? ORDER BY time_in ASC";
+        $query = "SELECT * FROM attendance_list WHERE date_logged = ? ORDER BY time_in ASC";
         $stmt = $conn->prepare($query);
         if ($stmt) {
             $stmt->bind_param("s", $dateFilter);

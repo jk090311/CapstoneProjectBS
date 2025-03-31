@@ -237,7 +237,7 @@ session_start();
                                 <tbody>
                                     <?php
                                     $connection = mysqli_connect("localhost", "root", "", "attendance_tracking");
-                                    $fetch_query = "SELECT * FROM students";
+                                    $fetch_query = "SELECT * FROM student";
                                     $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                     if (mysqli_num_rows($fetch_query_run) > 0) {

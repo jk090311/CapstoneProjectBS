@@ -110,7 +110,7 @@ session_start();
                                 <?php
 
                                 $connection = mysqli_connect("localhost", "root", "", "adviser_list");
-                                $fetch_query = "SELECT * FROM advisers";
+                                $fetch_query = "SELECT * FROM adviser";
                                 $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                 if (mysqli_num_rows($fetch_query_run) > 0) {

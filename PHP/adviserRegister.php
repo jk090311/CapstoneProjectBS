@@ -10,7 +10,7 @@ if(isset($_POST['adviserRegister']))
     $adviserGrLvl = $_POST['adviserGrLvl'];
     $adviserSection = $_POST['adviserSection'];
 
-    $insert_query = "INSERT INTO advisers(adviserFullName, adviserContactNumber, adviserGrLvl, adviserSection)
+    $insert_query = "INSERT INTO adviser(adviserFullName, adviserContactNumber, adviserGrLvl, adviserSection)
      VALUES ('$adviserFullName', '$adviserContactNumber', '$adviserGrLvl', '$adviserSection')";
     $insert_query_run = mysqli_query($connection, $insert_query);
 

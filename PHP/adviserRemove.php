@@ -10,7 +10,7 @@ file_put_contents('debug.txt', "POST data: " . print_r($_POST, true));
 if (isset($_POST['adviserFullName'])) {
     $adviserFullName = $_POST['adviserFullName'];
 
-    $delete_query = "DELETE FROM advisers WHERE adviserFullName = ?";
+    $delete_query = "DELETE FROM adviser WHERE adviserFullName = ?";
     $stmt = $connection->prepare($delete_query);
     $stmt->bind_param("s", $adviserFullName);
 
