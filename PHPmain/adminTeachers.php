@@ -157,7 +157,6 @@ session_start();
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Contact Number</th>
                                     <th scope="col">Email Address</th>
-                                    <th scope="col">Password</th>
                                     <th scope="col">Grade Level</th>
                                     <th scope="col">Section</th>
                                     <th scope="col">Action</th>
@@ -166,13 +165,12 @@ session_start();
                             <tbody>
                                 <?php
 
-<<<<<<< HEAD
                                 $connection = mysqli_connect("localhost", "root", "", "adviser_list");
                                 $fetch_query = "SELECT * FROM adviser";
-=======
+
                                 $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                 $fetch_query = "SELECT * FROM advisers";
->>>>>>> 650337ca2578d1270f4c061a9aa3f9b20456f941
+
                                 $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                 if (mysqli_num_rows($fetch_query_run) > 0) {
@@ -182,7 +180,6 @@ session_start();
                                             <td><?php echo $row['adviserFullName'] ?></td>
                                             <td><?php echo $row['adviserContactNumber'] ?></td>
                                             <td><?php echo $row['adviserEmailAddress'] ?></td>
-                                            <td><?php echo $row['adviserPassword'] ?></td>
                                             <td><?php echo $row['adviserGrLvl'] ?></td>
                                             <td><?php echo $row['adviserSection'] ?></td>
                                             <td>
@@ -190,7 +187,6 @@ session_start();
                                                     data-name="<?php echo $row['adviserFullName']; ?>"
                                                     data-contact="<?php echo $row['adviserContactNumber']; ?>"
                                                     data-email="<?php echo $row['adviserEmailAddress']; ?>"
-                                                    data-password="<?php echo $row['adviserPassword']; ?>"
                                                     data-grade="<?php echo $row['adviserGrLvl']; ?>"
                                                     data-section="<?php echo $row['adviserSection']; ?>" data-bs-toggle="modal"
                                                     data-bs-target="#addTeacher">Edit</a>

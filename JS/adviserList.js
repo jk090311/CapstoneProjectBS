@@ -89,4 +89,5 @@ document.addEventListener('DOMContentLoaded', function () {
         // Reset form action to adviserRegister.php
         document.querySelector('form').action = '../PHP/adviserRegister.php';
     });
+    
 });

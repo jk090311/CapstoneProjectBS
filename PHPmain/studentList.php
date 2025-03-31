@@ -111,12 +111,12 @@ session_start();
             <div class="col-md-8">
                 <?php
                 if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                    ?>
+                ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <?php echo $_SESSION['status']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['status']);
                 }
                 ?>
@@ -264,6 +264,13 @@ session_start();
                                                     <label>Student Username:</label>
                                                     <input type="text" name="username" class="form-control" required>
                                                 </div>
+                                       
+                                                    <div class="form-group mb-3">
+                                                        <label for="password" class="form-label">Password</label>
+                                                        <input type="text" id="password" name="p    assword"
+                                                            class="form-control" placeholder="Password" required>
+                                                    </div>
+
                                                 <div class="form-group mb-3">
                                                     <label>Status:</label>
                                                     <select name="status" class="form-control" required>
@@ -296,18 +303,18 @@ session_start();
                                 </thead>
                                 <tbody>
                                     <?php
-<<<<<<< HEAD
+
                                     $connection = mysqli_connect("localhost", "root", "", "attendance_tracking");
                                     $fetch_query = "SELECT * FROM student";
-=======
+
                                     $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                     $fetch_query = "SELECT * FROM students";
->>>>>>> 650337ca2578d1270f4c061a9aa3f9b20456f941
+
                                     $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                     if (mysqli_num_rows($fetch_query_run) > 0) {
                                         while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                            ?>
+                                    ?>
                                             <tr>
                                                 <td><?php echo $row['first_name'] ?></td>
                                                 <td><?php echo $row['middle_name'] ?></td>
@@ -329,14 +336,14 @@ session_start();
                                                         data-id="<?php echo $row['first_name']; ?>">Remove</button>
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                         }
                                     } else {
                                         ?>
                                         <tr>
                                             <td colspan="7">No Records Found</td>
                                         </tr>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </tbody>

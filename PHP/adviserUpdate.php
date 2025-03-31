@@ -23,7 +23,7 @@ if(isset($_POST['adviserFullName']) && $_POST['action_type'] === 'edit') {
     }
 
     // Update the adviser based on their original name
-    $update_query = "UPDATE adviser SET 
+    $update_query = "UPDATE advisers SET 
                     adviserFullName = '$adviserFullName', 
                     adviserContactNumber = '$adviserContactNumber', 
                     adviserGrLvl = '$adviserGrLvl', 
