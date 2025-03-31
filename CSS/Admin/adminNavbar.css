@@ -71,3 +71,7 @@ body::before {
     width: 50px;
     height: 50px;
 }
+.custom-margin {
+    margin-top: 100px; /* Adjust this value to lower the box further */
+    margin-bottom: 50px; /* Optional: Add bottom margin */
+}

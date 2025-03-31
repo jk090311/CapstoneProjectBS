@@ -1,7 +1,7 @@
 <?php
 // === adviserRemove.php (Fixed for AJAX Requests) ===
 session_start();
-$connection = mysqli_connect("localhost", "root", "", "adviser_list");
+$connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
 // Debugging (optional, you can remove this after testing)
 file_put_contents('debug.txt', "POST data: " . print_r($_POST, true));

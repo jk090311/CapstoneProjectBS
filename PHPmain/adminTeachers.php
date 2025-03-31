@@ -9,7 +9,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Teachers</title>
-    <link rel="stylesheet" href="../CSS/Admin/adminTeachers.css">
+    <link rel="stylesheet" href="../CSS/Admin/adminTeacherss.css">
 </head>
 
 <body>
@@ -22,24 +22,26 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
+                <!-- First Form: Full Name, Contact Number, Grade Level, and Section -->
                 <form action="../PHP/adviserRegister.php" method="POST">
                     <input type="hidden" id="action_type" name="action_type" value="add">
                     <input type="hidden" id="adviser_id" name="adviser_id" value="">
-
                     <div class="modal-body">
-                        <div class="form-row">
-                            <div class="form-group mb-3">
-                                <label for="adviserFullName" class="form-label">Full Name</label>
-                                <input type="text" id="adviserFullName" name="adviserFullName" class="form-control"
-                                    placeholder="Full Name" required>
+                        <div class="part" id="part1">
+                            <div class="form-row">
+                                <div class="form-group mb-3">
+                                    <label for="adviserFullName" class="form-label">Full Name</label>
+                                    <input type="text" id="adviserFullName" name="adviserFullName" class="form-control"
+                                        placeholder="Full Name" required>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-row">
-                            <div class="form-group mb-3">
-                                <label for="adviserContactNumber" class="form-label">Contact Number</label>
-                                <input type="tel" id="adviserContactNumber" name="adviserContactNumber"
-                                    class="form-control" placeholder="Contact Number" value="" required>
+                            <div class="form-row">
+                                <div class="form-group mb-3">
+                                    <label for="adviserContactNumber" class="form-label">Contact Number</label>
+                                    <input type="tel" id="adviserContactNumber" name="adviserContactNumber"
+                                        class="form-control" placeholder="Contact Number" value="" required>
+                                </div>
                             </div>
 
                             <div class="form-group mb-3">
@@ -55,17 +57,70 @@ session_start();
                             <div class="form-group mb-3">
                                 <label for="adviserSection" class="form-label">Section</label>
                                 <select id="adviserSection" name="adviserSection" class="form-control" required>
-                                    <option value="Aqua">Aqua</option>
-                                    <option value="Bronze">Bronze</option>
-                                    <option value="Crank">Crank</option>
+                                    <?php
+                                    // Connect to the database
+                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+
+                                    // Check connection
+                                    if (!$connection) {
+                                        die("Connection failed: " . mysqli_connect_error());
+                                    }
+
+                                    // Fetch sections from the database
+                                    $query = "SELECT section_name FROM class_section";
+                                    $query_run = mysqli_query($connection, $query);
+
+                                    // Loop through the results and create <option> tags
+                                    if (mysqli_num_rows($query_run) > 0) {
+                                        while ($row = mysqli_fetch_assoc($query_run)) {
+                                            echo '<option value="' . htmlspecialchars($row['section_name']) . '">' . htmlspecialchars($row['section_name']) . '</option>';
+                                        }
+                                    } else {
+                                        echo '<option value="">No Sections Available</option>';
+                                    }
+
+                                    // Close the database connection
+                                    mysqli_close($connection);
+                                    ?>
                                 </select>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" onclick="showPart(2)">Next</button>
                             </div>
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" id="submitBtn" name="adviserRegister"
-                                class="btn btn-primary">Register</button>
+
+
+                        <!-- Second Form: Email Address and Password -->
+                        <div class="part" id="part2" style="display: none;">
+
+                            <div class="modal-body">
+                                <h5 class="mb-3">Account Details</h5>
+                                <div class="form-row">
+                                    <div class="form-group mb-3">
+                                        <label for="adviserEmailAddress" class="form-label">Email Address</label>
+                                        <input type="text" id="adviserEmailAddress" name="adviserEmailAddress"
+                                            class="form-control" placeholder="Email Address" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group mb-3">
+                                        <label for="adviserPassword" class="form-label">Password</label>
+                                        <input type="text" id="adviserPassword" name="adviserPassword"
+                                            class="form-control" placeholder="Password" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="submitBtn" name="adviserRegister"
+                                    class="btn btn-primary">Register</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -91,7 +146,7 @@ session_start();
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>Adviser</h4>
+                        <h4>Malinta National High School Advisers</h4>
                         <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
                             data-bs-target="#addTeacher">Add Adviser</button>
                     </div>
@@ -101,6 +156,8 @@ session_start();
                                 <tr>
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Contact Number</th>
+                                    <th scope="col">Email Address</th>
+                                    <th scope="col">Password</th>
                                     <th scope="col">Grade Level</th>
                                     <th scope="col">Section</th>
                                     <th scope="col">Action</th>
@@ -109,8 +166,13 @@ session_start();
                             <tbody>
                                 <?php
 
+<<<<<<< HEAD
                                 $connection = mysqli_connect("localhost", "root", "", "adviser_list");
                                 $fetch_query = "SELECT * FROM adviser";
+=======
+                                $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+                                $fetch_query = "SELECT * FROM advisers";
+>>>>>>> 650337ca2578d1270f4c061a9aa3f9b20456f941
                                 $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                 if (mysqli_num_rows($fetch_query_run) > 0) {
@@ -119,12 +181,16 @@ session_start();
                                         <tr>
                                             <td><?php echo $row['adviserFullName'] ?></td>
                                             <td><?php echo $row['adviserContactNumber'] ?></td>
+                                            <td><?php echo $row['adviserEmailAddress'] ?></td>
+                                            <td><?php echo $row['adviserPassword'] ?></td>
                                             <td><?php echo $row['adviserGrLvl'] ?></td>
                                             <td><?php echo $row['adviserSection'] ?></td>
                                             <td>
                                                 <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
                                                     data-name="<?php echo $row['adviserFullName']; ?>"
                                                     data-contact="<?php echo $row['adviserContactNumber']; ?>"
+                                                    data-email="<?php echo $row['adviserEmailAddress']; ?>"
+                                                    data-password="<?php echo $row['adviserPassword']; ?>"
                                                     data-grade="<?php echo $row['adviserGrLvl']; ?>"
                                                     data-section="<?php echo $row['adviserSection']; ?>" data-bs-toggle="modal"
                                                     data-bs-target="#addTeacher">Edit</a>

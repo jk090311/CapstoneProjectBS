@@ -59,26 +59,42 @@ body {
   table-layout: fixed;
 }
 
-/* Column width adjustments based on the image */
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  table-layout: auto; /* Allow columns to adjust based on content */
+}
+
+/* Column alignment adjustments */
 .table th:nth-child(1), .table td:nth-child(1) { /* Full Name */
-  width: 20%;
+  text-align: left; /* Align text to the left for readability */
 }
 
 .table th:nth-child(2), .table td:nth-child(2) { /* Contact Number */
-  width: 20%;
+  text-align: center; /* Center-align for uniformity */
 }
 
 .table th:nth-child(3), .table td:nth-child(3) { /* Grade Level */
-  width: 15%;
-}
-
-.table th:nth-child(4), .table td:nth-child(4) { /* Section */
-  width: 15%;
-}
-
-.table th:nth-child(5), .table td:nth-child(5) { /* Action */
-  width: 15%;
   text-align: center;
+}
+
+.table th:nth-child(4), .table td:nth-child(4) { /* Email */
+  text-align: left; /* Align email to the left for better readability */
+}
+
+.table th:nth-child(5), .table td:nth-child(5) { /* Password */
+  text-align: center;
+}
+
+.table th:nth-child(6), .table td:nth-child(6) { /* Section */
+  text-align: center;
+}
+
+.table th:nth-child(7), .table td:nth-child(7) { /* Action */
+  text-align: center;
+  width: 19%; /* Fixed width for the action buttons */
 }
 
 /* Button styling */

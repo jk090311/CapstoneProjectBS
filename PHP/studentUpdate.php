@@ -1,6 +1,6 @@
 <?php
 session_start();
-$connection = mysqli_connect("localhost", "root", "", "attendance_tracking");
+$connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
 if (isset($_POST['studentUpdate'])) {
     $originalFirstName = $_POST['originalFirstName'];

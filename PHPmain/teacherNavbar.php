@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/Teacher/teacherNavbar.css">
+    <link rel="stylesheet" href="../CSS/Teacher/teacherNavbarr.css">
 </head>
 <body>
   <nav class="navbar bg-body-tertiary fixed-top">
@@ -14,13 +14,13 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand d-flex align-items-center">
-          <img id="imglogo" src="../Assets/111.png">
+          <img id="imglogo" src="../Assets/111.png" alt="EduGuard Logo">
           <span>EduGuard</span>
         </a>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <a href="logout.php">
-        <button class="btn btn-danger" type="button">Log Out</button>
+        <a href="logout.php">
+          <button class="btn btn-danger" type="button">Log Out</button>
         </a>
       </div>
     </div>
@@ -34,17 +34,19 @@
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="../PHPmain/dashboardTeacher.php">
-            <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
-            Dashboard</a>
+              <img id="iconLeft" src="../Assets/data-analysis_12959229.png" alt="Dashboard Icon">
+              Dashboard
+            </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img id="iconLeft" src="../Assets/report_6896653.png">
+              <img id="iconLeft" src="../Assets/report_6896653.png" alt="Reports Icon">
               Reports
             </a>
             <a class="nav-link active" aria-current="page" href="../PHPmain/TeacherMessages.php">
-            <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
-            Messages</a>
+
+              <img id="iconLeft" src="../Assets/data-analysis_12959229.png" alt="Messages Icon">
+              Messages            </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="../PHPmain/reportSystem.php">Subjects</a></li>
               <li><a class="dropdown-item" href="#">Card reports</a></li>
@@ -56,8 +58,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">
-            <img id="iconLeft" src="../Assets/appointment_18491830.png">   
-            Grade</a>
+              <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
+              Grade
+            </a>
           </li>
         </ul>
       </div>
@@ -65,7 +68,4 @@
   </nav>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-
-
 </html>
