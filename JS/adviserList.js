@@ -89,5 +89,38 @@ document.addEventListener('DOMContentLoaded', function () {
         // Reset form action to adviserRegister.php
         document.querySelector('form').action = '../PHP/adviserRegister.php';
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("adviserGrLvl").addEventListener("change", filterSections);
+    });
     
+    function filterSections() {
+        const gradeLevel = document.getElementById("adviserGrLvl").value;
+        const sectionDropdown = document.getElementById("adviserSection");
+    
+        // Clear current options
+        sectionDropdown.innerHTML = '<option value="">Select Section</option>';
+    
+        if (gradeLevel) {
+            // Fetch sections using AJAX
+            fetch("../PHP/getSections.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "grade_level=" + encodeURIComponent(gradeLevel)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    data.forEach(section => {
+                        const option = document.createElement("option");
+                        option.value = section;
+                        option.textContent = section;
+                        sectionDropdown.appendChild(option);
+                    });
+                } else {
+                    console.error("Invalid response:", data);
+                }
+            })
+            .catch(error => console.error("AJAX error:", error));
+        }
+    }
 });

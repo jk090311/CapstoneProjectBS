@@ -47,85 +47,89 @@ session_start();
                             <div class="form-group mb-3">
                                 <label for="adviserGrLvl" class="form-label">Grade Level</label>
                                 <select id="adviserGrLvl" name="adviserGrLvl" class="form-control" required>
+                                    <option value="">Select Grade Level</option>
                                     <option value="7">Grade 7</option>
                                     <option value="8">Grade 8</option>
                                     <option value="9">Grade 9</option>
                                     <option value="10">Grade 10</option>
                                 </select>
-                            </div>
 
-                            <div class="form-group mb-3">
                                 <label for="adviserSection" class="form-label">Section</label>
                                 <select id="adviserSection" name="adviserSection" class="form-control" required>
-                                    <?php
-                                    // Connect to the database
-                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
-
-                                    // Check connection
-                                    if (!$connection) {
-                                        die("Connection failed: " . mysqli_connect_error());
-                                    }
-
-                                    // Fetch sections from the database
-                                    $query = "SELECT section_name FROM class_section";
-                                    $query_run = mysqli_query($connection, $query);
-
-                                    // Loop through the results and create <option> tags
-                                    if (mysqli_num_rows($query_run) > 0) {
-                                        while ($row = mysqli_fetch_assoc($query_run)) {
-                                            echo '<option value="' . htmlspecialchars($row['section_name']) . '">' . htmlspecialchars($row['section_name']) . '</option>';
-                                        }
-                                    } else {
-                                        echo '<option value="">No Sections Available</option>';
-                                    }
-
-                                    // Close the database connection
-                                    mysqli_close($connection);
-                                    ?>
+                                    <option value="">Select Section</option>
                                 </select>
                             </div>
 
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" onclick="showPart(2)">Next</button>
-                            </div>
+                            <?php
+                            // Connect to the database
+                            $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+
+                            // Check connection
+                            if (!$connection) {
+                                die("Connection failed: " . mysqli_connect_error());
+                            }
+
+                            // Fetch sections from the database
+                            $query = "SELECT section_name FROM class_section";
+                            $query_run = mysqli_query($connection, $query);
+
+                            // Loop through the results and create <option> tags
+                            if (mysqli_num_rows($query_run) > 0) {
+                                while ($row = mysqli_fetch_assoc($query_run)) {
+                                    echo '<option value="' . htmlspecialchars($row['section_name']) . '">' . htmlspecialchars($row['section_name']) . '</option>';
+                                }
+                            } else {
+                                echo '<option value="">No Sections Available</option>';
+                            }
+
+                            // Close the database connection
+                            mysqli_close($connection);
+                            ?>
+                            </select>
                         </div>
 
 
-
-                        <!-- Second Form: Email Address and Password -->
-                        <div class="part" id="part2" style="display: none;">
-
-                            <div class="modal-body">
-                                <h5 class="mb-3">Account Details</h5>
-                                <div class="form-row">
-                                    <div class="form-group mb-3">
-                                        <label for="adviserEmailAddress" class="form-label">Email Address</label>
-                                        <input type="text" id="adviserEmailAddress" name="adviserEmailAddress"
-                                            class="form-control" placeholder="Email Address" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group mb-3">
-                                        <label for="adviserPassword" class="form-label">Password</label>
-                                        <input type="text" id="adviserPassword" name="adviserPassword"
-                                            class="form-control" placeholder="Password" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="submitBtn" name="adviserRegister"
-                                    class="btn btn-primary">Register</button>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="showPart(2)">Next</button>
                         </div>
                     </div>
-                </form>
+
+
+
+                    <!-- Second Form: Email Address and Password -->
+                    <div class="part" id="part2" style="display: none;">
+
+                        <div class="modal-body">
+                            <h5 class="mb-3">Account Details</h5>
+                            <div class="form-row">
+                                <div class="form-group mb-3">
+                                    <label for="adviserEmailAddress" class="form-label">Email Address</label>
+                                    <input type="text" id="adviserEmailAddress" name="adviserEmailAddress"
+                                        class="form-control" placeholder="Email Address" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group mb-3">
+                                    <label for="adviserPassword" class="form-label">Password</label>
+                                    <input type="text" id="adviserPassword" name="adviserPassword"
+                                        class="form-control" placeholder="Password" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="submitBtn" name="adviserRegister"
+                                class="btn btn-primary">Register</button>
+                        </div>
+                    </div>
             </div>
+            </form>
         </div>
+    </div>
     </div>
     </div>
 
@@ -134,12 +138,12 @@ session_start();
             <div class="col-md-8">
                 <?php
                 if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                    ?>
+                ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <?php echo $_SESSION['status']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['status']);
                 }
                 ?>
@@ -175,7 +179,7 @@ session_start();
 
                                 if (mysqli_num_rows($fetch_query_run) > 0) {
                                     while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                        ?>
+                                ?>
                                         <tr>
                                             <td><?php echo $row['adviserFullName'] ?></td>
                                             <td><?php echo $row['adviserContactNumber'] ?></td>
@@ -201,7 +205,7 @@ session_start();
                                                         var xhr = new XMLHttpRequest();
                                                         xhr.open("POST", "../PHP/adviserRemove.php", true);
                                                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                        xhr.onreadystatechange = function () {
+                                                        xhr.onreadystatechange = function() {
                                                             if (xhr.readyState === 4 && xhr.status === 200) {
                                                                 alert(xhr.responseText);
                                                                 location.reload();
@@ -212,14 +216,14 @@ session_start();
                                                 }
                                             </script>
                                         </tr>
-                                        <?php
+                                    <?php
                                     }
                                 } else {
                                     ?>
                                     <tr>
                                         <td colspan="5">No Records Found</td>
                                     </tr>
-                                    <?php
+                                <?php
                                 }
 
                                 ?>

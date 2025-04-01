@@ -1,28 +1,31 @@
 <?php
-// Connect to the database
+header("Content-Type: application/json");
+
 $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
-// Check connection
 if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
+    echo json_encode(["error" => "Database connection failed"]);
+    exit;
 }
 
-// Get selected grade level
-$gradeLevel = $_POST['gradeLevel'];
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['grade_level'])) {
+    $grade_level = trim($_POST['grade_level']); // Sanitize input
 
-// Fetch sections for the selected grade level
-$query = "SELECT section_name FROM class_section WHERE grade_level = ?";
-$stmt = $connection->prepare($query);
-$stmt->bind_param("s", $gradeLevel);
-$stmt->execute();
-$result = $stmt->get_result();
+    $query = "SELECT section_name FROM class_section WHERE grade_level = ?";
+    $stmt = $connection->prepare($query);
+    $stmt->bind_param("s", $grade_level);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-// Output section options
-while ($row = $result->fetch_assoc()) {
-    echo '<option value="' . htmlspecialchars($row['section_name']) . '">' . htmlspecialchars($row['section_name']) . '</option>';
+    $sections = [];
+    while ($row = $result->fetch_assoc()) {
+        $sections[] = $row['section_name'];
+    }
+
+    echo json_encode($sections);
+} else {
+    echo json_encode(["error" => "Invalid request"]);
 }
 
-// Close connection
-$stmt->close();
-$connection->close();
+mysqli_close($connection);
 ?>

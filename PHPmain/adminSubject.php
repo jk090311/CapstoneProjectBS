@@ -35,32 +35,9 @@
                         Add Subject
                     </button>
 
-<<<<<<< HEAD
                     <!-- Subject Table -->
-                    <table class="table table-bordered text-center"> <!-- Center-align table content -->
-                        <thead>
-                            <tr>
-                                <th>Subject Name</th>
-                                <th>Picture</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // Fetch subjects from the database
-                            include '../PHP/dbconnectionSubjects.php'; // Ensure you have a database connection file
-                            mysqli_select_db($conn, 'adviser_list') or die("Database not found!");
-                            $query = "SELECT * FROM subject";
-                            $result = mysqli_query($conn, $query);
-=======
-                    <div class="scrollable-table">
-                        <table class="table table-bordered table-hover table-striped text-center">
-                            <!-- Table content -->
-                        </table>
-                    </div>
                     <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                         <table class="table table-bordered table-hover table-striped text-center">
-                            <!-- Improved table -->
                             <thead>
                                 <tr>
                                     <th>Subject Name</th>
@@ -75,51 +52,50 @@
                                 mysqli_select_db($conn, 'educguarddb') or die("Database not found!");
                                 $query = "SELECT * FROM subjects";
                                 $result = mysqli_query($conn, $query);
->>>>>>> 650337ca2578d1270f4c061a9aa3f9b20456f941
 
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr>
-                        <td>{$row['subject_name']}</td>
-                        <td><img src='../Uploads/{$row['subject_picture']}' width='50' height='50'></td>
-                        <td>
-                            <button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editSubject{$row['id']}'>Edit</button>
-                            <form action='../PHP/adminSubjectDelete.php' method='POST' style='display:inline;'>
-                                <input type='hidden' name='subject_id' value='{$row['id']}'>
-                                <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
-                            </form>
-                        </td>
-                      </tr>";
+                                            <td>{$row['subject_name']}</td>
+                                            <td><img src='../Uploads/{$row['subject_picture']}' width='50' height='50'></td>
+                                            <td>
+                                                <button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editSubject{$row['id']}'>Edit</button>
+                                                <form action='../PHP/adminSubjectDelete.php' method='POST' style='display:inline;'>
+                                                    <input type='hidden' name='subject_id' value='{$row['id']}'>
+                                                    <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
+                                                </form>
+                                            </td>
+                                          </tr>";
 
                                     // Edit Modal for each subject
                                     echo "
-                <div class='modal fade' id='editSubject{$row['id']}' tabindex='-1' aria-labelledby='editSubjectLabel{$row['id']}' aria-hidden='true'>
-                    <div class='modal-dialog'>
-                        <div class='modal-content'>
-                            <div class='modal-header'>
-                                <h1 class='modal-title fs-5' id='editSubjectLabel{$row['id']}'>Edit Subject</h1>
-                                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                            </div>
-                            <form action='../PHP/adminSubjectUpdate.php' method='POST' enctype='multipart/form-data'>
-                                <input type='hidden' name='subject_id' value='{$row['id']}'>
-                                
-                                <div class='modal-body'>
-                                    <div class='mb-3'>
-                                        <label for='editSubjectName{$row['id']}' class='form-label'>Subject Name</label>
-                                        <input type='text' id='editSubjectName{$row['id']}' name='editSubjectName' class='form-control' value='{$row['subject_name']}' required>
-                                    </div>
-                                    <div class='mb-3'>
-                                        <label for='editSubjectPicture{$row['id']}' class='form-label'>Subject Picture</label>
-                                        <input type='file' id='editSubjectPicture{$row['id']}' name='editSubjectPicture' class='form-control'>
-                                        <small>Leave blank to keep the current picture.</small>
-                                    </div>
-                                </div>
-                                <div class='modal-footer'>
-                                    <button type='submit' class='btn btn-success'>Save Changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>";
+                                    <div class='modal fade' id='editSubject{$row['id']}' tabindex='-1' aria-labelledby='editSubjectLabel{$row['id']}' aria-hidden='true'>
+                                        <div class='modal-dialog'>
+                                            <div class='modal-content'>
+                                                <div class='modal-header'>
+                                                    <h1 class='modal-title fs-5' id='editSubjectLabel{$row['id']}'>Edit Subject</h1>
+                                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                </div>
+                                                <form action='../PHP/adminSubjectUpdate.php' method='POST' enctype='multipart/form-data'>
+                                                    <input type='hidden' name='subject_id' value='{$row['id']}'>
+                                                    
+                                                    <div class='modal-body'>
+                                                        <div class='mb-3'>
+                                                            <label for='editSubjectName{$row['id']}' class='form-label'>Subject Name</label>
+                                                            <input type='text' id='editSubjectName{$row['id']}' name='editSubjectName' class='form-control' value='{$row['subject_name']}' required>
+                                                        </div>
+                                                        <div class='mb-3'>
+                                                            <label for='editSubjectPicture{$row['id']}' class='form-label'>Subject Picture</label>
+                                                            <input type='file' id='editSubjectPicture{$row['id']}' name='editSubjectPicture' class='form-control'>
+                                                            <small>Leave blank to keep the current picture.</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class='modal-footer'>
+                                                        <button type='submit' class='btn btn-success'>Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>";
                                 }
                                 ?>
                             </tbody>

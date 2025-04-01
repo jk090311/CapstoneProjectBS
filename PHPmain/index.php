@@ -18,7 +18,7 @@ if(isset($_POST['login']))
     $result = mysqli_stmt_get_result($stmt);
 
     if($row = mysqli_fetch_assoc($result)) {
-        $hashedPassword = $row['user_password'];
+        $hashedPassword = password_hash($u_password, PASSWORD_DEFAULT);
 
         // Verify the hashed password
         if(password_verify($u_password, $hashedPassword)) {
@@ -113,6 +113,6 @@ if(isset($_POST['login']))
     endif; ?>
 </script>
 
-<script src="/FinalCapstoneWebsite/JS/login.js"></script>
+<script src="/CapstoneProjectBS/JS/login.js"></script>
 </body>
 </html>
