@@ -69,17 +69,23 @@
 }
 
 #attendanceTable {
-  border-radius: 10px;
+  border-collapse: collapse; /* Ensures borders don't double up */
   width: 80%;
   max-width: 1300px;
   background-color: lightgray;
-  padding: 6px;
   margin: 0 auto;
+  border: 1px solid black; /* Add border to the table */
+  border-radius: 10px;
 }
 
+#attendanceTable th, #attendanceTable td {
+  border: 1px solid black; /* Add border to table cells */
+  padding: 10px; /* Add padding for better spacing */
+  text-align: center; /* Center-align text */
+  font-size: 0.9em; /* Adjust font size */
+}
 
-th, td {
-    padding: 5px; /* Reduce padding */
-    text-align: center;
-    font-size: 0.9em; /* Adjust font size */
+#attendanceTable th {
+  background-color: #ddd; /* Add a light background color for headers */
+  font-weight: bold;
 }

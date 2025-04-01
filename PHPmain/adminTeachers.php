@@ -187,17 +187,19 @@ session_start();
                                             <td><?php echo $row['adviserGrLvl'] ?></td>
                                             <td><?php echo $row['adviserSection'] ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
-                                                    data-name="<?php echo $row['adviserFullName']; ?>"
-                                                    data-contact="<?php echo $row['adviserContactNumber']; ?>"
-                                                    data-email="<?php echo $row['adviserEmailAddress']; ?>"
-                                                    data-grade="<?php echo $row['adviserGrLvl']; ?>"
-                                                    data-section="<?php echo $row['adviserSection']; ?>" data-bs-toggle="modal"
-                                                    data-bs-target="#addTeacher">Edit</a>
+                                                <div class="d-flex gap-2">
+                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
+                                                        data-name="<?php echo $row['adviserFullName']; ?>"
+                                                        data-contact="<?php echo $row['adviserContactNumber']; ?>"
+                                                        data-email="<?php echo $row['adviserEmailAddress']; ?>"
+                                                        data-grade="<?php echo $row['adviserGrLvl']; ?>"
+                                                        data-section="<?php echo $row['adviserSection']; ?>" data-bs-toggle="modal"
+                                                        data-bs-target="#addTeacher">Edit</a>
 
-                                                <button class="btn btn-danger btn-remove btn-sm"
-                                                    data-id="<?php echo $row['adviserFullName']; ?>"
-                                                    onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">Remove</button>
+                                                    <button class="btn btn-danger btn-remove btn-sm"
+                                                        data-id="<?php echo $row['adviserFullName']; ?>"
+                                                        onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">Remove</button>
+                                                </div>
                                             </td>
                                             <script>
                                                 function removeAdviser(adviserFullName) {
