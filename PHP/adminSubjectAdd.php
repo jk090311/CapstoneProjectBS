@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["adminSubjectPicture"]
     // Move uploaded file to server directory
     if (move_uploaded_file($_FILES["adminSubjectPicture"]["tmp_name"], $target_file)) {
         // Insert into database
-        $sql = "INSERT INTO subjects (subject_name, subject_picture) VALUES ('$subject_name', '$file_name')";
+        $sql = "INSERT INTO subject (subject_name, subject_picture) VALUES ('$subject_name', '$file_name')";
         if ($conn->query($sql) === TRUE) {
             $_SESSION['success_message'] = "Subject added successfully!";
             header("Location: ../PHPmain/adminSubject.php");

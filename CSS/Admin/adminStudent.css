@@ -114,6 +114,7 @@ body {
   border-radius: 4px;
 }
 
+
 /* Ensure proper spacing around the table heading */
 h2.page-title {
   margin: 15px 0;
@@ -162,4 +163,25 @@ h2.page-title {
   .table .btn-warning, .table .btn-danger {
     padding: 5px;
   }
+}
+/* Custom styles for buttons */
+.btn-edit {
+  width: 120px; /* Adjust the width for the Edit button */
+  text-align: center;
+}
+
+.btn-remove {
+  width: 80px; /* Adjust the width for the Remove button */
+  text-align: center;
+}
+
+/* Ensure buttons are aligned properly */
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center-align buttons */
+}
+
+.gap-2 {
+  gap: 10px; /* Add spacing between buttons */
 }

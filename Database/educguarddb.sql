@@ -26,6 +26,12 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `admin_acc`
 --
+<<<<<<< HEAD
+=======
+CREATE DATABASE IF NOT EXISTS educguarddb;
+USE educguarddb;
+
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
 
 CREATE TABLE `admin_acc` (
   `admin_id` int(11) NOT NULL,

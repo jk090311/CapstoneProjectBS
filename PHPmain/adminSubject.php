@@ -35,6 +35,7 @@
                         Add Subject
                     </button>
 
+<<<<<<< HEAD
                     <div class="scrollable-table">
                         <table class="table table-bordered table-hover table-striped text-center">
                             <!-- Table content -->
@@ -43,6 +44,11 @@
                     <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                         <table class="table table-bordered table-hover table-striped text-center">
                             <!-- Improved table -->
+=======
+                    <!-- Subject Table -->
+                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-bordered table-hover table-striped text-center">
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
                             <thead>
                                 <tr>
                                     <th>Subject Name</th>
@@ -60,6 +66,7 @@
 
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr>
+<<<<<<< HEAD
                         <td>{$row['subject_name']}</td>
                         <td><img src='../Uploads/{$row['subject_picture']}' width='50' height='50'></td>
                         <td>
@@ -101,6 +108,49 @@
                         </div>
                     </div>
                 </div>";
+=======
+                                            <td>{$row['subject_name']}</td>
+                                            <td><img src='../Uploads/{$row['subject_picture']}' width='50' height='50'></td>
+                                            <td>
+                                                <button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editSubject{$row['id']}'>Edit</button>
+                                                <form action='../PHP/adminSubjectDelete.php' method='POST' style='display:inline;'>
+                                                    <input type='hidden' name='subject_id' value='{$row['id']}'>
+                                                    <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
+                                                </form>
+                                            </td>
+                                          </tr>";
+
+                                    // Edit Modal for each subject
+                                    echo "
+                                    <div class='modal fade' id='editSubject{$row['id']}' tabindex='-1' aria-labelledby='editSubjectLabel{$row['id']}' aria-hidden='true'>
+                                        <div class='modal-dialog'>
+                                            <div class='modal-content'>
+                                                <div class='modal-header'>
+                                                    <h1 class='modal-title fs-5' id='editSubjectLabel{$row['id']}'>Edit Subject</h1>
+                                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                </div>
+                                                <form action='../PHP/adminSubjectUpdate.php' method='POST' enctype='multipart/form-data'>
+                                                    <input type='hidden' name='subject_id' value='{$row['id']}'>
+                                                    
+                                                    <div class='modal-body'>
+                                                        <div class='mb-3'>
+                                                            <label for='editSubjectName{$row['id']}' class='form-label'>Subject Name</label>
+                                                            <input type='text' id='editSubjectName{$row['id']}' name='editSubjectName' class='form-control' value='{$row['subject_name']}' required>
+                                                        </div>
+                                                        <div class='mb-3'>
+                                                            <label for='editSubjectPicture{$row['id']}' class='form-label'>Subject Picture</label>
+                                                            <input type='file' id='editSubjectPicture{$row['id']}' name='editSubjectPicture' class='form-control'>
+                                                            <small>Leave blank to keep the current picture.</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class='modal-footer'>
+                                                        <button type='submit' class='btn btn-success'>Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>";
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
                                 }
                                 ?>
                             </tbody>

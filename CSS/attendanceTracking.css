@@ -3,7 +3,11 @@
     width: 100%; /* Makes it match the navbar width */
     max-width: 1600px; /* Adjust based on navbar width */
     height: 80px; /* Reduce height to fit better */
+<<<<<<< HEAD
     background-color:  rgba(228, 13, 13, 0.8);;
+=======
+    background-color:  rgba(25, 38, 224, 0.8);;
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
     align-items: center;
     margin-top: 100px;
   }
@@ -69,17 +73,23 @@
 }
 
 #attendanceTable {
-  border-radius: 10px;
+  border-collapse: collapse; /* Ensures borders don't double up */
   width: 80%;
   max-width: 1300px;
   background-color: lightgray;
-  padding: 6px;
   margin: 0 auto;
+  border: 1px solid black; /* Add border to the table */
+  border-radius: 10px;
 }
 
+#attendanceTable th, #attendanceTable td {
+  border: 1px solid black; /* Add border to table cells */
+  padding: 10px; /* Add padding for better spacing */
+  text-align: center; /* Center-align text */
+  font-size: 0.9em; /* Adjust font size */
+}
 
-th, td {
-    padding: 5px; /* Reduce padding */
-    text-align: center;
-    font-size: 0.9em; /* Adjust font size */
+#attendanceTable th {
+  background-color: #ddd; /* Add a light background color for headers */
+  font-weight: bold;
 }

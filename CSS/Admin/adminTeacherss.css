@@ -94,12 +94,32 @@ body {
 
 .table th:nth-child(7), .table td:nth-child(7) { /* Action */
   text-align: center;
+<<<<<<< HEAD
   width: 19%; /* Fixed width for the action buttons */
 }
 
+=======
+  width: 19%; /* 
+  
+  Fixed width for the action buttons */
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.gap-2 {
+  gap: 10px; /* Adjust spacing between buttons */
+}
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
 /* Button styling */
 .btn-edit {
-  margin-right: 5px;
+  width: 120px; /* Adjust the width for the Edit button */
+}
+
+.btn-remove {
+  width: 70px; /* Adjust the width for the Remove button */
 }
 
 /* Ensure Bootstrap column takes appropriate width */

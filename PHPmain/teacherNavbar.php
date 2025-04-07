@@ -2,10 +2,17 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../CSS/Teacher/teacherNavbarr.css">
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../CSS/Teacher/teacherNavbarr.css">
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
 </head>
 
 <body>
@@ -50,7 +57,11 @@
             <a class="nav-link active" aria-current="page" href="../PHPmain/TeacherMessages.php">
 
               <img id="iconLeft" src="../Assets/data-analysis_12959229.png" alt="Messages Icon">
+<<<<<<< HEAD
               Messages </a>
+=======
+              Messages            </a>
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="../PHPmain/reportSystem.php">Subjects</a></li>
               <li><a class="dropdown-item" href="#">Card reports</a></li>
@@ -65,11 +76,14 @@
               <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
               Grade
             </a>
+<<<<<<< HEAD
           </li>          <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="../PHPmain/adminSubject.php">
               <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
               Subject
             </a>
+=======
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
           </li>
         </ul>
       </div>
@@ -77,5 +91,8 @@
   </nav>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
 </html>

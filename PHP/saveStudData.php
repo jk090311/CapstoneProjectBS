@@ -30,10 +30,12 @@ $pEmail = $_POST['pEmail'];
 $username = $_POST['username'];
 $status = $_POST['status'];
 $section = $_POST['section'];
+$password = $_POST['password'];
+
 
 // Insert into the database
-$sql = "INSERT INTO students (lrn, rfid_number, first_name, middle_name, last_name, birthdate, sex, contact_number, grade_level, address, email, parent_guardian_name, parent_guardian_number, parent_guardian_email, student_username, status, section) 
-VALUES ('$lrn', '$rfidNo', '$fName', '$mName', '$lName', '$bDate', '$sex', '$cNumber', '$grLvl', '$address', '$email', '$pName', '$pNum', '$pEmail', '$username', '$status', '$section')";
+$sql = "INSERT INTO student (lrn, rfid_number, first_name, middle_name, last_name, birthdate, sex, contact_number, grade_level, address, email, parent_guardian_name, parent_guardian_number, parent_guardian_email, student_username, status, section, student_password) 
+VALUES ('$lrn', '$rfidNo', '$fName', '$mName', '$lName', '$bDate', '$sex', '$cNumber', '$grLvl', '$address', '$email', '$pName', '$pNum', '$pEmail', '$username', '$status', '$section', '$password')";
 
 if ($conn->query($sql) === TRUE) {
     echo "<script>alert('Student registered successfully!'); window.location.href='/CapstoneProjectBS/PHPmain/studentList.php';</script>";

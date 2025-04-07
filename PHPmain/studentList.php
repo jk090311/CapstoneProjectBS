@@ -264,6 +264,13 @@ session_start();
                                                     <label>Student Username:</label>
                                                     <input type="text" name="username" class="form-control" required>
                                                 </div>
+
+                                                <div class="form-group mb-3">
+                                                    <label for="password" class="form-label">Password</label>
+                                                    <input type="text" id="password" name="p    assword"
+                                                        class="form-control" placeholder="Password" required>
+                                                </div>
+
                                                 <div class="form-group mb-3">
                                                     <label>Status:</label>
                                                     <select name="status" class="form-control" required>
@@ -296,8 +303,16 @@ session_start();
                                 </thead>
                                 <tbody>
                                     <?php
+<<<<<<< HEAD
+=======
+
+                                    $connection = mysqli_connect("localhost", "root", "", "attendance_tracking");
+                                    $fetch_query = "SELECT * FROM student";
+
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
                                     $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                     $fetch_query = "SELECT * FROM students";
+
                                     $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                     if (mysqli_num_rows($fetch_query_run) > 0) {
@@ -311,17 +326,19 @@ session_start();
                                                 <td><?php echo $row['grade_level'] ?></td>
                                                 <td><?php echo $row['section'] ?></td>
                                                 <td>
-                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
-                                                        data-firstname="<?php echo $row['first_name']; ?>"
-                                                        data-middlename="<?php echo $row['middle_name']; ?>"
-                                                        data-lastname="<?php echo $row['last_name']; ?>"
-                                                        data-contact="<?php echo $row['contact_number']; ?>"
-                                                        data-grade="<?php echo $row['grade_level']; ?>"
-                                                        data-section="<?php echo $row['section']; ?>" data-bs-toggle="modal"
-                                                        data-bs-target="#editStudentModal">Edit</a>
+                                                    <div class="d-flex gap-2 justify-content-center">
+                                                        <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
+                                                            data-firstname="<?php echo $row['first_name']; ?>"
+                                                            data-middlename="<?php echo $row['middle_name']; ?>"
+                                                            data-lastname="<?php echo $row['last_name']; ?>"
+                                                            data-contact="<?php echo $row['contact_number']; ?>"
+                                                            data-grade="<?php echo $row['grade_level']; ?>"
+                                                            data-section="<?php echo $row['section']; ?>" data-bs-toggle="modal"
+                                                            data-bs-target="#editStudentModal">Edit</a>
 
-                                                    <button class="btn btn-danger btn-remove btn-sm"
-                                                        data-id="<?php echo $row['first_name']; ?>">Remove</button>
+                                                        <button class="btn btn-danger btn-remove btn-sm"
+                                                            data-id="<?php echo $row['first_name']; ?>">Remove</button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <?php

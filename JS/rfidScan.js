@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function sendRFIDToServer(rfidNumber) {
-    fetch("/FinalCapstoneWebsite/PHP/insertAttendance.php", {
+    fetch("/CapstoneProjectBS/PHP/insertAttendance.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `rfid_number=${rfidNumber}`
@@ -37,7 +37,7 @@ function sendRFIDToServer(rfidNumber) {
 }
 
 function updateAttendanceTable() {
-    fetch("/FinalCapstoneWebsite/PHP/fetchAttendance.php")
+    fetch("/CapstoneProjectBS/PHP/fetchAttendance.php")
         .then(response => response.json())
         .then(data => {
             const table = document.getElementById("attendanceTable");

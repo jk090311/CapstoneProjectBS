@@ -1,51 +1,60 @@
 <?php 
 session_start();
 error_reporting(0);
+<<<<<<< HEAD
+$conn = mysqli_connect("localhost", "root", "", "educguarddb");
+=======
+>>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
+
+// Database connection
 $conn = mysqli_connect("localhost", "root", "", "educguarddb");
 
-    if(isset($_POST['login']))
-    {
-        $u_email = $_POST['email'];
+// Check if the form is submitted
+if(isset($_POST['login']))
+{
+    $u_email = mysqli_real_escape_string($conn, $_POST['email']);
+    $u_password = $_POST['password'];
 
-        $u_password = $_POST['password'];
+    // Use prepared statement to prevent SQL injection
+    $stmt = mysqli_prepare($conn, "SELECT user_email, user_password, user_role FROM user_acc WHERE user_email = ?");
+    mysqli_stmt_bind_param($stmt, "s", $u_email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-        $sql = "SELECT * FROM user_acc WHERE user_email = '".$u_email."'AND user_password = '".$u_password."'";
+    if($row = mysqli_fetch_assoc($result)) {
+        $hashedPassword = password_hash($u_password, PASSWORD_DEFAULT);
 
-        $result = mysqli_query($conn, $sql);
-
-        $row = mysqli_fetch_array($result);
-
-        if($row['user_role']=="admin")
-        {   
+        // Verify the hashed password
+        if(password_verify($u_password, $hashedPassword)) {
             $_SESSION['user_email'] = $u_email;
+            $_SESSION['user_role'] = $row['user_role'];
 
-            $_SESSION['user_role'] = "admin";
-            
-            header("location:dashboardAdmin.php");
+            // Redirect based on user role
+            if($row['user_role'] == "admin") {
+                header("location:dashboardAdmin.php");
+                exit();
+            } 
+            else if($row['user_role'] == "adviser") {
+                header("location:dashboardTeacher.php");
+                exit();
+            } 
+            else if($row['user_role'] == "student") {
+                header("location:dashboardStudent.php");
+                exit();
+            }
+        } else {
+            $_SESSION['message'] = "Invalid email or password.";
+            header("location: index.php");
+            exit();
         }
-        else if ($row['user_role']=="adviser")
-        {
-            $_SESSION['user_email'] = $u_email;
-
-            $_SESSION['user_role'] = "adviser";
-
-            header("location:./dashboardTeacher.php");
-        }
-        else if ($row['user_role']=="student")
-        {
-            $_SESSION['user_email'] = $u_email;
-
-            $_SESSION['user_role'] = "student";
-
-            header("location:dashboardStudent.php");
-        }
-        else
-        {
-            $_SESSION['message']="Invalid email or password";
-        }
+    } else {
+        $_SESSION['message'] = "No account found with this email.";
+        header("location: index.php");
+        exit();
     }
-
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,6 +117,6 @@ $conn = mysqli_connect("localhost", "root", "", "educguarddb");
     endif; ?>
 </script>
 
-<script src="/FinalCapstoneWebsite/JS/login.js"></script>
+<script src="/CapstoneProjectBS/JS/login.js"></script>
 </body>
 </html>

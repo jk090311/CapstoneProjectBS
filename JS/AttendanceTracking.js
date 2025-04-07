@@ -21,7 +21,7 @@ updateClock();
 function fetchAttendanceData() {
     console.log("Fetching updated attendance data...");
 
-    fetch("/FinalCapstoneWebsite/PHP/fetchAttendance.php")
+    fetch("/CapstoneProjectBS/PHP/fetchAttendance.php")
         .then(response => response.json())
         .then(data => {
             console.log("Updated Attendance Data:", data);
