@@ -1,4 +1,22 @@
 <?php include "../PHPmain/teacherNavbar.php"; ?>
+<?php
+// Database connection
+$conn = new mysqli("localhost", "root", "", "educguarddb");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch students from the database
+$sql = "SELECT first_name, middle_name, last_name FROM students";
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if (!$result) {
+    die("Error in SQL query: " . $conn->error);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,42 +53,31 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Student 1</td>
-                    <td><input type="number" name="quarter1_student1" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter2_student1" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter3_student1" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter4_student1" min="0" max="99" /></td>
-                    <td><input type="number" name="final_grade_student1" min="0" max="99" /></td>
-                </tr>
-                <tr>
-                    <td>Student 2</td>
-                    <td><input type="number" name="quarter1_student2" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter2_student2" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter3_student2" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter4_student2" min="0" max="99" /></td>
-                    <td><input type="number" name="final_grade_student2" min="0" max="99" /></td>
-                </tr>
-                <tr>
-                    <td>Student 3</td>
-                    <td><input type="number" name="quarter1_student3" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter2_student3" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter3_student3" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter4_student3" min="0" max="99" /></td>
-                    <td><input type="number" name="final_grade_student3" min="0" max="99" /></td>
-                </tr>
-                <tr>
-                    <td>Student 4</td>
-                    <td><input type="number" name="quarter1_student4" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter2_student4" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter3_student4" min="0" max="99" /></td>
-                    <td><input type="number" name="quarter4_student4" min="0" max="99" /></td>
-                    <td><input type="number" name="final_grade_student4" min="0" max="99" /></td>
-                </tr>
-                <!-- Add more students as needed -->
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td>
+                                <?php 
+                                    // Concatenate first_name, middle_name, and last_name
+                                    echo htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']); 
+                                ?>
+                            </td>
+                            <td><input type="number" name="quarter1_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td><input type="number" name="quarter2_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td><input type="number" name="quarter3_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td><input type="number" name="quarter4_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td><input type="number" name="final_grade_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="6">No students found.</td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
 </div>
 </body>
 </html>
+<?php $conn->close(); ?>

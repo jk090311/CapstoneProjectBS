@@ -1,0 +1,36 @@
+body {
+    background-image: url("/CapstoneProjectBS/Assets/background.jpg");
+    background-size:  1950px 1100px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin-top: 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+    background-color: #103a4e;
+    background-blend-mode: lighten;
+  
+  }
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin-top: 20%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.section {
+    margin-bottom: 20px;
+}
+.section h2 {
+    margin-top: 0;
+}
+.quick-links a {
+    display: block;
+    margin-bottom: 10px;
+    color: #007BFF;
+    text-decoration: none;
+}
+.quick-links a:hover {
+    text-decoration: underline;
+}

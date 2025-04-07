@@ -1,4 +1,18 @@
-<?php include "teacherNavbar.php" ?>
+<?php include "teacherNavbar.php"; ?>
+<?php session_start(); ?>
+<?php
+// Database connection
+$conn = new mysqli("localhost", "root", "", "educguarddb");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch subjects from the database
+$sql = "SELECT subject_name, subject_picture, link FROM subjects";
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,62 +32,22 @@
     
     <div class="page-content">
         <div class="subject-container">
-            
-            <a href="/CapstoneProjectBS/PHPsubject/science.php" class="subject-box">
-                <div class="subject-content">
-                    <img class="subject-img" src="../Assets/science.jpg">
-                    <div class="subject-title">Science</div>
-                </div>
-            </a>
-            
-            <a href="/CapstoneProjectBS/PHPsubject/mathematics.php" class="subject-box">
-                <div class="subject-content">
-                <img class="subject-img" src="../Assets/math.jpg">
-                    <div class="subject-title">Mathematics</div>
-                </div>
-            </a>
-            
-            <a href="/CapstoneProjectBS/PHPsubject/filipino.php" class="subject-box">
-                <div class="subject-content">
-                <img class="subject-img" src="../Assets/filipino.jpg">
-                    <div class="subject-title">Filipino</div>
-                </div>
-            </a>
-            
-            <a href="/CapstoneProjectBS/PHPsubject/english.php" class="subject-box">
-                <div class="subject-content">
-                <img class="subject-img" src="../Assets/english.jpg">
-                    <div class="subject-title">English</div>
-                </div>
-            </a>
-            
-            <a href="/CapstoneProjectBS/PHPsubject/Mapeh.php" class="subject-box">
-                <div class="subject-content">
-                <img class="subject-img" src="../Assets/mapeh.jpg">
-                    <div class="subject-title">MAPEH</div>
-                </div>
-            </a>
-            
-            <a href="/CapstoneProjectBS/PHPsubject/TLE.php" class="subject-box">
-                <div class="subject-content">
-                <img class="subject-img" src="../Assets/tle.jpg">
-                    <div class="subject-title">T.L.E.</div>
-                </div>
-            </a>
-            
-            <a href="/CapstoneProjectBS/PHPsubject/AP.php" class="subject-box">
-                <div class="subject-content">
-                <img class="subject-img" src="../Assets/ap.jpg">
-                    <div class="subject-title">AP</div>
-                </div>
-            </a>
-            
-            <a href="/CapstoneProjectBS/PHPsubject/ESP.php" class="subject-box">
-                <div class="subject-content">
-                <img class="subject-img" src="../Assets/esp.jpg">
-                    <div class="subject-title">ESP</div>
-                </div>
-            </a>
+            <?php
+            if ($result->num_rows > 0) {
+                // Output data for each subject
+                while ($row = $result->fetch_assoc()) {
+                    echo '<a href="' . $row['link'] . '" class="subject-box">
+                            <div class="subject-content">
+                                <img class="subject-img" src="' . (file_exists($row['subject_picture']) ? $row['subject_picture'] : '../Assets/default.jpg') . '">
+                                <div class="subject-title">' . $row['subject_name'] . '</div>
+                            </div>
+                          </a>';
+                }
+            } else {
+                echo "<p>No subjects available.</p>";
+            }
+            $conn->close();
+            ?>
         </div>
     </div>
 </body>

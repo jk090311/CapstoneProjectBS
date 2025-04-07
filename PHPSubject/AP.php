@@ -1,4 +1,22 @@
 <?php include "../PHPmain/teacherNavbar.php"; ?>
+<?php
+// Database connection
+$conn = new mysqli("localhost", "root", "", "educguarddb");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch students from the database
+$sql = "SELECT first_name, middle_name, last_name FROM students";
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if (!$result) {
+    die("Error in SQL query: " . $conn->error);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,38 +24,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Science</title>
     <link rel="stylesheet" href="../CSS/Teacher/science.css">
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            fetchStudents();
-        });
-
-        function fetchStudents() {
-            const sectionName = "Science"; // Replace with the actual section name
-            fetch(`/CapstoneProjectBS/PHP/fetchStudents.php?section=${sectionName}`)
-                .then(response => response.json())
-                .then(data => {
-                    const tbody = document.querySelector(".student-table tbody");
-                    tbody.innerHTML = "";
-                    data.forEach(student => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                            <td>${student.first_name} ${student.middle_name} ${student.last_name}</td>
-                            <td><input type="number" name="quarter1_${student.lrn}" /></td>
-                            <td><input type="number" name="quarter2_${student.lrn}" /></td>
-                            <td><input type="number" name="quarter3_${student.lrn}" /></td>
-                            <td><input type="number" name="quarter4_${student.lrn}" /></td>
-                            <td><input type="number" name="final_grade_${student.lrn}" /></td>
-                        `;
-                        tbody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Error fetching students:', error));
-        }
-    </script>
 </head>
 <body>
 <div class="background-image"></div>
-<div class="background-overlay"></div>
 
 <header class="header">
     <button class="menu-button">☰</button>
@@ -46,8 +35,8 @@
 </header>
 
 <div class="page-content">
-    <h1>Araling Panlipunan Subject</h1>
-    <p>Welcome to the Araling Panlipunan subject page. Here you will find all the resources and information related to Araling Panlipunan.</p>
+    <h1>Aralin Panlipunan Subject</h1>
+    <p>Welcome to the Aralin Panlipunan subject page. Here you will find all the resources and information related to Aralin Panlipunan.</p>
     
     <!-- Box for the list of students -->
     <div class="student-list-box">
@@ -64,10 +53,31 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Student rows will be populated here by JavaScript -->
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td>
+                                <?php 
+                                    // Concatenate first_name, middle_name, and last_name
+                                    echo htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']); 
+                                ?>
+                            </td>
+                            <td><input type="number" name="quarter1_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td><input type="number" name="quarter2_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td><input type="number" name="quarter3_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td><input type="number" name="quarter4_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td><input type="number" name="final_grade_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="6">No students found.</td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
 </div>
 </body>
 </html>
+<?php $conn->close(); ?>

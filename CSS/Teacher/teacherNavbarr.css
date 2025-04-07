@@ -1,8 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
     background-image: url("/CapstoneProjectBS/Assets/Background.jpg");
@@ -26,6 +21,12 @@ body::before {
     pointer-events: none;
     z-index: -1; /* Keep it behind the content */
 }
+.text-white {
+    color: white !important;
+    font-weight: bold;
+ 
+    
+}
 .container-fluid {
     display: flex;
     align-items: center;
@@ -42,12 +43,27 @@ body::before {
     height: 50px;
 }
 
-.sidebar{
-    background-color: rgba(0, 0, 139, 1);
-
+.sidebar {
+    background-color: #124E66 !important; /* Ensure blue background */
 }
-.navbar-nav a:hover{
-    background-color: #D3D3D3;
+
+.navbar-nav a:hover {
+    background-color: #124E66 !important; /* Match hover color */
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: inherit; /* Use the same background image */
+    background-size: inherit;
+    background-repeat: inherit;
+    background-attachment: inherit;
+    filter: blur(8px); /* Apply blur effect */
+    z-index: -1; /* Keep it behind the content */
 }
 
 #iconLeft{

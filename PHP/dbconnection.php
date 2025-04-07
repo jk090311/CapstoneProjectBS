@@ -2,7 +2,7 @@
 $servername = "localhost";  // Change if necessary
 $username = "root";         // Your database username
 $password = "";             // Your database password
-$database = "attendance_tracking"; // Your actual database name
+$database = "educguarddb"; // Your actual database name
 
 $conn = new mysqli($servername, $username, $password, $database);
 

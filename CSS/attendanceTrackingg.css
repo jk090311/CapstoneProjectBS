@@ -3,7 +3,7 @@
     width: 100%; /* Makes it match the navbar width */
     max-width: 1600px; /* Adjust based on navbar width */
     height: 80px; /* Reduce height to fit better */
-    background-color:  rgba(228, 13, 13, 0.8);;
+    background-color:  rgba(25, 38, 224, 0.8);;
     align-items: center;
     margin-top: 100px;
   }
