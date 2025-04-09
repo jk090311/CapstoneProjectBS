@@ -1,20 +1,27 @@
 <?php include "studentNavbar.php"?>
 
-<?php 
-
+<?php
 session_start();
 
-if(!isset($_SESSION['user_email']))
-{
-    header("location:../PHPmain/index.php");
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    // Not logged in, redirect to login page
+    header("Location: ../PHPmain/index.php");
+    exit();
 }
-else if($_SESSION['user_role'] == "admin")
-{
-    header("location:../PHPmain/index.php");
-}
-else if($_SESSION['user_role'] == "adviser")
-{
-    header("location:../PHPmain/index.php");
+
+
+$required_role = "student"; 
+if ($_SESSION['user_role'] != $required_role) {
+    
+    if ($_SESSION['user_role'] == "student") {
+        header("Location: ../PHPAdmin/dashboardStudent.php");
+    } else if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdviser/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "adviser") {
+        header("Location: dashboardTeacher.php");
+    }
+    exit();
 }
 
 ?>

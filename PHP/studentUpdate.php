@@ -15,7 +15,7 @@ if (isset($_POST['studentUpdate'])) {
     $section = $_POST['studentSection'];
 
     // Prepare and execute the update query
-    $update_query = "UPDATE student SET
+    $update_query = "UPDATE students SET
 
                         first_name = '$firstName', 
                         middle_name = '$middleName', 
@@ -31,11 +31,11 @@ if (isset($_POST['studentUpdate'])) {
 
     if ($update_query_run) {
         $_SESSION['status'] = "Student record updated successfully!";
-        header("Location: ../PHPmain/studentList.php");
+        header("Location: ../PHPAdmin/studentList.php");
         exit(0);
     } else {
         $_SESSION['status'] = "Student record update failed!";
-        header("Location: ../PHPmain/studentList.php");
+        header("Location: ../PHPAdmin/studentList.php");
         exit(0);
     }
 }

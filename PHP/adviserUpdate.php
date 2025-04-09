@@ -43,5 +43,5 @@ if(isset($_POST['adviserFullName']) && $_POST['action_type'] === 'edit') {
     $_SESSION['status'] = "Invalid request or missing data.";
 }
 
-header('Location: ../PHPmain/adminTeachers.php');
+header('Location: ../PHPAdmin/adminTeachers.php');
 exit();

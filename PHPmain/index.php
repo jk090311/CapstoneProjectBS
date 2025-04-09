@@ -1,10 +1,8 @@
 <?php 
 session_start();
 error_reporting(0);
-<<<<<<< HEAD
 $conn = mysqli_connect("localhost", "root", "", "educguarddb");
-=======
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
+
 
 // Database connection
 $conn = mysqli_connect("localhost", "root", "", "educguarddb");
@@ -21,24 +19,22 @@ if(isset($_POST['login']))
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-    if($row = mysqli_fetch_assoc($result)) {
-        $hashedPassword = password_hash($u_password, PASSWORD_DEFAULT);
+    if ($row = mysqli_fetch_assoc($result)) {
+        $storedHash = $row['user_password']; // Retrieve the stored hash
 
         // Verify the hashed password
-        if(password_verify($u_password, $hashedPassword)) {
+        if (password_verify($u_password, $storedHash)) {
             $_SESSION['user_email'] = $u_email;
             $_SESSION['user_role'] = $row['user_role'];
 
             // Redirect based on user role
-            if($row['user_role'] == "admin") {
-                header("location:dashboardAdmin.php");
+            if ($row['user_role'] == "admin") {
+                header("location:../PHPAdmin/dashboardAdmin.php");
                 exit();
-            } 
-            else if($row['user_role'] == "adviser") {
-                header("location:dashboardTeacher.php");
+            } else if ($row['user_role'] == "adviser") {
+                header("location:../PHPAdviser/dashboardTeacher.php");
                 exit();
-            } 
-            else if($row['user_role'] == "student") {
+            } else if ($row['user_role'] == "student") {
                 header("location:dashboardStudent.php");
                 exit();
             }

@@ -1,0 +1,11 @@
+.table {
+    margin: 0 auto; /* Centers the table horizontally */
+    width: 80%; /* Adjust the width as needed */
+}
+
+.card-body {
+    display: flex;
+    justify-content: center; /* Centers the table horizontally */
+    align-items: center; /* Centers the table vertically */
+    min-height: 100vh; /* Ensures the table is vertically centered within the viewport */
+}

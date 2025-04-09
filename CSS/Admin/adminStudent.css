@@ -168,11 +168,21 @@ h2.page-title {
 .btn-edit {
   width: 120px; /* Adjust the width for the Edit button */
   text-align: center;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
 }
 
 .btn-remove {
   width: 80px; /* Adjust the width for the Remove button */
   text-align: center;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-edit i, .btn-remove i {
+  font-size: 1rem; /* Adjust icon size */
 }
 
 /* Ensure buttons are aligned properly */
@@ -183,5 +193,5 @@ h2.page-title {
 }
 
 .gap-2 {
-  gap: 10px; /* Add spacing between buttons */
+  gap: 0; /* Remove spacing between buttons */
 }

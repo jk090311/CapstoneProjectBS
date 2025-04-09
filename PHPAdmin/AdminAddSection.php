@@ -11,7 +11,9 @@ error_reporting(E_ALL);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Sections</title>
-    <link rel="stylesheet" href="../CSS/Admin/adminTeacherss.css">
+    <link rel="stylesheet" href="../CSS/Admin/adminTeachers.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -137,16 +139,22 @@ error_reporting(E_ALL);
                                             <td><?php echo $row['section_name'] ?></td>
                                             <td><?php echo $row['section_year_level'] ?></td>
                                             <td>
+                                                <!-- Edit Button with Icon -->
                                                 <a href="#" class="btn btn-warning btn-sm edit_data"
                                                     data-id="<?php echo $row['section_id']; ?>"
                                                     data-SectionName="<?php echo $row['section_name']; ?>"
                                                     data-GradeLevel="<?php echo $row['section_year_level']; ?>"
-                                                    data-bs-toggle="modal" data-bs-target="#editSection">Edit</a>
+                                                    data-bs-toggle="modal" data-bs-target="#editSection">
+                                                    <i class="fas fa-edit"></i> <!-- Font Awesome Edit Icon -->
+                                                </a>
 
+                                                <!-- Delete Button with Icon -->
                                                 <form action="../PHP/adminSectionDelete.php" method="POST" style="display:inline;">
                                                     <input type="hidden" name="section_id"
                                                         value="<?php echo $row['section_id']; ?>">
-                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i> <!-- Font Awesome Trash Icon -->
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>

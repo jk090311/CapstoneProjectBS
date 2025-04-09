@@ -2,17 +2,10 @@
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../CSS/Teacher/teacherNavbarr.css">
-=======
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/Teacher/teacherNavbarr.css">
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
+  <link rel="stylesheet" href="../CSS/Teacher/teacherNavbar.css">
 </head>
 
 <body>
@@ -29,7 +22,7 @@
         </a>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="logout.php">
+        <a href="../PHPmain/logout.php">
           <button class="btn btn-danger" type="button">Log Out</button>
         </a>
       </div>
@@ -44,46 +37,33 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPmain/dashboardTeacher.php">
+            <a class="nav-link active" aria-current="page" href="../PHPAdviser/dashboardTeacher.php">
               <img id="iconLeft" src="../Assets/data-analysis_12959229.png" alt="Dashboard Icon">
               Dashboard
             </a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img id="iconLeft" src="../Assets/report_6896653.png" alt="Reports Icon">
-              Reports
+            <a class="nav-link dropdown-toggle" href="#" id="reportDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Report Icon">
+              Report
             </a>
-            <a class="nav-link active" aria-current="page" href="../PHPmain/TeacherMessages.php">
-
-              <img id="iconLeft" src="../Assets/data-analysis_12959229.png" alt="Messages Icon">
-<<<<<<< HEAD
-              Messages </a>
-=======
-              Messages            </a>
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../PHPmain/reportSystem.php">Subjects</a></li>
-              <li><a class="dropdown-item" href="#">Card reports</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+              <li><a class="dropdown-item" href="adviserStudList.php">Student List</a></li>
+             <li><a class="dropdown-item" href="reportSystem.php">Subject Grades</a></li>
+              <li><a class="dropdown-item" href="#">Grade Report</a></li>/ 
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link active" aria-current="page" href="TeacherMessages.php">
               <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
-              Grade
+              Message
             </a>
-<<<<<<< HEAD
-          </li>          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPmain/adminSubject.php">
-              <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../PHPAdviser/adviserSubject.php">
+              <img id="iconLeft" src="../Assets/books.png" alt="Subject Icon">
               Subject
             </a>
-=======
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
           </li>
         </ul>
       </div>
@@ -91,8 +71,4 @@
   </nav>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<<<<<<< HEAD
-
-=======
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
 </html>

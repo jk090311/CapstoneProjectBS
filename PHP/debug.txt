@@ -1,8 +1,4 @@
 POST data: Array
 (
-<<<<<<< HEAD
-    [adviserFullName] => sdasd
-=======
     [adviserFullName] => Maria Josefa Cruz
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
 )

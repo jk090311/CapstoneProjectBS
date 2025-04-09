@@ -81,9 +81,26 @@
                 <div class="inputGroup">
                     <label for="section">Section</label>
                     <select id="section" name="section" required>
-                        <option value="Aqua">Aqua</option>
-                        <option value="Bronze">Bronze</option>
-                        <option value="Crank">Crank</option>
+                        <?php
+                        $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+
+                        if (!$connection) {
+                            die("Connection failed: " . mysqli_connect_error());
+                        }
+
+                        $section_query = "SELECT section_name FROM class_section";
+                        $section_query_run = mysqli_query($connection, $section_query);
+
+                        if (mysqli_num_rows($section_query_run) > 0) {
+                            while ($section = mysqli_fetch_assoc($section_query_run)) {
+                                echo '<option value="' . $section['section_name'] . '">' . $section['section_name'] . '</option>';
+                            }
+                        } else {
+                            echo '<option value="">No Sections Available</option>';
+                        }
+
+                        mysqli_close($connection);
+                        ?>
                     </select>
                 </div>
             </div>
@@ -124,6 +141,10 @@
                         <option value="inactive">Inactive</option>
                     </select>
                 </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="text" id="password" name="password" class="form-control" placeholder="Password" required>
             </div>
 
             <div class="buttons">

@@ -1,13 +1,10 @@
-  .datetimeBox{
+.datetimeBox{
     border-radius: 50px;
     width: 100%; /* Makes it match the navbar width */
     max-width: 1600px; /* Adjust based on navbar width */
     height: 80px; /* Reduce height to fit better */
-<<<<<<< HEAD
     background-color:  rgba(228, 13, 13, 0.8);;
-=======
     background-color:  rgba(25, 38, 224, 0.8);;
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
     align-items: center;
     margin-top: 100px;
   }
@@ -49,21 +46,41 @@
         font-size: 1em;
     }
 }
+
+#inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px; /* Adds spacing between the RFID input and date box */
+}
+
 #rfidContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: 40%;
+    width: auto;
 }
 
 #rfidInput {
-  padding: 5px;
-  font-size:0.5 em;
-  border: 2px solid #555;
-  border-radius: 5px;
-  width: 300px;
-  text-align: center;
+    padding: 5px;
+    font-size: 1em;
+    border: 2px solid #555;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
 }
+
+#dateContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#filterDate {
+    padding: 5px;
+    font-size: 1em;
+    border: 2px solid #555;
+    border-radius: 5px;
+}
+
 #attendanceContainer {
   display: flex;
   justify-content: center;

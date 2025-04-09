@@ -19,15 +19,10 @@ updateClock();
 
 
 function fetchAttendanceData() {
-    console.log("Fetching updated attendance data...");
-
-    fetch("/CapstoneProjectBS/PHP/fetchAttendance.php")
+    fetch("../PHP/fetchAttendance.php")
         .then(response => response.json())
         .then(data => {
-            console.log("Updated Attendance Data:", data);
-
             let tableBody = document.getElementById("attendanceTable");
-
             tableBody.innerHTML = `
                 <tr>
                     <th>RFID Number</th>
@@ -37,7 +32,6 @@ function fetchAttendanceData() {
                     <th>Date Logged</th>
                 </tr>
             `;
-
             data.forEach(row => {
                 let newRow = document.createElement("tr");
                 newRow.innerHTML = `

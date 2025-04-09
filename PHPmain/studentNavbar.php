@@ -33,7 +33,7 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPmain/dashboardAdmin.php">
+            <a class="nav-link active" aria-current="page" href="../PHPmain/dashboardStudent.php">
             <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
             Dashboard</a>
           </li>

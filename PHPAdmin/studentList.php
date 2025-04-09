@@ -10,6 +10,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Students</title>
     <link rel="stylesheet" href="../CSS/Admin/adminStudent.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -79,6 +80,8 @@ session_start();
                                 // Fetch sections from the database
                                 $section_query = "SELECT section_name FROM class_section"; // Replace 'sections' and 'section_name' with your actual table and column names
                                 $section_query_run = mysqli_query($connection, $section_query);
+
+                                var_dump(mysqli_fetch_assoc($section_query_run));
 
                                 // Populate the dropdown with sections
                                 if (mysqli_num_rows($section_query_run) > 0) {
@@ -182,7 +185,7 @@ session_start();
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="edit_studentSection" class="form-label">Section</label>
-                                                    <select id="edit_studentSection" name="studentSection"
+                                                    <select id="section" name="section"
                                                         class="form-control" required>
                                                         <?php
                                                         // Connect to the database
@@ -267,7 +270,7 @@ session_start();
 
                                                 <div class="form-group mb-3">
                                                     <label for="password" class="form-label">Password</label>
-                                                    <input type="text" id="password" name="p    assword"
+                                                    <input type="text" id="password" name="password"
                                                         class="form-control" placeholder="Password" required>
                                                 </div>
 
@@ -303,13 +306,10 @@ session_start();
                                 </thead>
                                 <tbody>
                                     <?php
-<<<<<<< HEAD
-=======
 
-                                    $connection = mysqli_connect("localhost", "root", "", "attendance_tracking");
+                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                     $fetch_query = "SELECT * FROM student";
 
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
                                     $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                     $fetch_query = "SELECT * FROM students";
 
@@ -327,17 +327,23 @@ session_start();
                                                 <td><?php echo $row['section'] ?></td>
                                                 <td>
                                                     <div class="d-flex gap-2 justify-content-center">
+                                                        <!-- Edit Button -->
                                                         <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
                                                             data-firstname="<?php echo $row['first_name']; ?>"
                                                             data-middlename="<?php echo $row['middle_name']; ?>"
                                                             data-lastname="<?php echo $row['last_name']; ?>"
                                                             data-contact="<?php echo $row['contact_number']; ?>"
                                                             data-grade="<?php echo $row['grade_level']; ?>"
-                                                            data-section="<?php echo $row['section']; ?>" data-bs-toggle="modal"
-                                                            data-bs-target="#editStudentModal">Edit</a>
+                                                            data-section="<?php echo $row['section']; ?>" 
+                                                            data-bs-toggle="modal" data-bs-target="#editStudentModal">
+                                                            <i class="fas fa-edit"></i> <!-- Font Awesome Edit Icon -->
+                                                        </a>
 
+                                                        <!-- Remove Button -->
                                                         <button class="btn btn-danger btn-remove btn-sm"
-                                                            data-id="<?php echo $row['first_name']; ?>">Remove</button>
+                                                            data-id="<?php echo $row['first_name']; ?>">
+                                                            <i class="fas fa-trash"></i> <!-- Font Awesome Trash Icon -->
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>

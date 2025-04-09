@@ -9,7 +9,9 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Teachers</title>
-    <link rel="stylesheet" href="../CSS/Admin/adminTeacherss.css">
+    <link rel="stylesheet" href="../CSS/Admin/adminTeachers.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -56,7 +58,7 @@ session_start();
 
                                 <label for="adviserSection" class="form-label">Section</label>
                                 <select id="adviserSection" name="adviserSection" class="form-control" required>
-<<<<<<< HEAD
+                                    <option value="">Select Section</option>
                                     <?php
                                     // Connect to the database
                                     $connection = mysqli_connect("localhost", "root", "", "educguarddb");
@@ -82,79 +84,14 @@ session_start();
                                     // Close the database connection
                                     mysqli_close($connection);
                                     ?>
-=======
-                                    <option value="">Select Section</option>
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
                                 </select>
                             </div>
 
-
-<<<<<<< HEAD
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary" onclick="showPart(2)">Next</button>
-=======
-                            <?php
-                            // Connect to the database
-                            $connection = mysqli_connect("localhost", "root", "", "educguarddb");
-
-                            // Check connection
-                            if (!$connection) {
-                                die("Connection failed: " . mysqli_connect_error());
-                            }
-
-                            // Fetch sections from the database
-                            $query = "SELECT section_name FROM class_section";
-                            $query_run = mysqli_query($connection, $query);
-
-                            // Loop through the results and create <option> tags
-                            if (mysqli_num_rows($query_run) > 0) {
-                                while ($row = mysqli_fetch_assoc($query_run)) {
-                                    echo '<option value="' . htmlspecialchars($row['section_name']) . '">' . htmlspecialchars($row['section_name']) . '</option>';
-                                }
-                            } else {
-                                echo '<option value="">No Sections Available</option>';
-                            }
-
-                            // Close the database connection
-                            mysqli_close($connection);
-                            ?>
-                            </select>
-                        </div>
-
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" onclick="showPart(2)">Next</button>
-                        </div>
-                    </div>
-
-
-
-                    <!-- Second Form: Email Address and Password -->
-                    <div class="part" id="part2" style="display: none;">
-
-                        <div class="modal-body">
-                            <h5 class="mb-3">Account Details</h5>
-                            <div class="form-row">
-                                <div class="form-group mb-3">
-                                    <label for="adviserEmailAddress" class="form-label">Email Address</label>
-                                    <input type="text" id="adviserEmailAddress" name="adviserEmailAddress"
-                                        class="form-control" placeholder="Email Address" required>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group mb-3">
-                                    <label for="adviserPassword" class="form-label">Password</label>
-                                    <input type="text" id="adviserPassword" name="adviserPassword"
-                                        class="form-control" placeholder="Password" required>
-                                </div>
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
                             </div>
                         </div>
-
-
 
                         <!-- Second Form: Email Address and Password -->
                         <div class="part" id="part2" style="display: none;">
@@ -220,10 +157,9 @@ session_start();
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Contact Number</th>
                                     <th scope="col">Email Address</th>
-<<<<<<< HEAD
+
                                     <th scope="col">Password</th>
-=======
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
+
                                     <th scope="col">Grade Level</th>
                                     <th scope="col">Section</th>
                                     <th scope="col">Action</th>
@@ -231,13 +167,9 @@ session_start();
                             </thead>
                             <tbody>
                                 <?php
-
-<<<<<<< HEAD
-=======
-                                $connection = mysqli_connect("localhost", "root", "", "adviser_list");
+                                $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                 $fetch_query = "SELECT * FROM adviser";
 
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
                                 $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                 $fetch_query = "SELECT * FROM advisers";
 
@@ -250,61 +182,36 @@ session_start();
                                             <td><?php echo $row['adviserFullName'] ?></td>
                                             <td><?php echo $row['adviserContactNumber'] ?></td>
                                             <td><?php echo $row['adviserEmailAddress'] ?></td>
-<<<<<<< HEAD
-                                            <td><?php echo $row['adviserPassword'] ?></td>
-                                            <td><?php echo $row['adviserGrLvl'] ?></td>
-                                            <td><?php echo $row['adviserSection'] ?></td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
-                                                    data-name="<?php echo $row['adviserFullName']; ?>"
-                                                    data-contact="<?php echo $row['adviserContactNumber']; ?>"
-                                                    data-email="<?php echo $row['adviserEmailAddress']; ?>"
-                                                    data-password="<?php echo $row['adviserPassword']; ?>"
-                                                    data-grade="<?php echo $row['adviserGrLvl']; ?>"
-                                                    data-section="<?php echo $row['adviserSection']; ?>" data-bs-toggle="modal"
-                                                    data-bs-target="#addTeacher">Edit</a>
-=======
+                                            <td><?php echo $row['adviserPlainPassword'] ?></td> <!-- Display unhashed password -->
                                             <td><?php echo $row['adviserGrLvl'] ?></td>
                                             <td><?php echo $row['adviserSection'] ?></td>
                                             <td>
                                                 <div class="d-flex gap-2">
+                                                    <!-- Edit Button with Icon -->
                                                     <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
                                                         data-name="<?php echo $row['adviserFullName']; ?>"
                                                         data-contact="<?php echo $row['adviserContactNumber']; ?>"
                                                         data-email="<?php echo $row['adviserEmailAddress']; ?>"
+                                                        data-password="<?php echo $row['adviserPassword']; ?>"
                                                         data-grade="<?php echo $row['adviserGrLvl']; ?>"
-                                                        data-section="<?php echo $row['adviserSection']; ?>" data-bs-toggle="modal"
-                                                        data-bs-target="#addTeacher">Edit</a>
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
+                                                        data-section="<?php echo $row['adviserSection']; ?>" 
+                                                        data-bs-toggle="modal" data-bs-target="#addTeacher">
+                                                        <i class="fas fa-edit"></i> <!-- Font Awesome Edit Icon -->
+                                                    </a>
 
-                                                    <button class="btn btn-danger btn-remove btn-sm"
-                                                        data-id="<?php echo $row['adviserFullName']; ?>"
-                                                        onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">Remove</button>
+                                                    <!-- Remove Button with Icon -->
+                                                    <button class="btn btn-danger btn-remove btn-sm" onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">
+                                                        <i class="fas fa-trash-alt"></i> <!-- Font Awesome Trash Icon -->
+                                                    </button>
                                                 </div>
                                             </td>
-                                            <script>
-                                                function removeAdviser(adviserFullName) {
-                                                    if (confirm("Are you sure you want to remove this adviser?")) {
-                                                        var xhr = new XMLHttpRequest();
-                                                        xhr.open("POST", "../PHP/adviserRemove.php", true);
-                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                        xhr.onreadystatechange = function() {
-                                                            if (xhr.readyState === 4 && xhr.status === 200) {
-                                                                alert(xhr.responseText);
-                                                                location.reload();
-                                                            }
-                                                        };
-                                                        xhr.send("adviserFullName=" + adviserFullName);
-                                                    }
-                                                }
-                                            </script>
                                         </tr>
                                     <?php
                                     }
                                 } else {
                                     ?>
                                     <tr>
-                                        <td colspan="5">No Records Found</td>
+                                        <td colspan="7">No Records Found</td>
                                     </tr>
                                 <?php
                                 }

@@ -124,3 +124,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+function removeAdviser(adviserFullName) {
+    if (confirm("Are you sure you want to remove this adviser?")) {
+        // Send an AJAX request to remove the adviser
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "../PHP/adviserRemove.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                alert(xhr.responseText); // Show success or error message
+                location.reload(); // Reload the page to update the table
+            } else {
+                alert("An error occurred while removing the adviser.");
+            }
+        };
+
+        xhr.send("adviserFullName=" + encodeURIComponent(adviserFullName));
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const nextBtn = document.getElementById("nextBtn");
+    const part1 = document.getElementById("part1");
+    const part2 = document.getElementById("part2");
+
+    nextBtn.addEventListener("click", function () {
+        // Hide part 1 and show part 2
+        part1.style.display = "none";
+        part2.style.display = "block";
+    });
+});

@@ -1,4 +1,4 @@
-<?php include "../PHPmain/teacherNavbar.php"; ?>
+<?php include "../PHPAdviser/teacherNavbar.php"; ?>
 <?php
 // Database connection
 $conn = new mysqli("localhost", "root", "", "educguarddb");
@@ -50,6 +50,7 @@ if (!$result) {
                     <th>Quarter 3</th>
                     <th>Quarter 4</th>
                     <th>Final Grade</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,16 +68,20 @@ if (!$result) {
                             <td><input type="number" name="quarter3_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
                             <td><input type="number" name="quarter4_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
                             <td><input type="number" name="final_grade_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
+                            <td>
+                                <button type="submit" name="submit_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>">Submit</button>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="6">No students found.</td>
+                        <td colspan="7">No students found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
     </div>
+    <a class="back-button" href="../PHPAdviser/reportSystem.php">Back</a>
 </div>
 </body>
 </html>
