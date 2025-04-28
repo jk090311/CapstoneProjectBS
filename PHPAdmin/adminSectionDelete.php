@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success_message'] = "Section deleted successfully!";
-        header("Location: ../PHPmain/AdminAddSection.php"); // Updated redirect location
+        header("Location: ../PHPAdmin/AdminAddSection.php"); // Updated redirect location
         exit();
     } else {
         echo "Error deleting record: " . $conn->error;

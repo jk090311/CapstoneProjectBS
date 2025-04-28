@@ -26,12 +26,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `admin_acc`
 --
-<<<<<<< HEAD
-=======
-CREATE DATABASE IF NOT EXISTS educguarddb;
-USE educguarddb;
-
->>>>>>> 83d09df69ff489831a8ab36bbd0a83ca4b1e2d81
 
 CREATE TABLE `admin_acc` (
   `admin_id` int(11) NOT NULL,
@@ -104,21 +98,25 @@ INSERT INTO `attendance` (`id`, `rfid_number`, `first_name`, `last_name`, `time_
 CREATE TABLE `class_section` (
   `section_id` int(11) NOT NULL,
   `section_name` varchar(100) DEFAULT NULL,
-  `section_year_level` varchar(50) DEFAULT NULL
+  `section_grade_level` varchar(50) DEFAULT NULL,
+  `section_year_start_level` year(4) DEFAULT NULL,
+  `section_year_end_level` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `class_section`
 --
 
-INSERT INTO `class_section` (`section_id`, `section_name`, `section_year_level`) VALUES
-(14, 'GOLD', '7'),
-(15, 'SILVER', '10'),
-(16, 'BRONZE', '9'),
-(17, 'DIAMOND', '10'),
-(18, 'COPPER', '7'),
-(19, 'METAL', '8'),
-(21, 'ROBOT', '10');
+INSERT INTO `class_section` (`section_id`, `section_name`, `section_grade_level`,`section_year_start_level`,`section_year_end_level`) VALUES
+(14, 'GOLD', '7', '2024','2025'),
+(15, 'SILVER', '10', '2024','2025'),
+(16, 'BRONZE', '9', '2024','2025'),
+(17, 'DIAMOND', '10', '2024','2025'),
+(18, 'COPPER', '7', '2024','2025'),
+(19, 'METAL', '8', '2024','2025'),
+(20, 'ROBOT', '10', '2024','2025'),
+(21, 'PLATINUM', '9', '2024','2025'),
+(22, 'SILVER', '7', '2024','2025');
 
 -- --------------------------------------------------------
 
@@ -137,6 +135,7 @@ CREATE TABLE `students` (
   `sex` enum('Male','Female') DEFAULT NULL,
   `contact_number` varchar(15) DEFAULT NULL,
   `grade_level` varchar(20) DEFAULT NULL,
+  `year_level` varchar(20) DEFAULT NULL,
   `address` text DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `parent_guardian_name` varchar(100) DEFAULT NULL,
@@ -152,15 +151,15 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `lrn`, `rfid_number`, `first_name`, `middle_name`, `last_name`, `birthdate`, `sex`, `contact_number`, `grade_level`, `address`, `email`, `parent_guardian_name`, `parent_guardian_number`, `parent_guardian_email`, `student_username`, `status`, `created_at`, `section`) VALUES
-(17, '954527163', '1308825062', 'Jerry', 'Libero', 'Castrudes', '2004-07-20', '', '09325520318', '9', '5264 STARAPPLE STREET GEN. T. DE LEON', 'blenderjk9@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'jk0903', 'Active', '2025-02-24 16:56:46', 'SILVER'),
-(19, '987654321', '1308396166', 'Juliana', 'Libero', 'Castrudes', '2003-01-16', '', '09325520318', '7', '5264 STARAPPLE STREET GEN. T. DE LEON', '110903kirby@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'wow', 'Active', '2025-02-24 17:25:18', 'COPPER'),
-(20, '104961090109', '1601793334', 'rianne', 'gonzales', 'saquez', '2004-09-13', '', '09463182232', '7', 'oslo, norway', 'rianne@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'assie', 'Active', '2025-02-24 17:53:36', 'COPPER'),
-(21, '104961090105', '1603665222', 'Marvin', 'Cyrill', 'Palomar', '2003-02-10', '', '09605470308', '7', '5264 STARAPPLE STREET GEN. T. DE LEON, VALENZUELA', 'marvin20@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'marvs', 'Active', '2025-02-24 19:26:05', 'METAL'),
-(23, '987654321444', '1077729142', 'gfghfgf', 'hjghjghq', 'ghffgfghfqq', '2025-02-13', '', '09325520318', '7', 'nnbnbnmbnbnm', '123@gmail.com', 'ghhgfhgfgfdf', '22412154561654', 'fghfghfgf@gmail.com', 'hghgjhgg', 'Active', '2025-02-24 20:04:07', 'COPPER'),
-(31, '101909202303', '1309220678', 'Roger', 'Espina', 'Cabaylo', '2004-08-27', '', '09761206372', '7', '5264 STARAPPLE STREET GEN. T. DE LEON', 'rogerpogi@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'rogerpogi', 'Active', '2025-03-03 20:07:52', 'DIAMOND'),
-(32, 't6345345', '4523423', 'fqweff', 'ewfcewf', 'qwedfqf', '2025-03-14', '', '123123213', '9', 'fedvwv', 'fdsg@gmail.com', 'evcwwe', '312412', 'svsD@gmail.com', 'dfgberhbt', 'Inactive', '2025-03-26 04:58:26', 'METAL'),
-(33, '34123412', '4234124312', 'visayass', 'luzonn', 'mindanao', '2025-03-13', '', '2321421321412', '8', 'bfciabfciuqwoucbqj', 'dbgrehrtb@gmail.com', 'csdvavcas', '324214312', 'asdasvsd@gmail.com', 'ibibibibi', 'Active', '2025-03-26 04:59:32', 'COPPER');
+INSERT INTO `students` (`id`, `lrn`, `rfid_number`, `first_name`, `middle_name`, `last_name`, `birthdate`, `sex`, `contact_number`, `grade_level`,`year_level`, `address`, `email`, `parent_guardian_name`, `parent_guardian_number`, `parent_guardian_email`, `student_username`, `status`, `created_at`, `section`) VALUES
+(17, '954527163', '1308825062', 'Jerry', 'Libero', 'Castrudes', '2004-07-20', '', '09325520318', '9', '2024-2025','5264 STARAPPLE STREET GEN. T. DE LEON', 'blenderjk9@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'jk0903', 'Active', '2025-02-24 16:56:46', 'SILVER'),
+(19, '987654321', '1308396166', 'Juliana', 'Libero', 'Castrudes', '2003-01-16', '', '09325520318', '7','2024-2025', '5264 STARAPPLE STREET GEN. T. DE LEON', '110903kirby@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'wow', 'Active', '2025-02-24 17:25:18', 'COPPER'),
+(20, '104961090109', '1601793334', 'rianne', 'gonzales', 'saquez', '2004-09-13', '', '09463182232', '7','2024-2025', 'oslo, norway', 'rianne@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'assie', 'Active', '2025-02-24 17:53:36', 'COPPER'),
+(21, '104961090105', '1603665222', 'Marvin', 'Cyrill', 'Palomar', '2003-02-10', '', '09605470308', '7','2024-2025', '5264 STARAPPLE STREET GEN. T. DE LEON, VALENZUELA', 'marvin20@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'marvs', 'Active', '2025-02-24 19:26:05', 'METAL'),
+(23, '987654321444', '1077729142', 'gfghfgf', 'hjghjghq', 'ghffgfghfqq', '2025-02-13', '', '09325520318', '7','2024-2025','nnbnbnmbnbnm', '123@gmail.com', 'ghhgfhgfgfdf', '22412154561654', 'fghfghfgf@gmail.com', 'hghgjhgg', 'Active', '2025-02-24 20:04:07', 'COPPER'),
+(31, '101909202303', '1309220678', 'Roger', 'Espina', 'Cabaylo', '2004-08-27', '', '09761206372', '7','2024-2025', '5264 STARAPPLE STREET GEN. T. DE LEON', 'rogerpogi@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'rogerpogi', 'Active', '2025-03-03 20:07:52', 'DIAMOND'),
+(32, 't6345345', '4523423', 'fqweff', 'ewfcewf', 'qwedfqf', '2025-03-14', '', '123123213', '9', 'fedvwv', '2024-2025','fdsg@gmail.com', 'evcwwe', '312412', 'svsD@gmail.com', 'dfgberhbt', 'Inactive', '2025-03-26 04:58:26', 'METAL'),
+(33, '34123412', '4234124312', 'visayass', 'luzonn', 'mindanao', '2025-03-13', '', '2321421321412', '8','2024-2025', 'bfciabfciuqwoucbqj', 'dbgrehrtb@gmail.com', 'csdvavcas', '324214312', 'asdasvsd@gmail.com', 'ibibibibi', 'Active', '2025-03-26 04:59:32', 'COPPER');
 
 -- --------------------------------------------------------
 

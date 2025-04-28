@@ -9,9 +9,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Teachers</title>
-    <link rel="stylesheet" href="../CSS/Admin/adminTeachers.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/Admin/adminTeacherss.css">
 </head>
 
 <body>
@@ -49,16 +47,16 @@ session_start();
                             <div class="form-group mb-3">
                                 <label for="adviserGrLvl" class="form-label">Grade Level</label>
                                 <select id="adviserGrLvl" name="adviserGrLvl" class="form-control" required>
-                                    <option value="">Select Grade Level</option>
                                     <option value="7">Grade 7</option>
                                     <option value="8">Grade 8</option>
                                     <option value="9">Grade 9</option>
                                     <option value="10">Grade 10</option>
                                 </select>
+                            </div>
 
+                            <div class="form-group mb-3">
                                 <label for="adviserSection" class="form-label">Section</label>
                                 <select id="adviserSection" name="adviserSection" class="form-control" required>
-                                    <option value="">Select Section</option>
                                     <?php
                                     // Connect to the database
                                     $connection = mysqli_connect("localhost", "root", "", "educguarddb");
@@ -87,11 +85,14 @@ session_start();
                                 </select>
                             </div>
 
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary" onclick="showPart(2)">Next</button>
                             </div>
                         </div>
+
+
 
                         <!-- Second Form: Email Address and Password -->
                         <div class="part" id="part2" style="display: none;">
@@ -122,10 +123,9 @@ session_start();
                             </div>
                         </div>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
-    </div>
     </div>
     </div>
 
@@ -134,12 +134,12 @@ session_start();
             <div class="col-md-8">
                 <?php
                 if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                ?>
+                    ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <?php echo $_SESSION['status']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                <?php
+                    <?php
                     unset($_SESSION['status']);
                 }
                 ?>
@@ -157,9 +157,7 @@ session_start();
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Contact Number</th>
                                     <th scope="col">Email Address</th>
-
                                     <th scope="col">Password</th>
-
                                     <th scope="col">Grade Level</th>
                                     <th scope="col">Section</th>
                                     <th scope="col">Action</th>
@@ -167,49 +165,60 @@ session_start();
                             </thead>
                             <tbody>
                                 <?php
+
                                 $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                 $fetch_query = "SELECT * FROM advisers";
-
                                 $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                 if (mysqli_num_rows($fetch_query_run) > 0) {
                                     while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                ?>
+                                        ?>
                                         <tr>
                                             <td><?php echo $row['adviserFullName'] ?></td>
                                             <td><?php echo $row['adviserContactNumber'] ?></td>
                                             <td><?php echo $row['adviserEmailAddress'] ?></td>
-                                            <td>***********</td> <!-- Do not display plain passwords -->
+                                            <td><?php echo $row['adviserPassword'] ?></td>
                                             <td><?php echo $row['adviserGrLvl'] ?></td>
                                             <td><?php echo $row['adviserSection'] ?></td>
                                             <td>
-                                                <div class="d-flex gap-2">
-                                                    <!-- Edit Button with Icon -->
-                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
-                                                        data-name="<?php echo $row['adviserFullName']; ?>"
-                                                        data-contact="<?php echo $row['adviserContactNumber']; ?>"
-                                                        data-email="<?php echo $row['adviserEmailAddress']; ?>"
-                                                        data-grade="<?php echo $row['adviserGrLvl']; ?>"
-                                                        data-section="<?php echo $row['adviserSection']; ?>" 
-                                                        data-bs-toggle="modal" data-bs-target="#addTeacher">
-                                                        <i class="fas fa-edit"></i> <!-- Font Awesome Edit Icon -->
-                                                    </a>
+                                                <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
+                                                    data-name="<?php echo $row['adviserFullName']; ?>"
+                                                    data-contact="<?php echo $row['adviserContactNumber']; ?>"
+                                                    data-email="<?php echo $row['adviserEmailAddress']; ?>"
+                                                    data-password="<?php echo $row['adviserPassword']; ?>"
+                                                    data-grade="<?php echo $row['adviserGrLvl']; ?>"
+                                                    data-section="<?php echo $row['adviserSection']; ?>" data-bs-toggle="modal"
+                                                    data-bs-target="#addTeacher">Edit</a>
 
-                                                    <!-- Remove Button with Icon -->
-                                                    <button class="btn btn-danger btn-remove btn-sm" onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">
-                                                        <i class="fas fa-trash-alt"></i> <!-- Font Awesome Trash Icon -->
-                                                    </button>
-                                                </div>
+                                                <button class="btn btn-danger btn-remove btn-sm"
+                                                    data-id="<?php echo $row['adviserFullName']; ?>"
+                                                    onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">Remove</button>
                                             </td>
+                                            <script>
+                                                function removeAdviser(adviserFullName) {
+                                                    if (confirm("Are you sure you want to remove this adviser?")) {
+                                                        var xhr = new XMLHttpRequest();
+                                                        xhr.open("POST", "../PHP/adviserRemove.php", true);
+                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                        xhr.onreadystatechange = function () {
+                                                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                                                alert(xhr.responseText);
+                                                                location.reload();
+                                                            }
+                                                        };
+                                                        xhr.send("adviserFullName=" + adviserFullName);
+                                                    }
+                                                }
+                                            </script>
                                         </tr>
-                                    <?php
+                                        <?php
                                     }
                                 } else {
                                     ?>
                                     <tr>
-                                        <td colspan="7">No Records Found</td>
+                                        <td colspan="5">No Records Found</td>
                                     </tr>
-                                <?php
+                                    <?php
                                 }
 
                                 ?>
