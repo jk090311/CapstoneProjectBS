@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .datetimeBox {
   border-radius: 10px;
   width: 100%; /* Makes it match the navbar width */
@@ -65,10 +66,65 @@
   width: auto;
   display: flex;
   justify-content: center; /* Center content */
+=======
+  .datetimeBox{
+    border-radius: 50px;
+    width: 100%; /* Makes it match the navbar width */
+    max-width: 1600px; /* Adjust based on navbar width */
+    height: 80px; /* Reduce height to fit better */
+    background-color:  rgba(25, 38, 224, 0.8);;
+    align-items: center;
+    margin-top: 100px;
+  }
+  
+  .datetimeAlign{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 20%; 
+    margin: 20px;
+    padding: 15px;
+  }
+
+  #clock{
+    font-size: 2.5em;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #date{
+    font-size: 1.5em;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    .datetimeBox {
+        max-width: 95%;
+        height: auto;
+    }
+
+    #clock {
+        font-size: 1.8em;
+    }
+
+    #date {
+        font-size: 1em;
+    }
+}
+#rfidContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 40%;
+>>>>>>> 1c6f082ac77116fa38df87abc9e4eb1419feacea
 }
 
 #rfidInput {
   padding: 5px;
+<<<<<<< HEAD
   font-size: 1em;
   border: 2px solid #555;
   border-radius: 5px;
@@ -93,12 +149,24 @@
 #attendanceContainer {
   display: flex;
   justify-content: center; /* Center horizontally */
+=======
+  font-size:0.5 em;
+  border: 2px solid #555;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+}
+#attendanceContainer {
+  display: flex;
+  justify-content: center;
+>>>>>>> 1c6f082ac77116fa38df87abc9e4eb1419feacea
   width: 100%;
   margin-top: 20px;
   padding-bottom: 50px; /* Adds space below the table */
 }
 
 #attendanceTable {
+<<<<<<< HEAD
   border-collapse: collapse; /* Ensures borders don't double up */
   width: 80%;
   max-width: 1300px;
@@ -119,4 +187,19 @@
   background-color: #ddd; /* Add a light background color for headers */
   font-weight: bold;
   text-align: center; /* Center-align header text */
+=======
+  border-radius: 10px;
+  width: 80%;
+  max-width: 1300px;
+  background-color: lightgray;
+  padding: 6px;
+  margin: 0 auto;
+}
+
+
+th, td {
+    padding: 5px; /* Reduce padding */
+    text-align: center;
+    font-size: 0.9em; /* Adjust font size */
+>>>>>>> 1c6f082ac77116fa38df87abc9e4eb1419feacea
 }

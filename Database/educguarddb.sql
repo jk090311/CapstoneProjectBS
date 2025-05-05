@@ -152,7 +152,11 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
+<<<<<<< HEAD
 INSERT INTO `students` (`id`, `lrn`, `rfid_number`, `first_name`, `middle_name`, `last_name`, `birthdate`, `sex`, `contact_number`, `grade_level`,`year_level`, `address`, `email`, `parent_guardian_name`, `parent_guardian_number`, `parent_guardian_email`, `student_username`, `student_password`, `status`, `created_at`, `section`) VALUES
+=======
+INSERT INTO `students` (`id`, `lrn`, `rfid_number`, `first_name`, `middle_name`, `last_name`, `birthdate`, `sex`, `contact_number`, `grade_level`,`year_level`, `address`, `email`, `parent_guardian_name`, `parent_guardian_number`, `parent_guardian_email`, `student_username`, `status`, `created_at`, `section`) VALUES
+>>>>>>> 1c6f082ac77116fa38df87abc9e4eb1419feacea
 (17, '954527163', '1308825062', 'Jerry', 'Libero', 'Castrudes', '2004-07-20', '', '09325520318', '9', '2024-2025','5264 STARAPPLE STREET GEN. T. DE LEON', 'blenderjk9@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'jk0903', 'Active', '2025-02-24 16:56:46', 'SILVER'),
 (19, '987654321', '1308396166', 'Juliana', 'Libero', 'Castrudes', '2003-01-16', '', '09325520318', '7','2024-2025', '5264 STARAPPLE STREET GEN. T. DE LEON', '110903kirby@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'wow', 'Active', '2025-02-24 17:25:18', 'COPPER'),
 (20, '104961090109', '1601793334', 'rianne', 'gonzales', 'saquez', '2004-09-13', '', '09463182232', '7','2024-2025', 'oslo, norway', 'rianne@gmail.com', 'Kirby Castrudes', '09763026128', 'kirbyragasajo09@gmail.com', 'assie', 'Active', '2025-02-24 17:53:36', 'COPPER'),
