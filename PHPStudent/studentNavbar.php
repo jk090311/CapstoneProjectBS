@@ -19,7 +19,7 @@
         </a>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="../PHPmain/logout.php">
+      <a href="logout.php">
         <button class="btn btn-danger" type="button">Log Out</button>
         </a>
       </div>
@@ -27,35 +27,25 @@
 
     <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title text-white " id="offcanvasNavbarLabel">ADMIN</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">STUDENT</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="dashboardAdmin.php">
+            <a class="nav-link active" aria-current="page" href="../PHPStudent/dashboardStudent.php">
             <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
             Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="adminTeachers.php">
-            <img id="iconLeft" src="../Assets/woman_15286529.png">  
-            Teachers</a>
-          <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="AdminAddSection.php">
-            <img id="iconLeft" src="../Assets/section.jpg">   
-            Sections</a>
+            <a class="nav-link active" aria-current="page" href="#">
+            <img id="iconLeft" src="../Assets/report_6896653.png">  
+            Grade</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="StudentIDRegister.php">
-            <img id="iconLeft" src="../Assets/student.png">   
-            Students</a>
-          </li>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="attendanceTracking.php">
-            <img id="iconLeft" src="../Assets/appointment_18491830.png">   
-            Attendance</a>
+            <a class="nav-link active" aria-current="page" href="../PHPAdviser/TeacherMessages.php">
+            <img id="iconLeft" src="../Assets/message_4129700.png">   
+            Messages</a>
           </li>
         </ul>
       </div>
@@ -63,4 +53,7 @@
   </nav>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+
+
 </html>

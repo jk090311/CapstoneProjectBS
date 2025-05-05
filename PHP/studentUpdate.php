@@ -12,6 +12,7 @@ if (isset($_POST['studentUpdate'])) {
     $lastName = $_POST['studentLastName'];
     $contactNumber = $_POST['studentContactNumber'];
     $gradeLevel = $_POST['studentGrLvl'];
+    $yearLevel = $_POST['studentYearLevel'];
     $section = $_POST['studentSection'];
 
     // Prepare and execute the update query
@@ -22,6 +23,7 @@ if (isset($_POST['studentUpdate'])) {
                         last_name = '$lastName', 
                         contact_number = '$contactNumber', 
                         grade_level = '$gradeLevel', 
+                        year_level = '$yearLevel',
                         section = '$section' 
                      WHERE first_name = '$originalFirstName' 
                      AND middle_name = '$originalMiddleName' 
@@ -31,11 +33,11 @@ if (isset($_POST['studentUpdate'])) {
 
     if ($update_query_run) {
         $_SESSION['status'] = "Student record updated successfully!";
-        header("Location: ../PHPAdmin/studentList.php");
+        header("Location: ../PHPAdviser/studentList.php");
         exit(0);
     } else {
         $_SESSION['status'] = "Student record update failed!";
-        header("Location: ../PHPAdmin/studentList.php");
+        header("Location: ../PHPAdviser/studentList.php");
         exit(0);
     }
 }

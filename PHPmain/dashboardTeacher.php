@@ -1,65 +1,22 @@
-<?php
-include "teacherNavbar.php"; 
+<?php include "teacherNavbar.php"; ?>
 
+<?php 
 
+session_start();
 
-// Check if user is logged in
-if (!isset($_SESSION['user_email'])) {
-    // Not logged in, redirect to login page
-    header("Location: ../PHPmain/index.php");
-    exit();
+if(!isset($_SESSION['user_email']))
+{
+    header("location:../PHPmain/index.php");
 }
-
-$required_role = "adviser";
-if ($_SESSION['user_role'] != $required_role) {
-    if ($_SESSION['user_role'] == "admin") {
-        header("Location: ../PHPAdviser/dashboardAdmin.php");
-    } else if ($_SESSION['user_role'] == "student") {
-        header("Location: dashboardStudent.php");
-    }
-    exit();
+else if($_SESSION['user_role'] == "admin")
+{
+    header("location:../PHPmain/index.php");
 }
-
-// Database connection
-$servername = "localhost"; // Replace with your database server name
-$username = "root";        // Replace with your database username
-$password = "";            // Replace with your database password
-$dbname = "educguarddb";   // Replace with your database name
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch adviser's full name
-$adviserFullName = "Teacher"; // Default fallback
-if (isset($_SESSION['user_email'])) {
-    $userEmail = $_SESSION['user_email'];
-    $query = "SELECT adviserFullName, user_email
-              FROM advisers A
-              INNER JOIN user_acc B
-              ON A.adviserEmailAddress = B.user_email
-              WHERE B.user_email = ?";
-
-    if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param("s", $userEmail);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $adviserFullName = htmlspecialchars($row['adviserFullName']); // Sanitize output
-        }
-        $stmt->close();
-    } else {
-        // Handle query preparation error
-        error_log("Database query failed: " . $conn->error);
-    }
+else if($_SESSION['user_role'] == "student")
+{
+    header("location:../PHPmain/index.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,7 +61,7 @@ if (isset($_SESSION['user_email'])) {
 <body>
     <div class="container">
         <div class="section">
-            <h2>Welcome, Teacher <?php echo $adviserFullName; ?> !</h2>
+            <h2>Welcome, Teacher!</h2>
             <p>Welcome to your dashboard. Here you can find the latest updates and quick access to various sections.</p>
         </div>
         <div class="section">

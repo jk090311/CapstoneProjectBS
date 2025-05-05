@@ -30,3 +30,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function fetchSectionDetails(section) {
+    if (section === "") {
+        document.getElementById("section_grade_level").value = "";
+        document.getElementById("section_year_start_level").value = "";
+        return;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "fetchSectionDetails.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            document.getElementById("section_grade_level").value = response.section_grade_level || "";
+            document.getElementById("section_year_start_level").value = response.section_year_start_level || "";
+        }
+    };
+    xhr.send("section=" + encodeURIComponent(section));
+}
+

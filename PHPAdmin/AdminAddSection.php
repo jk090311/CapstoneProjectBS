@@ -27,7 +27,7 @@ error_reporting(E_ALL);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form action="../PHP/sectionRegister.php" method="POST">
+                <form action="../PHPAdmin/sectionRegister.php" method="POST">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="section_name" class="form-label">Section Name</label>
@@ -35,13 +35,23 @@ error_reporting(E_ALL);
                                 placeholder="Section Name" required>
                         </div>
                         <div class="mb-3">
-                            <label for="section_year_level" class="form-label">Grade Level</label>
-                            <select id="section_year_level" name="section_year_level" class="form-control" required>
+                            <label for="section_grade_level" class="form-label">Grade Level</label>
+                            <select id="section_grade_level" name="section_grade_level" class="form-control" required>
                                 <option value="7">Grade 7</option>
                                 <option value="8">Grade 8</option>
                                 <option value="9">Grade 9</option>
                                 <option value="10">Grade 10</option>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="section_year_start_level" class="form-label">Start Year Level</label>
+                            <input type="text" id="section_year_start_level" name="section_year_start_level" class="form-control"
+                                placeholder="2024" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="section_year_end_level" class="form-label">End Year Level</label>
+                            <input type="text" id="section_year_end_level" name="section_year_end_level" class="form-control"
+                                placeholder="2025" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -62,8 +72,7 @@ error_reporting(E_ALL);
                     <h1 class="modal-title fs-5" id="editSectionLabel">Edit Section</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
-                <form action="../PHP/sectionUpdate.php" method="POST">
+                <form action="../PHPAdmin/sectionUpdate.php" method="POST">
                     <div class="modal-body">
                         <input type="hidden" id="edit_section_id" name="section_id">
                         <div class="mb-3">
@@ -71,14 +80,24 @@ error_reporting(E_ALL);
                             <input type="text" id="edit_section_name" name="section_name" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_section_year_level" class="form-label">Grade Level</label>
-                            <select id="edit_section_year_level" name="section_year_level" class="form-control"
+                            <label for="edit_section_grade_level" class="form-label">Grade Level</label>
+                            <select id="edit_section_grade_level" name="section_grade_level" class="form-control"
                                 required>
                                 <option value="7">Grade 7</option>
                                 <option value="8">Grade 8</option>
                                 <option value="9">Grade 9</option>
                                 <option value="10">Grade 10</option>
                             </select>
+                            <div class="mb-3">
+                            <label for="edit_section_year_start_level" class="form-label">Start Year Level</label>
+                            <input type="text" id="edit_section_year_start_level" name="section_year_start_level" class="form-control"
+                                placeholder="1023" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_section_year_end_level" class="form-label">End Year Level</label>
+                            <input type="text" id="edit_section_year_end_level" name="section_year_end_level" class="form-control"
+                                placeholder="1021" required>
+                        </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -117,6 +136,7 @@ error_reporting(E_ALL);
                             <tr>
                                 <th scope="col">Section Name</th>
                                 <th scope="col">Grade Level</th>
+                                <th scope="col">Year Level</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -127,7 +147,7 @@ error_reporting(E_ALL);
                             if (!$connection) {
                                 die("Database connection failed: " . mysqli_connect_error());
                             }
-                            $fetch_query = "SELECT * FROM class_section";
+                            $fetch_query = "SELECT * FROM class_section order by section_name ASC";
                             $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                             if ($fetch_query_run) {
@@ -137,13 +157,16 @@ error_reporting(E_ALL);
                                         <tr>
 
                                             <td><?php echo $row['section_name'] ?></td>
-                                            <td><?php echo $row['section_year_level'] ?></td>
+                                            <td><?php echo $row['section_grade_level'] ?></td>
+                                            <td><?php echo $row['section_year_start_level'] . ' - ' . $row['section_year_end_level']; ?></td>
                                             <td>
                                                 <!-- Edit Button with Icon -->
                                                 <a href="#" class="btn btn-warning btn-sm edit_data"
                                                     data-id="<?php echo $row['section_id']; ?>"
                                                     data-SectionName="<?php echo $row['section_name']; ?>"
-                                                    data-GradeLevel="<?php echo $row['section_year_level']; ?>"
+                                                    data-GradeLevel="<?php echo $row['section_grade_level']; ?>"
+                                                    data-YearStartLevel="<?php echo $row['section_year_start_level']; ?>"
+                                                    data-YearEndLevel="<?php echo $row['section_year_end_level']; ?>"
                                                     data-bs-toggle="modal" data-bs-target="#editSection">
                                                     <i class="fas fa-edit"></i> <!-- Font Awesome Edit Icon -->
                                                 </a>

@@ -15,14 +15,14 @@ if (isset($_POST['adviserRegister'])) {
     $adviserFullName = mysqli_real_escape_string($connection, $_POST['adviserFullName']);
     $adviserContactNumber = mysqli_real_escape_string($connection, $_POST['adviserContactNumber']);
     $adviserGrLvl = mysqli_real_escape_string($connection, $_POST['adviserGrLvl']);
+    $adviserSection = mysqli_real_escape_string($connection, $_POST['adviserSection']);
     $adviserEmailAddress = mysqli_real_escape_string($connection, $_POST['adviserEmailAddress']);
     $adviserPassword = mysqli_real_escape_string($connection, $_POST['adviserPassword']);
-    $adviserSection = mysqli_real_escape_string($connection, $_POST['adviserSection']);
 
     // Validate that adviserSection is not empty
     if (empty($adviserSection)) {
         $_SESSION['status'] = "Error: Section cannot be empty. Please select a valid section.";
-        header('Location: ../PHPmain/adminTeachers.php');
+        header('Location: ../PHPAdmin/adminTeachers.php');
         exit;
     }
 
@@ -30,8 +30,8 @@ if (isset($_POST['adviserRegister'])) {
     $hashedPassword = password_hash($adviserPassword, PASSWORD_DEFAULT);
 
     // Insert into advisers table
-    $insert_adviser_query = "INSERT INTO advisers (adviserFullName, adviserContactNumber, adviserGrLvl, adviserEmailAddress, adviserPassword, adviserPlainPassword, adviserSection)
-                             VALUES ('$adviserFullName', '$adviserContactNumber', '$adviserGrLvl', '$adviserEmailAddress', '$hashedPassword', '$adviserPassword', '$adviserSection')";
+    $insert_adviser_query = "INSERT INTO advisers (adviserFullName, adviserContactNumber, adviserGrLvl, adviserEmailAddress,  adviserPassword, adviserSection)
+                             VALUES ('$adviserFullName', '$adviserContactNumber', '$adviserGrLvl', '$adviserEmailAddress','$adviserPassword', '$adviserSection')";
     $insert_adviser_query_run = mysqli_query($connection, $insert_adviser_query);
 
     // Insert into user_acc table
@@ -44,7 +44,7 @@ if (isset($_POST['adviserRegister'])) {
         $_SESSION['status'] = "Adviser Profile and Account Added Successfully";
         $_SESSION['show_part'] = 2; // Show Part 2
     } else {
-        $_SESSION['status'] = "Error: " . mysqli_error($connection);
+        $_SESSION['status'] = "Error: Account Creation Unsuccessful " . mysqli_error($connection);
         $_SESSION['show_part'] = 1; // Show Part 1 if query fails
     }
 

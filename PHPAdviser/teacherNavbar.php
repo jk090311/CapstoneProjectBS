@@ -1,3 +1,47 @@
+<?php
+session_start();
+// Database connection
+$servername = "localhost"; // Replace with your database server name
+$username = "root";        // Replace with your database username
+$password = "";            // Replace with your database password
+$dbname = "educguarddb";   // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+// Fetch adviser's full name
+$adviserFullName = "Teacher"; // Default fallback
+if (isset($_SESSION['user_email'])) {
+    $userEmail = $_SESSION['user_email'];
+    $query = "SELECT adviserFullName 
+              FROM advisers A
+              INNER JOIN user_acc B
+              ON A.adviserEmailAddress = B.user_email
+              WHERE B.user_email = ?";
+
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param("s", $userEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $adviserFullName = htmlspecialchars($row['adviserFullName']); // Sanitize output
+        }
+        $stmt->close();
+    } else {
+        // Handle query preparation error
+        error_log("Database query failed: " . $conn->error);
+    }
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,36 +75,42 @@
     <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
       aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">TEACHER</h5>
+        <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel"> Teacher
+          <?php echo $adviserFullName; ?>
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPAdviser/dashboardTeacher.php">
+            <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/dashboardTeacher.php">
               <img id="iconLeft" src="../Assets/data-analysis_12959229.png" alt="Dashboard Icon">
               Dashboard
             </a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="reportDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <li class="nav-item">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/studentList.php">
+            <img id="iconLeft" src="../Assets/student.png">   
+            Students</a>
+          </li>
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="reportDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Report Icon">
               Report
             </a>
             <ul class="dropdown-menu" aria-labelledby="reportDropdown">
-              <li><a class="dropdown-item" href="adviserStudList.php">Student List</a></li>
              <li><a class="dropdown-item" href="reportSystem.php">Subject Grades</a></li>
               <li><a class="dropdown-item" href="#">Grade Report</a></li>/ 
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="TeacherMessages.php">
+            <a class="nav-link active text-white" aria-current="page" href="TeacherMessages.php">
               <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
               Message
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPAdviser/adviserSubject.php">
+            <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/adviserSubject.php">
               <img id="iconLeft" src="../Assets/books.png" alt="Subject Icon">
               Subject
             </a>

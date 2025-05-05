@@ -6,11 +6,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const sectionId = this.getAttribute('data-id');
             const sectionName = this.getAttribute('data-SectionName');
             const gradeLevel = this.getAttribute('data-GradeLevel');
+            const yearStartLevel = this.getAttribute('data-YearStartLevel');
+            const yearEndLevel = this.getAttribute('data-YearEndLevel');
 
             // Populate the modal fields
             document.getElementById('edit_section_id').value = sectionId;
             document.getElementById('edit_section_name').value = sectionName;
-            document.getElementById('edit_section_year_level').value = gradeLevel;
+            document.getElementById('edit_section_grade_level').value = gradeLevel; 
+            document.getElementById('edit_section_year_start_level').value = yearStartLevel;
+            document.getElementById('edit_section_year_end_level').value = yearEndLevel;
 
 
             // Change action type to edit
@@ -32,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             sectionIdInput.value = this.getAttribute('data-id'); // Store the section's ID
 
             // Set the form action to adminSectionUpdate.php
-            document.querySelector('form').action = '../PHP/adminSectionUpdate.php';
+            document.querySelector('form').action = '../PHP/sectionUpdate.php';
         });
     });
 
@@ -42,7 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Reset form
         document.getElementById('action_type').value = 'add';
         document.getElementById('section_name').value = '';
-        document.getElementById('section_year_level').value = '7'; // Default grade level
+        document.getElementById('section_grade_level').value = '7'; // Default grade level
+        document.getElementById('section_year_start_level').value = '2024'; // Default start year
+        document.getElementById('section_year_end_level').value = '2025'; // Default end year
 
         // Remove hidden input field if it exists
         const sectionIdInput = document.getElementById('sectionId');
@@ -55,6 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('addSectionLabel').innerText = 'Create New Section';
 
         // Reset form action to adminSectionAdd.php
-        document.querySelector('form').action = '../PHP/adminSectionAdd.php';
+        document.querySelector('form').action = '../PHPAdmin/adminSectionAdd.php';
     });
 });

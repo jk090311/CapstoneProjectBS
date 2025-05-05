@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         $_SESSION['success_message'] = "Section deleted successfully!";
-        header("Location: ../PHPmain/AdminAddSection.php"); // Redirect to the sections page
+        header("Location: ../PHPAdmin/AdminAddSection.php"); // Redirect to the sections page
         exit();
     } else {
         echo "Error deleting record: " . $stmt->error;

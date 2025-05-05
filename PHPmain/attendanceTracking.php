@@ -2,7 +2,7 @@
 include "adminNavbar.php"; 
 include "../PHP/insertAttendance.php"; // This might close $conn
 
-//Reopen the connection
+// ✅ Reopen the connection
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -29,13 +29,13 @@ if ($conn->connect_error) {
     <p class="datetimeAlign" id="date">Loading</p>
 </div>
 
-<div id="inputContainer">
-    <div id="rfidContainer">
-        <input type="text" id="rfidInput" placeholder="Scan RFID here" autofocus>
-    </div>
-    <div id="dateContainer">
-        <input type="date" id="filterDate" onchange="loadAttendance()">
-    </div>
+<div id="rfidContainer">
+    <input type="text" id="rfidInput" placeholder="Scan RFID here" autofocus>
+</div>
+
+<div>
+    <label for="filterDate">Select Date:</label>
+    <input type="date" id="filterDate" onchange="loadAttendance()">
 </div>
 
 <div id="attendanceContainer">
@@ -74,21 +74,6 @@ if ($conn->connect_error) {
 <script src="/CapstoneProjectBS/JS/rfidScan.js"></script>
 <script src="/CapstoneProjectBS/JS/AttendanceTracking.js"></script>
 <script src="/CapstoneProjectBS/JS/datetime.js"></script>
-<script>
-    const tableBody = document.querySelector("#attendanceTable tbody");
-    data.forEach(row => {
-        console.log("Adding row:", row); // Debugging
-        let newRow = document.createElement("tr");
-        newRow.innerHTML = `
-            <td>${row.rfid_number}</td>
-            <td>${row.name}</td>
-            <td>${row.time_in || 'N/A'}</td>
-            <td>${row.time_out || 'N/A'}</td>
-            <td>${row.date_logged}</td>
-        `;
-        tableBody.appendChild(newRow);
-    });
-</script>
 
 </body>
 </html>

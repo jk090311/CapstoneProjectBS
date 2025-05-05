@@ -14,40 +14,41 @@ if(isset($_POST['login']))
     $u_password = $_POST['password'];
 
     // Use prepared statement to prevent SQL injection
-    $stmt = mysqli_prepare($conn, "SELECT user_email, user_password, user_role FROM user_acc WHERE user_email = ?");
-    mysqli_stmt_bind_param($stmt, "s", $u_email);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+$stmt = mysqli_prepare($conn, "SELECT user_id, user_email, user_password, user_role FROM user_acc WHERE user_email = ?");
+mysqli_stmt_bind_param($stmt, "s", $u_email);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-    if ($row = mysqli_fetch_assoc($result)) {
-        $storedHash = $row['user_password']; // Retrieve the stored hash
+if ($row = mysqli_fetch_assoc($result)) {
+    $storedHash = $row['user_password']; // Retrieve the stored hash
 
-        // Verify the hashed password
-        if (password_verify($u_password, $storedHash)) {
-            $_SESSION['user_email'] = $u_email;
-            $_SESSION['user_role'] = $row['user_role'];
+    // Verify the hashed password
+    if (password_verify($u_password, $storedHash)) {
+        $_SESSION['user_id'] = $row['user_id']; // Store user ID in session
+        $_SESSION['user_email'] = $u_email;
+        $_SESSION['user_role'] = $row['user_role'];
 
-            // Redirect based on user role
-            if ($row['user_role'] == "admin") {
-                header("location:../PHPAdmin/dashboardAdmin.php");
-                exit();
-            } else if ($row['user_role'] == "adviser") {
-                header("location:../PHPAdviser/dashboardTeacher.php");
-                exit();
-            } else if ($row['user_role'] == "student") {
-                header("location:dashboardStudent.php");
-                exit();
-            }
-        } else {
-            $_SESSION['message'] = "Invalid email or password.";
-            header("location: index.php");
+        // Redirect based on user role
+        if ($row['user_role'] == "admin") {
+            header("location:../PHPAdmin/dashboardAdmin.php");
+            exit();
+        } else if ($row['user_role'] == "adviser") {
+            header("location:../PHPAdviser/dashboardTeacher.php?id=" . $row['user_id']); // Pass user ID in URL
+            exit();
+        } else if ($row['user_role'] == "student") {
+            header("location:dashboardStudent.php");
             exit();
         }
     } else {
-        $_SESSION['message'] = "No account found with this email.";
+        $_SESSION['message'] = "Invalid email or password.";
         header("location: index.php");
         exit();
     }
+} else {
+    $_SESSION['message'] = "No account found with this email.";
+    header("location: index.php");
+    exit();
+}
 }
 ?>
 

@@ -87,3 +87,20 @@ function fetchSectionDetails(section) {
     xhr.send("section=" + encodeURIComponent(section));
 }
 
+    function filterByGender(sex) {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (sex) {
+            urlParams.set('sex', sex); // Set the 'sex' parameter if a value is selected
+        } else {
+            urlParams.delete('sex'); // Remove the 'sex' parameter if "All" is selected
+        }
+        const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+        window.location.href = newUrl; // Update the URL and reload the page
+    }
+
+    // Pre-select the current filter value in the dropdown
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentSex = urlParams.get('sex') || '';
+        document.getElementById('sexFilter').value = currentSex;
+    });

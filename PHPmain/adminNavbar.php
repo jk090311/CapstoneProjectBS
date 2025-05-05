@@ -19,7 +19,7 @@
         </a>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="../PHPmain/logout.php">
+        <a href="logout.php">
         <button class="btn btn-danger" type="button">Log Out</button>
         </a>
       </div>
@@ -33,27 +33,27 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="dashboardAdmin.php">
+            <a class="nav-link active text-white" aria-current="page" href="../PHPmain/dashboardAdmin.php">
             <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
             Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="adminTeachers.php">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPmain/adminTeachers.php">
             <img id="iconLeft" src="../Assets/woman_15286529.png">  
             Teachers</a>
-          <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="AdminAddSection.php">
-            <img id="iconLeft" src="../Assets/section.jpg">   
-            Sections</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="StudentIDRegister.php">
+            <li class="nav-item">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPmain/studentList.php">
             <img id="iconLeft" src="../Assets/student.png">   
             Students</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPAdmin/AdminAddSection.php">
+            <img id="iconLeft" src="../Assets/section.jpg">   
+            Section</a>
+          </li>
           </li>
           <li class="nav-item">
-            <a class="nav-link active text-white " aria-current="page" href="attendanceTracking.php">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPmain/attendanceTracking.php">
             <img id="iconLeft" src="../Assets/appointment_18491830.png">   
             Attendance</a>
           </li>
