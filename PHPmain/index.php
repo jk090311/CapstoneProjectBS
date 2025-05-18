@@ -58,7 +58,8 @@ if ($row = mysqli_fetch_assoc($result)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/CapstoneProjectBS/CSS/index.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="/CapstoneProjectBSBackup/CSS/index.css" rel="stylesheet">
     <title>Login</title>
 </head>
 
@@ -81,7 +82,11 @@ if ($row = mysqli_fetch_assoc($result)) {
             <label>Email</label><br>
             <input type="text" class="inputForm" name="email" placeholder="example@gmail.com"><br><br>
             <label>Password</label><br>
-            <input type="password" class="inputForm" name="password" placeholder="!password123"><br><br>
+            <div class="password-container">
+                <input type="password" class="inputForm" name="password" id="passwordInput" placeholder="!password123">
+                <i class="fa-solid fa-eye" id="togglePassword"></i>
+            </div>
+            <br><br>
             <input type="submit" id="loginButton" name="login" value="Login">
         </form>
     </div>
@@ -114,6 +119,6 @@ if ($row = mysqli_fetch_assoc($result)) {
     endif; ?>
 </script>
 
-<script src="/CapstoneProjectBS/JS/login.js"></script>
+<script src="/CapstoneProjectBSBackup/JS/login.js"></script>
 </body>
 </html>

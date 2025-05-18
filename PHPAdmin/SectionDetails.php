@@ -49,7 +49,7 @@
                     A.adviserGrlvl, 
                     B.section_name, 
                     B.section_grade_level, 
-                    C.id AS student_id,
+                    C.student_id AS student_id,
                     C.section, 
                     C.first_name,
                     C.middle_name,

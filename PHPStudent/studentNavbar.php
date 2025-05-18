@@ -43,8 +43,7 @@
             Grade</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPAdviser/TeacherMessages.php">
-            <img id="iconLeft" src="../Assets/message_4129700.png">   
+            <a class="nav-link active" aria-current="page" href="../PHPAdviser/adviserUserList.php">
             Messages</a>
           </li>
         </ul>

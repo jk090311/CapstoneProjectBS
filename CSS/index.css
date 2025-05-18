@@ -167,6 +167,25 @@ padding-right: 180px;
   font-weight: bold;
 }
 
+.password-container {
+  position: relative;
+  width: 80%;
+}
+
+.password-container .inputForm {
+  width: 110%;
+  padding-right: 40px; /* Add space for the icon */
+}
+
+.password-container i {
+  position: absolute;
+  top: 50%;
+  left: 115%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #124E66;
+}
+
 @keyframes slideDown {
   from {
       top: -50px;
