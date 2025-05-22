@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Reset button text
         document.getElementById('submitBtn').innerText = 'Register';
         document.getElementById('addTeacherLabel').innerText = 'Create New Teacher Account';
-
+        console.log("Submitting function called. Proceeding to PHP")
         // Reset form action to adviserRegister.php
         document.querySelector('form').action = '../PHP/adviserRegister.php';
     });
@@ -145,7 +145,7 @@ function removeAdviser(adviserFullName) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     const nextBtn = document.getElementById("nextBtn");
     const part1 = document.getElementById("part1");
     const part2 = document.getElementById("part2");
@@ -155,4 +155,4 @@ document.addEventListener("DOMContentLoaded", function () {
         part1.style.display = "none";
         part2.style.display = "block";
     });
-});
+});*/

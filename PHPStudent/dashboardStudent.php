@@ -1,11 +1,10 @@
-<?php include "studentNavbar.php"?>
-
-<?php
-session_start();
+<?php 
+include "studentNavbar.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['user_email'])) {
     // Not logged in, redirect to login page
+    error_log("User not logged in, redirecting to login");
     header("Location: ../PHPmain/index.php");
     exit();
 }

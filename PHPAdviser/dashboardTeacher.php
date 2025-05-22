@@ -105,29 +105,29 @@ if (isset($_SESSION['user_email'])) {
     <div class="container">
         <div class="section">
             <h2>Welcome, Teacher <?php echo $adviserFullName; ?> !</h2>
-            <p>Welcome to your dashboard. Here you can find the latest updates and quick access to various sections.</p>
+            <p>Welcome to your dashboard. Here you can find the quick access to various sections.</p>
         </div>
-        <div class="section">
+       <!-- <div class="section">
             <h2>Recent Messages</h2>
             <div class="messages">
-                <!-- Display recent messages here -->
+                 Display recent messages here
                 <p>No new messages.</p>
             </div>
         </div>
         <div class="section">
             <h2>Upcoming Events</h2>
             <div class="events">
-                <!-- Display upcoming events here -->
+               Display upcoming events here
                 <p>No upcoming events.</p>
             </div>
-        </div>
+        </div> -->
         <div class="section">
             <h2>Quick Links</h2>
             <div class="quick-links">
-                <a href="TeacherMessages.php">Messages</a>
-                <a href="attendance.php">Attendance</a>
+               <!-- <a href="TeacherMessages.php">Messages</a> -->
+                <a href="../PHPAdviser/studentList.php">Students</a>
                 <a href="reportSystem.php">Grades</a>
-                <a href="profile.php">Profile</a>
+                <a href="../PHPAdviser/adviserSubject.php">Subject</a>
             </div>
         </div>
     </div>

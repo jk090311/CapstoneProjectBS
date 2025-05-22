@@ -14,7 +14,10 @@ if(isset($_POST['login']))
     $u_password = $_POST['password'];
 
     // Use prepared statement to prevent SQL injection
-$stmt = mysqli_prepare($conn, "SELECT user_id, user_email, user_password, user_role FROM user_acc WHERE user_email = ?");
+$stmt = mysqli_prepare($conn, "SELECT u.user_id, u.user_email, u.user_password, u.user_role, s.student_id 
+    FROM user_acc u 
+    LEFT JOIN students s ON u.user_email = s.email 
+    WHERE u.user_email = ?");
 mysqli_stmt_bind_param($stmt, "s", $u_email);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
@@ -28,6 +31,11 @@ if ($row = mysqli_fetch_assoc($result)) {
         $_SESSION['user_email'] = $u_email;
         $_SESSION['user_role'] = $row['user_role'];
 
+        // Store student_id in session if user is a student
+        if ($row['user_role'] == "student") {
+            $_SESSION['student_id'] = $row['student_id'];
+        }
+
         // Redirect based on user role
         if ($row['user_role'] == "admin") {
             header("location:../PHPAdmin/dashboardAdmin.php");
@@ -36,7 +44,7 @@ if ($row = mysqli_fetch_assoc($result)) {
             header("location:../PHPAdviser/dashboardTeacher.php?id=" . $row['user_id']); // Pass user ID in URL
             exit();
         } else if ($row['user_role'] == "student") {
-            header("location:dashboardStudent.php");
+            header("location:../PHPStudent/dashboardStudent.php?id=" . $row['user_id']); // Pass user ID in URL
             exit();
         }
     } else {
@@ -58,7 +66,8 @@ if ($row = mysqli_fetch_assoc($result)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/CapstoneProjectBS/CSS/index.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="/CapstoneProjectBSBackup/CSS/index.css" rel="stylesheet">
     <title>Login</title>
 </head>
 
@@ -81,7 +90,11 @@ if ($row = mysqli_fetch_assoc($result)) {
             <label>Email</label><br>
             <input type="text" class="inputForm" name="email" placeholder="example@gmail.com"><br><br>
             <label>Password</label><br>
-            <input type="password" class="inputForm" name="password" placeholder="!password123"><br><br>
+            <div class="password-container">
+                <input type="password" class="inputForm" name="password" id="passwordInput" placeholder="!password123">
+                <i class="fa-solid fa-eye" id="togglePassword"></i>
+            </div>
+            <br><br>
             <input type="submit" id="loginButton" name="login" value="Login">
         </form>
     </div>
@@ -114,6 +127,6 @@ if ($row = mysqli_fetch_assoc($result)) {
     endif; ?>
 </script>
 
-<script src="/CapstoneProjectBS/JS/login.js"></script>
+<script src="/CapstoneProjectBSBackup/JS/login.js"></script>
 </body>
 </html>

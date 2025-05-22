@@ -12,7 +12,7 @@ body {
   }
 
 .container {
-    width: 80%;
+    width: 100%;
     max-width: 800px;
     margin-top: 20%;
     padding: 20px;
@@ -23,6 +23,7 @@ body {
     margin-bottom: 20px;
 }
 .section h2 {
+    text-align: center;
     margin-top: 0;
 }
 .quick-links a {

@@ -22,7 +22,7 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science</title>
+    <title>{{SUBJECT_NAME}}</title>
     <link rel="stylesheet" href="../CSS/Teacher/science.css">
 </head>
 <body>
@@ -35,10 +35,9 @@ if (!$result) {
 </header>
 
 <div class="page-content">
-    <h1>Mapeh Subject</h1>
-    <p>Welcome to the Mapeh subject page. Here you will find all the resources and information related to Mapeh.</p>
+    <h1>{{SUBJECT_NAME}} Subject</h1>
+    <p>Welcome to the {{SUBJECT_NAME}} subject page. Here you will find all the resources and information related to {{SUBJECT_NAME}}.</p>
     
-    <!-- Box for the list of students -->
     <div class="student-list-box">
         <h2>List of Students</h2>
         <table class="student-table">
@@ -50,6 +49,7 @@ if (!$result) {
                     <th>Quarter 3</th>
                     <th>Quarter 4</th>
                     <th>Final Grade</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,10 +57,7 @@ if (!$result) {
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
                             <td>
-                                <?php 
-                                    // Concatenate first_name, middle_name, and last_name
-                                    echo htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']); 
-                                ?>
+                                <?php echo htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']); ?>
                             </td>
                             <td><input type="number" name="quarter1_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
                             <td><input type="number" name="quarter2_student<?php echo $row['first_name'] . $row['middle_name'] . $row['last_name']; ?>" min="0" max="99" /></td>
@@ -74,7 +71,7 @@ if (!$result) {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="6">No students found.</td>
+                        <td colspan="7">No students found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

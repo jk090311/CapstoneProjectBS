@@ -51,9 +51,6 @@ session_start();
                                 <select id="adviserGrLvl" name="adviserGrLvl" class="form-control" required>
                                     <option value="">Select Grade Level</option>
                                     <option value="7">Grade 7</option>
-                                    <option value="8">Grade 8</option>
-                                    <option value="9">Grade 9</option>
-                                    <option value="10">Grade 10</option>
                                 </select>
 
                                 <label for="adviserSection" class="form-label">Section</label>
@@ -167,11 +164,8 @@ session_start();
                             <tbody>
                                 <?php
                                 $connection = mysqli_connect("localhost", "root", "", "educguarddb");
-<<<<<<< HEAD
                                 $fetch_query = "SELECT * FROM advisers" . " ORDER BY adviserFullName ASC";
-=======
                                 $fetch_query = "SELECT * FROM advisers";
->>>>>>> 1c6f082ac77116fa38df87abc9e4eb1419feacea
 
                                 $fetch_query_run = mysqli_query($connection, $fetch_query);
 
