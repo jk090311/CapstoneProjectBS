@@ -37,13 +37,13 @@ if ($_SESSION['user_role'] != $required_role) {
     <div class="container">
         <div class="section">
             <h2>Welcome, Admin!</h2>
-            <p>Welcome to your dashboard. Here you can find the latest updates and quick access to various sections.</p>
+            <p>Welcome to your dashboard.</p>
         </div>
         <div class="section">
-            <h2>Upcoming Events</h2>
+            <!--<h2>Upcoming Events</h2>
             <div class="events">
-                <!-- Display upcoming events here -->
-                <p>No upcoming events.</p>
+                Display upcoming events here
+                <p>No upcoming events.</p> -->
             </div>
         </div>
         </div>

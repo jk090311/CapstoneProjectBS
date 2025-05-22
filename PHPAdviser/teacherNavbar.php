@@ -62,7 +62,7 @@ if (isset($_SESSION['user_email'])) {
         </button>
         <a class="navbar-brand d-flex align-items-center">
           <img id="imglogo" src="../Assets/111.png" alt="EduGuard Logo">
-          <span>EduGuard</span>
+          <span>EducGuard</span>
         </a>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -75,7 +75,7 @@ if (isset($_SESSION['user_email'])) {
     <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
       aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel"> Teacher
+        <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">
           <?php echo $adviserFullName; ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -93,18 +93,14 @@ if (isset($_SESSION['user_email'])) {
             <img id="iconLeft" src="../Assets/student.png">   
             Students</a>
           </li>
-          <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="reportDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Report Icon">
-              Report
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/reportSystem.php">
+              <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
+              Grades
             </a>
-            <ul class="dropdown-menu" aria-labelledby="reportDropdown">
-             <li><a class="dropdown-item" href="reportSystem.php">Subject Grades</a></li>
-              <li><a class="dropdown-item" href="#">Grade Report</a></li>/ 
-            </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="TeacherMessages.php">
+            <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/adviserUserList.php">
               <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
               Message
             </a>

@@ -166,6 +166,7 @@ h2.page-title {
     padding: 5px;
   }
 }
+
 /* Custom styles for buttons */
 .btn-edit {
   width: 120px; /* Adjust the width for the Edit button */
@@ -187,15 +188,42 @@ h2.page-title {
   font-size: 1rem; /* Adjust icon size */
 }
 
-/* Ensure buttons are aligned properly */
-.d-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center-align buttons */
+/* Icon button styling */
+.btn-icon {
+    width: 35px;
+    height: 35px;
+    padding: 6px 0;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.428571429;
+    margin: 0 3px;
 }
 
-.gap-2 {
-  gap: 0; /* Remove spacing between buttons */
+.btn-edit.btn-icon {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+.btn-remove.btn-icon {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.btn-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+}
+
+/* Override previous button styles */
+.btn-edit, .btn-remove {
+    width: auto;
+}
+
+.d-flex.gap-2 {
+    gap: 0.5rem !important;
 }
 
 .form-group mb-4 {

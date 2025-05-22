@@ -1,4 +1,3 @@
-
 body {
     background-image: url("/CapstoneProjectBS/Assets/Background.jpg");
     background-size: cover; /* Ensure the image covers the entire screen */
@@ -45,6 +44,13 @@ body::before {
 
 .sidebar {
     background-color: #124E66 !important; /* Ensure blue background */
+}
+
+.sidebar .offcanvas-title,
+.sidebar .nav-link,
+.sidebar .navbar-nav a {
+    color: white !important;
+    text-decoration: none;
 }
 
 .navbar-nav a:hover {

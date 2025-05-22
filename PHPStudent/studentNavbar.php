@@ -1,3 +1,62 @@
+<?php
+session_start();
+
+// Add debugging
+error_log("Session email: " . (isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'not set'));
+
+// Database connection
+$servername = "localhost"; // Replace with your database server name
+$username = "root";        // Replace with your database username
+$password = "";            // Replace with your database password
+$dbname = "educguarddb";   // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+// Fetch student's full name
+$studentFullName = "Student"; // Default fallback
+if (isset($_SESSION['user_email'])) {
+    $userEmail = $_SESSION['user_email'];
+    $query = "SELECT CONCAT(S.first_name, ' ', S.last_name) as fullName 
+              FROM students S
+              INNER JOIN user_acc U
+              ON S.email = U.user_email
+              WHERE U.user_email = ?";
+
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param("s", $userEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        // Add debugging
+        error_log("Query executed. Num rows: " . $result->num_rows);
+        
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $studentFullName = htmlspecialchars($row['fullName']); 
+            // Add debugging
+            error_log("Found student name: " . $studentFullName);
+        } else {
+            error_log("No student found for email: " . $userEmail);
+        }
+        $stmt->close();
+    } else {
+        error_log("Query preparation failed: " . $conn->error);
+    }
+} else {
+    error_log("No user email in session");
+}
+
+// Add this before closing the connection
+error_log("Final student name value: " . $studentFullName);
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +78,7 @@
         </a>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <a href="logout.php">
+      <a href="../PHPmain/logout.php">
         <button class="btn btn-danger" type="button">Log Out</button>
         </a>
       </div>
@@ -27,7 +86,9 @@
 
     <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">STUDENT</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+          <?php echo $studentFullName; ?> <!-- Display student name here -->
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
@@ -38,15 +99,14 @@
             Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link active" aria-current="page" href="../PHPStudent/gradeStudent.php">
             <img id="iconLeft" src="../Assets/report_6896653.png">  
             Grade</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../PHPAdviser/TeacherMessages.php">
-            <img id="iconLeft" src="../Assets/message_4129700.png">   
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../PHPAdviser/adviserUserList.php">
             Messages</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>

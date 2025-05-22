@@ -1,0 +1,164 @@
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#wrapper {
+    width: 360px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.users {
+    padding: 25px 20px;
+}
+
+.users header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 15px;
+}
+
+.users header .content {
+    display: flex;
+    flex-direction: column;
+}
+
+.users header .details span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.users header .details p {
+    font-size: 14px;
+    color: #888;
+}
+
+.users header .logout {
+    background: #333;
+    color: white;
+    padding: 7px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.users .search {
+    margin: 20px 0;
+    display: flex;
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Push the search icon to the far right */
+    position: relative;
+}
+
+.users .search text{
+font-size: 18px;
+}
+
+/* Hide the search bar initially */
+.users .search input {
+    flex: 1; /* Allow the input to take up available space */
+    display: none; /* Hide the search bar initially */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Show the search bar when active */
+.users .search input.active {
+    display: block; /* Make it visible */
+    opacity: 1;
+}
+
+.users .search button {
+    width: 47px;
+    height: 42px;
+    border: none;
+    color: #333;
+    background: #fff;
+    font-size: 17px;
+    border-radius: 5px; /* Adjust for standalone button */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the icon inside the button */
+}
+
+.users .search button.active {
+    color: #fff;
+    background: #333;
+}
+
+.users .search button.active i::before {
+    content: "\f00d";
+}
+
+.users .search .text {
+    font-size: 18px;
+    color: #888;
+    transition: opacity 0.3s ease;
+}
+
+.users .search .text.hidden {
+    opacity: 0;
+    display: none; /* Hide the text completely */
+}
+
+.users-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.users-list::-webkit-scrollbar {
+    width: 0;
+}
+
+.users-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.users-list a:last-child {
+    border-bottom: none;
+}
+
+.users-list .content p{
+    display: flex;
+    flex-direction: column;
+}
+
+.users-list .content .details span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.users-list .content .details p {
+    font-size: 14px;
+    color: #67676a;
+}
+
+.status-dot i{
+    color: #00c853;
+    font-size: 12px;
+}
+
+.status-dot.offline{
+    color: #00c853;
+    font-size: 12px;
+}

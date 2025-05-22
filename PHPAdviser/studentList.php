@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Students</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../CSS/Teacher/adviserStudents.css">
 </head>
 
@@ -74,8 +75,10 @@
                                     die("Connection failed: " . mysqli_connect_error());
                                 }
 
-                                // Fetch sections from the database
-                                $section_query = "SELECT section_name FROM class_section"; // Replace 'sections' and 'section_name' with your actual table and column names
+                                // Fetch only the adviser's assigned section
+                                $adviser_email = $_SESSION['user_email'];
+                                $section_query = "SELECT section_name FROM class_section WHERE section_name IN 
+                                                 (SELECT adviserSection FROM advisers WHERE adviserEmailAddress = '$adviser_email')";
                                 $section_query_run = mysqli_query($connection, $section_query);
 
                                 // Populate the dropdown with sections
@@ -183,8 +186,10 @@
                                                             die("Connection failed: " . mysqli_connect_error());
                                                         }
 
-                                                        // Fetch sections from the database
-                                                        $section_query = "SELECT section_name FROM class_section";
+                                                        // Fetch only the adviser's assigned section
+                                                        $adviser_email = $_SESSION['user_email'];
+                                                        $section_query = "SELECT section_name FROM class_section WHERE section_name IN 
+                                                                         (SELECT adviserSection FROM advisers WHERE adviserEmailAddress = '$adviser_email')";
                                                         $section_query_run = mysqli_query($connection, $section_query);
 
                                                         // Populate the dropdown with sections
@@ -296,6 +301,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
+                                        <th>LRN</th>
                                         <th>Last Name</th>
                                         <th>First Name</th>
                                         <th>Middle Name</th>
@@ -313,11 +319,18 @@
                                         die("Connection failed: " . mysqli_connect_error());
                                     }
 
-                                    // Fetch students with optional gender filter
+                                    // Get the current adviser's section
+                                    $adviser_email = $_SESSION['user_email'];
+                                    $adviser_section_query = "SELECT adviserSection FROM advisers WHERE adviserEmailAddress = '$adviser_email'";
+                                    $adviser_result = mysqli_query($connection, $adviser_section_query);
+                                    $adviser_data = mysqli_fetch_assoc($adviser_result);
+                                    $adviser_section = $adviser_data['adviserSection'];
+
+                                    // Fetch students with optional gender filter and section filter
                                     $sex_filter = isset($_GET['sex']) ? $_GET['sex'] : '';
-                                    $fetch_query = "SELECT * FROM students";
+                                    $fetch_query = "SELECT * FROM students WHERE section = '$adviser_section'";
                                     if (!empty($sex_filter)) {
-                                        $fetch_query .= " WHERE sex = '$sex_filter'";
+                                        $fetch_query .= " AND sex = '$sex_filter'";
                                     }
                                     $fetch_query .= " ORDER BY last_name ASC";
 
@@ -327,6 +340,7 @@
                                         while ($row = mysqli_fetch_array($fetch_query_run)) {
                                             ?>
                                             <tr>
+                                                <td><?php echo $row['lrn'] ?></td>
                                                 <td><?php echo $row['last_name'] ?></td>
                                                 <td><?php echo $row['first_name'] ?></td>
                                                 <td><?php echo $row['middle_name'] ?></td>
@@ -334,17 +348,24 @@
                                                 <td><?php echo $row['grade_level'] ?></td>
                                                 <td><?php echo $row['section'] ?></td>
                                                 <td>
-                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
-                                                        data-lastname="<?php echo $row['last_name']; ?>"
-                                                        data-firstname="<?php echo $row['first_name']; ?>"
-                                                        data-middlename="<?php echo $row['middle_name']; ?>"
-                                                        data-contact="<?php echo $row['contact_number']; ?>"
-                                                        data-grade="<?php echo $row['grade_level']; ?>"
-                                                        data-section="<?php echo $row['section']; ?>" data-bs-toggle="modal"
-                                                        data-bs-target="#editStudentModal">Edit</a>
+                                                    <div class="d-flex gap-2 justify-content-center">
+                                                        <a href="#" class="btn btn-warning btn-edit btn-icon edit_data"
+                                                            data-lastname="<?php echo $row['last_name']; ?>"
+                                                            data-firstname="<?php echo $row['first_name']; ?>"
+                                                            data-middlename="<?php echo $row['middle_name']; ?>"
+                                                            data-contact="<?php echo $row['contact_number']; ?>"
+                                                            data-grade="<?php echo $row['grade_level']; ?>"
+                                                            data-section="<?php echo $row['section']; ?>" 
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#editStudentModal">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
 
-                                                    <button class="btn btn-danger btn-remove btn-sm"
-                                                        data-id="<?php echo $row['first_name']; ?>">Remove</button>
+                                                        <button class="btn btn-danger btn-remove btn-icon"
+                                                            data-id="<?php echo $row['first_name']; ?>">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <?php

@@ -47,27 +47,40 @@ body, html {
 
 .subject-container {
     display: grid;
-    grid-template-columns: repeat(4, minmax(180px, 1fr));
-    gap: 15px;
-    max-width: 1000px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
     width: 100%;
+    padding: 20px;
+    margin: 0 auto;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
+    .subject-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
     .subject-container {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 600px) {
     .subject-container {
         grid-template-columns: 1fr;
+    }
+    
+    .subject-box {
+        max-width: 300px;
+        margin: 0 auto;
     }
 }
 
 .subject-box {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-decoration: none;
@@ -75,9 +88,10 @@ body, html {
     transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    align-items: center;
+    padding: 20px;
     text-align: center;
-    aspect-ratio: 4/3;
+    height: 100%;
 }
 
 .subject-box:hover {
@@ -95,10 +109,10 @@ body, html {
 }
 
 .subject-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: #0033a0;
-    margin-bottom: 5px;
+    margin: 10px 0;
 }
 
 .subject-subtitle {
@@ -107,8 +121,11 @@ body, html {
 }
 
 .subject-img{
-    width: 200px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
 }
 
 /* For better alignment of the items when there are fewer than 4 items in the last row */

@@ -49,7 +49,8 @@
                     A.adviserGrlvl, 
                     B.section_name, 
                     B.section_grade_level, 
-                    C.id AS student_id,
+                    C.student_id AS student_id,
+                    c.lrn,
                     C.section, 
                     C.first_name,
                     C.middle_name,
@@ -97,6 +98,7 @@
                         echo "<thead>";
                         echo "<tr>";
                         echo "<th>#</th>";
+                        echo "<th>LRN</th>";
                         echo "<th>Last Name</th>";
                         echo "<th>First Name</th>";
                         echo "<th>Middle Name</th>";
@@ -109,6 +111,7 @@
                         foreach ($male_students as $student) {
                             echo "<tr>";
                             echo "<td>" . $counter++ . "</td>";
+                            echo "<td>" . htmlspecialchars($student['lrn']) . "</td>";
                             echo "<td>" . htmlspecialchars($student['last_name']) . "</td>";
                             echo "<td>" . htmlspecialchars($student['first_name']) . "</td>";
                             echo "<td>" . htmlspecialchars($student['middle_name']) . "</td>";
@@ -135,6 +138,7 @@
                         echo "<thead>";
                         echo "<tr>";
                         echo "<th>#</th>";
+                        echo "<th>LRN</th>";
                         echo "<th>Last Name</th>";
                         echo "<th>First Name</th>";
                         echo "<th>Middle Name</th>";
@@ -147,6 +151,7 @@
                         foreach ($female_students as $student) {
                             echo "<tr>";
                             echo "<td>" . $counter++ . "</td>";
+                            echo "<td>" . htmlspecialchars($student['lrn']) . "</td>";
                             echo "<td>" . htmlspecialchars($student['last_name']) . "</td>";
                             echo "<td>" . htmlspecialchars($student['first_name']) . "</td>";
                             echo "<td>" . htmlspecialchars($student['middle_name']) . "</td>";
