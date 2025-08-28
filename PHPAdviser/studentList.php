@@ -295,7 +295,7 @@
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
-                            </div>   
+                            </div>
 
                             <!-- Student Table -->
                             <table class="table table-bordered">
@@ -319,12 +319,18 @@
                                         die("Connection failed: " . mysqli_connect_error());
                                     }
 
+
                                     // Get the current adviser's section
-                                    $adviser_email = $_SESSION['user_email'];
+                                    
                                     $adviser_section_query = "SELECT adviserSection FROM advisers WHERE adviserEmailAddress = '$adviser_email'";
                                     $adviser_result = mysqli_query($connection, $adviser_section_query);
                                     $adviser_data = mysqli_fetch_assoc($adviser_result);
-                                    $adviser_section = $adviser_data['adviserSection'];
+
+                                    if ($adviser_data && isset($adviser_data['adviserSection'])) {
+                                        $adviser_section = $adviser_data['adviserSection'];
+                                    } else {
+                                        $adviser_section = null;
+                                    }
 
                                     // Fetch students with optional gender filter and section filter
                                     $sex_filter = isset($_GET['sex']) ? $_GET['sex'] : '';
@@ -355,8 +361,7 @@
                                                             data-middlename="<?php echo $row['middle_name']; ?>"
                                                             data-contact="<?php echo $row['contact_number']; ?>"
                                                             data-grade="<?php echo $row['grade_level']; ?>"
-                                                            data-section="<?php echo $row['section']; ?>" 
-                                                            data-bs-toggle="modal"
+                                                            data-section="<?php echo $row['section']; ?>" data-bs-toggle="modal"
                                                             data-bs-target="#editStudentModal">
                                                             <i class="fas fa-edit"></i>
                                                         </a>

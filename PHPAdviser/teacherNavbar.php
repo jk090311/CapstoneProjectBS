@@ -49,7 +49,7 @@ if (isset($_SESSION['user_email'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../CSS/Teacher/teacherNavbar.css">
+  <link rel="stylesheet" href="../CSS/Teacher/TeacherNavbar.css">
 </head>
 
 <body>
@@ -87,6 +87,11 @@ if (isset($_SESSION['user_email'])) {
               <img id="iconLeft" src="../Assets/data-analysis_12959229.png" alt="Dashboard Icon">
               Dashboard
             </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/subjectTeacher.php">
+            <img id="iconLeft" src="../Assets/student.png">   
+            Subject Teachers</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/studentList.php">

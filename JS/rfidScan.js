@@ -46,6 +46,7 @@ function updateAttendanceTable() {
                 <tr>
                     <th>RFID Number</th>
                     <th>Name</th>
+                    <th>Section</th>
                     <th>Time In</th>
                     <th>Time Out</th>
                     <th>Date Logged</th>
@@ -56,6 +57,7 @@ function updateAttendanceTable() {
                 row.innerHTML = `
                     <td>${entry.rfid_number}</td>
                     <td>${entry.student_name || "Unknown"}</td>
+                    <td>${entry.section || "N/A"}</td>
                     <td>${entry.time_in || "N/A"}</td>
                     <td>${entry.time_out || "N/A"}</td>
                     <td>${entry.date_logged || "N/A"}</td>`;

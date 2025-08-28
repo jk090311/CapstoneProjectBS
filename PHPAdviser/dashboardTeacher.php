@@ -2,7 +2,6 @@
 include "teacherNavbar.php"; 
 
 
-
 // Check if user is logged in
 if (!isset($_SESSION['user_email'])) {
     // Not logged in, redirect to login page
@@ -69,7 +68,7 @@ if (isset($_SESSION['user_email'])) {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #ffffffff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -104,7 +103,7 @@ if (isset($_SESSION['user_email'])) {
 <body>
     <div class="container">
         <div class="section">
-            <h2>Welcome, Teacher <?php echo $adviserFullName; ?> !</h2>
+            <h2>Welcome, Adviser <?php echo $adviserFullName; ?> !</h2>
             <p>Welcome to your dashboard. Here you can find the quick access to various sections.</p>
         </div>
        <!-- <div class="section">
@@ -127,6 +126,7 @@ if (isset($_SESSION['user_email'])) {
                <!-- <a href="TeacherMessages.php">Messages</a> -->
                 <a href="../PHPAdviser/studentList.php">Students</a>
                 <a href="reportSystem.php">Grades</a>
+                <a href="subjectTeacher.php">Teachers</a>
                 <a href="../PHPAdviser/adviserSubject.php">Subject</a>
             </div>
         </div>

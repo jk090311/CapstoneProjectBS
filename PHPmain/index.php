@@ -46,6 +46,9 @@ if ($row = mysqli_fetch_assoc($result)) {
         } else if ($row['user_role'] == "student") {
             header("location:../PHPStudent/dashboardStudent.php?id=" . $row['user_id']); // Pass user ID in URL
             exit();
+        } else if ($row['user_role'] == "subject_teacher") {
+            header("location:../PHPSubjectTeacher/dashboardSubjectTeacher.php?id=" . $row['user_id']); // Pass user ID in URL
+            exit();
         }
     } else {
         $_SESSION['message'] = "Invalid email or password.";
@@ -67,7 +70,7 @@ if ($row = mysqli_fetch_assoc($result)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="/CapstoneProjectBSBackup/CSS/index.css" rel="stylesheet">
+    <link href="/CapstoneProjectBS/CSS/index.css" rel="stylesheet">
     <title>Login</title>
 </head>
 

@@ -43,6 +43,7 @@ if ($conn->connect_error) {
         <tr>
             <th>RFID Number</th>
             <th>Name</th>
+            <th>Section</th>
             <th>Time In</th>
             <th>Time Out</th>
             <th>Date Logged</th>
@@ -59,6 +60,7 @@ if ($conn->connect_error) {
                 echo "<tr>
                         <td>{$row['rfid_number']}</td>
                         <td>{$row['first_name']} {$row['last_name']}</td>
+                        <td>{$row['section']}</td>
                         <td>{$row['time_in']}</td>
                         <td>{$row['time_out']}</td>
                         <td>{$row['date_logged']}</td>
@@ -82,6 +84,7 @@ if ($conn->connect_error) {
         newRow.innerHTML = `
             <td>${row.rfid_number}</td>
             <td>${row.name}</td>
+            <td>${row.section || 'N/A'}</td>
             <td>${row.time_in || 'N/A'}</td>
             <td>${row.time_out || 'N/A'}</td>
             <td>${row.date_logged}</td>

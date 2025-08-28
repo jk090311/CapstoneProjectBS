@@ -27,6 +27,7 @@ function fetchAttendanceData() {
                 <tr>
                     <th>RFID Number</th>
                     <th>Name</th>
+                    <th>Section</th>
                     <th>Time In</th>
                     <th>Time Out</th>
                     <th>Date Logged</th>
@@ -37,6 +38,7 @@ function fetchAttendanceData() {
                 newRow.innerHTML = `
                     <td>${row.rfid_number}</td>
                     <td>${row.name}</td>
+                    <td>${row.section || 'N/A'}</td>
                     <td>${row.time_in || 'N/A'}</td>
                     <td>${row.time_out || 'N/A'}</td>
                     <td>${row.date_logged}</td>

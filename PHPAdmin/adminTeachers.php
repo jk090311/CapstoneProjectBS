@@ -113,8 +113,7 @@ session_start();
                             </div>
 
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                            onclick="showPart(1)">Previous</button>
+                                <button type="button" class="btn btn-secondary" onclick="showPart(1)">Previous</button>
                                 <button type="submit" id="submitBtn" name="adviserRegister"
                                     class="btn btn-primary">Register</button>
                             </div>
@@ -132,91 +131,190 @@ session_start();
             <div class="col-md-8">
                 <?php
                 if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                ?>
+                    ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <?php echo $_SESSION['status']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                <?php
+                    <?php
                     unset($_SESSION['status']);
                 }
                 ?>
 
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Malinta National High School Advisers</h4>
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                            data-bs-target="#addTeacher">Add Adviser</button>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Full Name</th>
-                                    <th scope="col">Contact Number</th>
-                                    <th scope="col">Email Address</th>
-                                    <th scope="col">Password</th>
-                                    <th scope="col">Grade Level</th>
-                                    <th scope="col">Section</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $connection = mysqli_connect("localhost", "root", "", "educguarddb");
-                                $fetch_query = "SELECT * FROM advisers" . " ORDER BY adviserFullName ASC";
-                                $fetch_query = "SELECT * FROM advisers";
-
-                                $fetch_query_run = mysqli_query($connection, $fetch_query);
-
-                                if (mysqli_num_rows($fetch_query_run) > 0) {
-                                    while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                ?>
-                                        <tr>
-                                            <td><?php echo $row['adviserFullName'] ?></td>
-                                            <td><?php echo $row['adviserContactNumber'] ?></td>
-                                            <td><?php echo $row['adviserEmailAddress'] ?></td>
-                                            <td>***********</td> <!-- Do not display plain passwords -->
-                                            <td><?php echo $row['adviserGrLvl'] ?></td>
-                                            <td><?php echo $row['adviserSection'] ?></td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <!-- Edit Button with Icon -->
-                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
-                                                        data-name="<?php echo $row['adviserFullName']; ?>"
-                                                        data-contact="<?php echo $row['adviserContactNumber']; ?>"
-                                                        data-email="<?php echo $row['adviserEmailAddress']; ?>"
-                                                        data-grade="<?php echo $row['adviserGrLvl']; ?>"
-                                                        data-section="<?php echo $row['adviserSection']; ?>" 
-                                                        data-password="<?php echo $row['adviserPassword']; ?>"
-                                                        data-bs-toggle="modal" data-bs-target="#addTeacher">
-                                                        <i class="fas fa-edit"></i> <!-- Font Awesome Edit Icon -->
-                                                    </a>
-
-                                                    <!-- Remove Button with Icon -->
-                                                    <button class="btn btn-danger btn-remove btn-sm" onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">
-                                                        <i class="fas fa-trash-alt"></i> <!-- Font Awesome Trash Icon -->
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                    }
-                                } else {
-                                    ?>
-                                    <tr>
-                                        <td colspan="7">No Records Found</td>
-                                    </tr>
-                                <?php
-                                }
-
-                                ?>
-                            </tbody>
-                        </table>
+                <div class="card-header">
+                    <h4>Malinta National High School Teachers</h4>
+                    <button type="button" class="btn btn-primary float-end ms-2" data-bs-toggle="modal"
+                        data-bs-target="#addTeacher">Add Adviser</button>
+                    <button type="button" class="btn btn-success float-end" data-bs-toggle="modal"
+                        data-bs-target="#addSubjectTeacher">Add Subject Teacher</button>
+                </div>
+                <!-- Add Subject Teacher Modal -->
+                <div class="modal fade" id="addSubjectTeacher" tabindex="-1" aria-labelledby="addSubjectTeacherLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="addSubjectTeacherLabel">Create New Subject Teacher
+                                    Account</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form action="../PHPSubjectTeacher/subjectTeacherRegister.php" method="POST">
+                                <div class="modal-body">
+                                    <div class="form-group mb-3">
+                                        <label for="subjectTeacherFullName" class="form-label">Full Name</label>
+                                        <input type="text" id="subjectTeacherFullName" name="subjectTeacherFullName"
+                                            class="form-control" placeholder="Full Name" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="subjectTeacherContactNumber" class="form-label">Contact
+                                            Number</label>
+                                        <input type="tel" id="subjectTeacherContactNumber"
+                                            name="subjectTeacherContactNumber" class="form-control"
+                                            placeholder="Contact Number" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="subjectTeacherEmailAddress" class="form-label">Email Address</label>
+                                        <input type="email" id="subjectTeacherEmailAddress"
+                                            name="subjectTeacherEmailAddress" class="form-control"
+                                            placeholder="Email Address" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="subjectTeacherPassword" class="form-label">Password</label>
+                                        <input type="text" id="subjectTeacherPassword" name="subjectTeacherPassword"
+                                            class="form-control" placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="subjectTeacherSubject" class="form-label">Subject</label>
+                                        <input type="text" id="subjectTeacherSubject" name="subjectTeacherSubject"
+                                            class="form-control" placeholder="Subject" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" name="subjectTeacherRegister"
+                                        class="btn btn-success">Register</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Contact Number</th>
+                                <th scope="col">Email Address</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Grade Level / Subject</th>
+                                <th scope="col">Section</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+
+                            // Show Advisers
+                            $fetch_query = "SELECT * FROM advisers ORDER BY adviserFullName ASC";
+                            $fetch_query_run = mysqli_query($connection, $fetch_query);
+
+                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $row['adviserFullName'] ?></td>
+                                        <td><?php echo $row['adviserContactNumber'] ?></td>
+                                        <td><?php echo $row['adviserEmailAddress'] ?></td>
+                                        <td>***********</td> <!-- Do not display plain passwords -->
+                                        <td><?php echo $row['adviserGrLvl'] ?></td>
+                                        <td><?php echo $row['adviserSection'] ?></td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <!-- Edit Button with Icon -->
+                                                <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
+                                                    data-name="<?php echo $row['adviserFullName']; ?>"
+                                                    data-contact="<?php echo $row['adviserContactNumber']; ?>"
+                                                    data-email="<?php echo $row['adviserEmailAddress']; ?>"
+                                                    data-grade="<?php echo $row['adviserGrLvl']; ?>"
+                                                    data-section="<?php echo $row['adviserSection']; ?>"
+                                                    data-password="<?php echo $row['adviserPassword']; ?>"
+                                                    data-bs-toggle="modal" data-bs-target="#addTeacher">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <!-- Remove Button with Icon -->
+                                                <button class="btn btn-danger btn-remove btn-sm"
+                                                    onclick="removeAdviser('<?php echo $row['adviserFullName']; ?>')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <tr>
+                                    <td colspan="7">No Adviser Records Found</td>
+                                </tr>
+                                <?php
+                            }
+
+                            // Show Subject Teachers
+                            $fetch_subject_query = "SELECT * FROM subject_teachers ORDER BY fullName ASC";
+                            $fetch_subject_query_run = mysqli_query($connection, $fetch_subject_query);
+
+                            if (mysqli_num_rows($fetch_subject_query_run) > 0) {
+                                while ($row = mysqli_fetch_array($fetch_subject_query_run)) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $row['fullName'] ?></td>
+                                        <td><?php echo $row['contactNumber'] ?></td>
+                                        <td><?php echo $row['email'] ?></td>
+                                        <td>***********</td> <!-- Do not display plain passwords -->
+                                        <td><?php echo $row['subject'] ?></td>
+                                        <td>-</td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <!-- Edit Button with Icon -->
+                                                <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
+                                                    data-name="<?php echo $row['fullName']; ?>"
+                                                    data-contact="<?php echo $row['contactNumber']; ?>"
+                                                    data-email="<?php echo $row['email']; ?>"
+                                                    data-subject="<?php echo $row['subject']; ?>"
+                                                    data-password="<?php echo $row['password']; ?>" data-bs-toggle="modal"
+                                                    data-bs-target="#addSubjectTeacher">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <!-- Remove Button with Icon -->
+                                                <button class="btn btn-danger btn-remove btn-sm"
+                                                    onclick="removeSubjectTeacher('<?php echo $row['fullName']; ?>')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <tr>
+                                    <td colspan="7">No Subject Teacher Records Found</td>
+                                </tr>
+                                <?php
+                            }
+
+                            mysqli_close($connection);
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
+    </div>
     </div>
 
 
