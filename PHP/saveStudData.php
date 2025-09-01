@@ -29,7 +29,7 @@ $pEmail = isset($_POST['pEmail']) ? trim($_POST['pEmail']) : '';
 $username = isset($_POST['username']) ? trim($_POST['username']) : '';
 $status = isset($_POST['status']) ? trim($_POST['status']) : '';
 $section = isset($_POST['section']) ? trim($_POST['section']) : '';
-$password = isset($_POST['password']) && !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null;
+$password = isset($_POST['password']) && !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_BCRYPT) : null;
 $user_role = "student"; // Default user role
 
 // Validate required fields

@@ -13,12 +13,10 @@ if (!isset($_SESSION['user_email'])) {
 $required_role = "student"; 
 if ($_SESSION['user_role'] != $required_role) {
     
-    if ($_SESSION['user_role'] == "student") {
-        header("Location: ../PHPAdmin/dashboardStudent.php");
-    } else if ($_SESSION['user_role'] == "admin") {
-        header("Location: ../PHPAdviser/dashboardAdmin.php");
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdmin/dashboardAdmin.php");
     } else if ($_SESSION['user_role'] == "adviser") {
-        header("Location: dashboardTeacher.php");
+        header("Location: ../PHPStudent/dashboardStudent.php");
     }
     exit();
 }

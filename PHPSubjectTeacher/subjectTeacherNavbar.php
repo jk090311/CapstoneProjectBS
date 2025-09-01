@@ -81,7 +81,7 @@ if (isset($_SESSION['user_email'])) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/.php">
+                        <a class="nav-link active text-white" aria-current="page" href="../PHPSubjectTeacher/STSubject.php">
                             <img id="iconLeft" src="../Assets/books.png" alt="Subject Icon">
                             Subject
                         </a>
@@ -92,13 +92,13 @@ if (isset($_SESSION['user_email'])) {
                             attendance</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/.php">
+                        <a class="nav-link active text-white" aria-current="page" href="../PHPSubjectTeacher/STGrade.php">
                             <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
                             Grades
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/.php">
+                        <a class="nav-link active text-white" aria-current="page" href="../PHPSubjectTeacher/STMessage.php">
                             <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
                             Message
                         </a>
