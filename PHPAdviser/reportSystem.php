@@ -116,12 +116,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset
 
     <script>
         $(document).ready(function() {
-            // Replace the existing subject click handler with this
             $('.subject-box').on('click', function() {
                 const subjectId = $(this).data('subject-id');
                 const subjectName = $(this).data('subject-name');
-                // Redirect to getGrades.php with subject ID parameter
-                window.location.href = `getGrades.php?subject_id=${subjectId}`;
+                // Redirect to getGrades.php with both subject ID and name parameters
+                window.location.href = `getGrades.php?subject_id=${subjectId}&subject_name=${encodeURIComponent(subjectName)}`;
             });
         });
     </script>

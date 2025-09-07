@@ -223,6 +223,25 @@ if ($result) {
                     // Display remarks for GWA
                     echo "<td>" . ($gwa >= 75 ? 'PASSED' : 'FAILED') . "</td>";
                     echo "</tr>";
+                    
+                    // Add new row with academic honors
+                    echo "<tr>";
+                    echo "<td colspan='6'></td>";
+                    // Determine academic honor based on GWA
+                    $academic_honor = "";
+                    if ($gwa >= 98 && $gwa <= 100) {
+                        $academic_honor = "WITH HIGHEST HONOR";
+                    } elseif ($gwa >= 94 && $gwa <= 97) {
+                        $academic_honor = "WITH HIGH HONOR";
+                    } elseif ($gwa >= 90 && $gwa <= 93) {
+                        $academic_honor = "WITH HONOR";
+                    } elseif ($gwa >= 75 && $gwa <= 89) {
+                        $academic_honor = "PASSED";
+                    } else {
+                        $academic_honor = "FAILED";
+                    }
+                    echo "<td>" . $academic_honor . "</td>";
+                    echo "</tr>";
                 }
             } else {
                 echo "<tr><td colspan='7'>No grades available</td></tr>";

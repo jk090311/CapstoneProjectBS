@@ -76,30 +76,41 @@ if ($row = mysqli_fetch_assoc($result)) {
 
 <body>
 <header>
-    <h1>Welcome to Capstone Project</h1>
 
 </header>
 <div class="container">
     <div id="loginBox">
-    <div class="circle"> </div> 
-        <h1 id="loginText">Login</h1>
-        <p class="formFormat">Login your account</p>
-
-        <div id="warningPopup" class="warning-popup">
-            <?php echo $_SESSION['message']; ?>
+        <div class="left-side">
+            <h2>Student Grades and Attendance System</h2>
+            <p>Personalized education management for teachers, administrators, and students</p>
+            <p>Effortless tracking of classes, grades, attendance, and more</p>
+            <ul class="feature-list">
+                <li>Real-time grade tracking</li>
+                <li>Attendance monitoring</li>
+                <li>Student progress reports</li>
+                <li>Secure data management</li>
+            </ul>
         </div>
+        <div class="right-side">
+            <h1 id="loginText">Welcome Back</h1>
+            <p class="formFormat">Sign in to your account</p>
 
-        <form class="formFormat" action="" method="POST">
-            <label>Email</label><br>
-            <input type="text" class="inputForm" name="email" placeholder="example@gmail.com"><br><br>
-            <label>Password</label><br>
-            <div class="password-container">
-                <input type="password" class="inputForm" name="password" id="passwordInput" placeholder="!password123">
-                <i class="fa-solid fa-eye" id="togglePassword"></i>
+            <div id="warningPopup" class="warning-popup">
+                <?php echo $_SESSION['message']; ?>
             </div>
-            <br><br>
-            <input type="submit" id="loginButton" name="login" value="Login">
-        </form>
+
+            <form class="formFormat" action="" method="POST">
+                <label>Email</label><br>
+                <input type="text" class="inputForm" name="email" placeholder="example@gmail.com"><br><br>
+                <label>Password</label><br>
+                <div class="password-container">
+                    <input type="password" class="inputForm" name="password" id="passwordInput" placeholder="!password123">
+                    <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
+                </div>
+                <br><br>
+                <input type="submit" id="loginButton" name="login" value="Login">
+            </form>
+        </div>
     </div>
 </div>
 

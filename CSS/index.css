@@ -1,155 +1,122 @@
 body {
-  background-image: url("/CapstoneProjectBS/Assets/background.jpg");
-  background-size:  1950px 1100px;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  margin-top: 1px;
-  margin-left: 1px;
-  margin-right: 1px;
-  background-color: #124E66;
-  background-blend-mode: lighten;
-
+  background: linear-gradient(135deg, #6e8efb, #4776E6);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 50px;
-    margin-top: 40px;
-    box-sizing: border-box;
-  }
-  #loginBox {
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 20px;
+}
 
-    width: 400px;
-    height: 500px;
-    background-color: #748D92;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: center;
-    margin-left: 40%;
-    margin-top: 45px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+#loginBox {
+  width: 900px;
+  min-height: 500px;
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;  /* Changed to row for side-by-side layout */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;  /* Add this line to existing #loginBox style */
+}
 
-  }
-
-  header {
-    background-color: #124E66;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
+header {
+  background: transparent;
+  padding: 20px;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 24px;
+  color: white;
 }
 
 header nav ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 header nav ul li {
-    display: inline;
-    margin: 0 10px;
+  display: inline;
+  margin: 0 10px;
 }
 
 header nav ul li a {
-    color: rgb(16, 43, 117);
-    text-decoration: none;
+  color: rgb(16, 43, 117);
+  text-decoration: none;
 }
 
 header nav ul li a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .circle {
-  width: 100px;
-  height: 100px;
-  background-image: url("/CapstoneProjectBS/Assets/241463411_379540937093962_5358002750396125332_n.png");
-  background-size: cover;
-  background-color: #5375e2;
-  border-radius: 50%;
-  position: absolute;
-  top: 140px; /* Adjust as needed */
-  left: 51%;
-  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  left: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 4px solid white;
 }
-
 
 footer {
-  background-color: #124E66;
+  background: rgba(0, 0, 0, 0.1);
   color: white;
-  text-align: center;
-  padding: 10px 0;
-  position: fixed;
+}
+
+#loginText {
+  color: #333;
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-align: left;
+  margin-top: 0;
+}
+
+.formFormat {
+  margin: 10px 0;
+  color: #333;
+  font-size: 16px;
   width: 100%;
-  bottom: 0;
 }
 
-
-  #loginText{
-    text-align: center;
-    color: #D0E4FF;
-    font-size: 40px;
-  }
-
-  .formFormat{
-    margin-left: 20px;
-    margin-right: 20px;
-    text-align: left;
-    font-size: 20px;
-    color: #D0E4FF;
-    text-emphasis: bold;
-  }
-  
-  p{
-    font-weight: bold;
-    border-bottom: solid 2px;
-    padding-bottom: 10px;
-  }
-
-.inputForm{
-  border-radius: 2px;
-  width: 50%;
-  height: 10%;
-padding-right: 180px;
+.formFormat p {
+  border-bottom: none;
+  color: #666;
+  font-weight: normal;
 }
 
-#loginButton{
-  border-radius: 20px;
-  background-color: #124E66;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 14px;
-  display: block;
-  margin-top: 40px;
-  margin-left: 90px;
-  text-align: center;
-  width: 50%;
+.inputForm {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 8px;
+  box-sizing: border-box;
 }
 
-.warning-popup {
-  display: none;
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ff3333;
+#loginButton {
+  background: #00b09b;
   color: white;
-  padding: 15px 25px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  animation: slideDown 0.5s, fadeOut 0.5s 2.5s forwards;
-  text-align: center;
-  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
 }
+
+#loginButton:hover {
+  background: #008f7f;
+}
+
 .warning-popup {
   display: none;
   position: fixed;
@@ -169,39 +136,89 @@ padding-right: 180px;
 
 .password-container {
   position: relative;
-  width: 80%;
+  width: 100%;
 }
 
 .password-container .inputForm {
-  width: 110%;
-  padding-right: 40px; /* Add space for the icon */
+  width: 100%;
+  padding-right: 40px;
 }
 
 .password-container i {
   position: absolute;
+  right: 12px;
   top: 50%;
-  left: 115%;
   transform: translateY(-50%);
+  color: #666;
   cursor: pointer;
-  color: #124E66;
+}
+
+.password-container i:hover {
+  color: #333;
+}
+
+.left-side {
+  flex: 1;
+  background: #00b09b;
+  padding: 40px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-side {
+  flex: 1;
+  background: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-side h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.left-side p {
+  margin-bottom: 15px;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.feature-list li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.feature-list li:before {
+  content: '✓';
+  margin-right: 10px;
 }
 
 @keyframes slideDown {
   from {
-      top: -50px;
-      opacity: 0;
+    top: -50px;
+    opacity: 0;
   }
   to {
-      top: 20px;
-      opacity: 1;
+    top: 20px;
+    opacity: 1;
   }
 }
 
 @keyframes fadeOut {
   from {
-      opacity: 1;
+    opacity: 1;
   }
   to {
-      opacity: 0;
+    opacity: 0;
   }
 }

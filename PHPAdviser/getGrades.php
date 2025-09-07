@@ -53,11 +53,12 @@ $adviser_result = $stmt->get_result();
 $adviser_section = ($adviser_result && $adviser_result->num_rows > 0) ? $adviser_result->fetch_assoc()['adviserSection'] : null;
 $stmt->close();
 
-if (!isset($_GET['subject_id'])) {
-    die("Subject ID is required");
+if (!isset($_GET['subject_id']) || !isset($_GET['subject_name'])) {
+    die("Subject ID and name are required");
 }
 
 $subject_id = $_GET['subject_id'];
+$subject_name = htmlspecialchars($_GET['subject_name']);
 
 // Fetch students and their grades
 $sql = "SELECT s.student_id, s.first_name, s.middle_name, s.last_name,
@@ -149,7 +150,49 @@ $result = $stmt->get_result();
     .notification.show {
         opacity: 1;
     }
+
+    .subject-header {
+        text-align: center;
+        margin: 20px 0;
+        padding: 10px;
+    }
+    
+    .subject-header h2 {
+        color: #333;
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .back-button {
+        position: fixed;
+        top: 80px;  /* Increased from 20px to move it below the navbar */
+        left: 40px;
+        padding: 12px 24px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;  /* Ensures the button stays on top */
+    }
+
+    .back-button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
 </style>
+
+<a href="reportSystem.php" class="back-button">← Back to Subjects</a>
+
+<div class="subject-header">
+    <h2><?php echo $subject_name; ?></h2>
+</div>
 
 <div class="card-container">
     <table class="student-table">
@@ -221,6 +264,28 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             notification.classList.remove('show');
         }, 3000);
+    }
+
+    // Function to calculate and update final grade
+    function updateFinalGrade(row) {
+        const gradeInputs = row.querySelectorAll('.grade-input');
+        const finalGradeSpan = row.querySelector('.final-grade');
+        let sum = 0;
+        let count = 0;
+        
+        gradeInputs.forEach(input => {
+            if (input.value) {
+                sum += parseInt(input.value);
+                count++;
+            }
+        });
+        
+        if (count > 0) {
+            const average = Math.round(sum / count);
+            finalGradeSpan.textContent = average;
+        } else {
+            finalGradeSpan.textContent = '';
+        }
     }
 
     document.querySelectorAll('.submit-grades-btn').forEach(button => {
@@ -296,6 +361,23 @@ document.addEventListener('DOMContentLoaded', function() {
             this.textContent = 'Editing...';
             this.style.backgroundColor = '#dc3545';
             this.style.color = 'white';
+        });
+    });
+
+    // Add input event listeners to all grade inputs
+    document.querySelectorAll('.grade-input').forEach(input => {
+        input.addEventListener('input', function() {
+            const row = this.closest('tr');
+            updateFinalGrade(row);
+            
+            // Validate input range (75-100)
+            const value = parseInt(this.value);
+            if (value < 0 || value > 100) {
+                this.style.backgroundColor = '#ffebee';
+                showNotification('Grade must be between 0 and 100', 'error');
+            } else {
+                this.style.backgroundColor = 'white';
+            }
         });
     });
 });
