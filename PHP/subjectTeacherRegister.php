@@ -11,22 +11,22 @@ if (!$connection) {
 
 if (isset($_POST['subjectTeacherRegister'])) {
     // Sanitize input
-    $fullName = mysqli_real_escape_string($connection, $_POST['subjectTeacherFullName']);
-    $contactNumber = mysqli_real_escape_string($connection, $_POST['subjectTeacherContactNumber']);
-    $email = mysqli_real_escape_string($connection, $_POST['subjectTeacherEmailAddress']);
-    $password = mysqli_real_escape_string($connection, $_POST['subjectTeacherPassword']);
-    $subject = mysqli_real_escape_string($connection, $_POST['subjectTeacherSubject']);
+    $stFullName = mysqli_real_escape_string($connection, $_POST['stFullName']);
+    $stContactNumber = mysqli_real_escape_string($connection, $_POST['stContactNumber']);
+    $stEmail = mysqli_real_escape_string($connection, $_POST['stEmail']);
+    $stPassword = mysqli_real_escape_string($connection, $_POST['stPassword']);
+    $stSubject = mysqli_real_escape_string($connection, $_POST['stSubject']);
 
     // Hash the password
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $stHashedPassword = password_hash($stPassword, PASSWORD_BCRYPT);
 
     // Start transaction
     mysqli_begin_transaction($connection);
 
     try {
         // Insert into subject_teachers table
-        $insert_teacher_query = "INSERT INTO subject_teachers (fullName, contactNumber, email, password, subject)
-                                VALUES ('$fullName', '$contactNumber', '$email', '$hashedPassword', '$subject')";
+        $insert_teacher_query = "INSERT INTO subject_teachers (stFullName, stContactNumber, stEmail, stPassword, stSubject)
+                        VALUES ('$stFullName', '$stContactNumber', '$stEmail', '$stHashedPassword', '$stSubject')";
         $insert_teacher_query_run = mysqli_query($connection, $insert_teacher_query);
 
         if (!$insert_teacher_query_run) {
@@ -35,7 +35,7 @@ if (isset($_POST['subjectTeacherRegister'])) {
 
         // Insert into user_acc table
         $insert_user_query = "INSERT INTO user_acc (user_email, user_password, user_role)
-                              VALUES ('$email', '$hashedPassword', 'subject_teacher')";
+                     VALUES ('$stEmail', '$stHashedPassword', 'subject_teacher')";
         $insert_user_query_run = mysqli_query($connection, $insert_user_query);
 
         if (!$insert_user_query_run) {

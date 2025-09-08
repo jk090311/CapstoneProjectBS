@@ -17,11 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
     window.showPart = showPart;
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
-    // Handle Edit button click
-    const editButtons = document.querySelectorAll('.edit_data');
+    // Handle Edit button click for Advisers
+    const editButtons = document.querySelectorAll('.edit_data[data-bs-target="#addTeacher"]');
     editButtons.forEach(button => {
         button.addEventListener('click', function () {
             // Get data from data attributes
@@ -47,24 +45,23 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('submitBtn').innerText = 'Update';
             document.getElementById('addTeacherLabel').innerText = 'Edit Teacher Account';
 
-            /// Add a hidden input to store the adviser's original name for identification in PHP
+            // Add a hidden input to store the adviser's original name for identification in PHP
             let originalNameInput = document.getElementById('originalAdviserName');
             if (!originalNameInput) {
                 originalNameInput = document.createElement('input');
                 originalNameInput.type = 'hidden';
                 originalNameInput.name = 'originalAdviserName';
                 originalNameInput.id = 'originalAdviserName';
-                document.querySelector('form').appendChild(originalNameInput);
+                document.querySelector('#addTeacher form').appendChild(originalNameInput);
             }
-            originalNameInput.value = name;  // Store the original adviser's name
-            
+            originalNameInput.value = name;
 
             // Set the form action to adviserUpdate.php
-            document.querySelector('form').action = '../PHP/adviserUpdate.php';
+            document.querySelector('#addTeacher form').action = '../PHP/adviserUpdate.php';
         });
     });
 
-    // Handle modal close/hidden to reset form
+    // Handle Adviser modal close/hidden to reset form
     const modal = document.getElementById('addTeacher');
     modal.addEventListener('hidden.bs.modal', function () {
         // Reset form
@@ -73,11 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('adviserContactNumber').value = '';
         document.getElementById('adviserGrLvl').value = '7';
         document.getElementById('adviserEmailAddress').value = '';
-        document.getElementById('adviserPassword').value ='';
+        document.getElementById('adviserPassword').value = '';
         document.getElementById('adviserSection').value = 'Aqua';
 
         // Remove hidden input field if exists
-        const nameInput = document.getElementById('adviser_name_input');
+        const nameInput = document.getElementById('originalAdviserName');
         if (nameInput) {
             nameInput.remove();
         }
@@ -85,10 +82,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Reset button text
         document.getElementById('submitBtn').innerText = 'Register';
         document.getElementById('addTeacherLabel').innerText = 'Create New Teacher Account';
-        console.log("Submitting function called. Proceeding to PHP")
+        console.log("Submitting function called. Proceeding to PHP");
         // Reset form action to adviserRegister.php
-        document.querySelector('form').action = '../PHP/adviserRegister.php';
+        document.querySelector('#addTeacher form').action = '../PHP/adviserRegister.php';
     });
+
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("adviserGrLvl").addEventListener("change", filterSections);
     });
@@ -123,6 +121,98 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error("AJAX error:", error));
         }
     }
+
+    // Handle Subject Teacher Edit button click - FIXED VERSION
+    const editSubjectButtons = document.querySelectorAll('.edit_data[data-bs-target="#addSubjectTeacher"]');
+    editSubjectButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            console.log('Edit subject teacher button clicked'); // Debug log
+            
+            // Get data from data attributes
+            const name = this.getAttribute('data-name');
+            const contact = this.getAttribute('data-contact');
+            const email = this.getAttribute('data-email');
+            const password = this.getAttribute('data-password');
+            const subject = this.getAttribute('data-subject');
+
+            console.log('Data retrieved:', {name, contact, email, password, subject}); // Debug log
+
+            // Fill form with existing data - use correct field names that match the form
+            document.getElementById('subjectTeacherFullName').value = name || '';
+            document.getElementById('subjectTeacherContactNumber').value = contact || '';
+            document.getElementById('subjectTeacherEmailAddress').value = email || '';
+            document.getElementById('subjectTeacherPassword').value = password || '';
+            document.getElementById('subjectTeacherSubject').value = subject || '';
+
+            // Set action type to edit - find the hidden input in the subject teacher form
+            const actionTypeInput = document.querySelector('#addSubjectTeacher input[name="action_type"]');
+            if (actionTypeInput) {
+                actionTypeInput.value = 'edit';
+            }
+
+            // Add hidden input for original name
+            let originalNameInput = document.getElementById('originalstName');
+            if (!originalNameInput) {
+                originalNameInput = document.createElement('input');
+                originalNameInput.type = 'hidden';
+                originalNameInput.name = 'originalstName';
+                originalNameInput.id = 'originalstName';
+                document.querySelector('#addSubjectTeacher form').appendChild(originalNameInput);
+            }
+            originalNameInput.value = name;
+
+            // Update modal UI for edit mode
+            document.getElementById('addSubjectTeacherLabel').innerText = 'Edit Subject Teacher Account';
+            const submitButton = document.querySelector('#addSubjectTeacher button[type="submit"]');
+            if (submitButton) {
+                submitButton.innerText = 'Update';
+            }
+
+            // Change form action
+            const subjectForm = document.querySelector('#addSubjectTeacher form');
+            if (subjectForm) {
+                subjectForm.action = '../PHP/subjectTeacherUpdate.php';
+            }
+        });
+    });
+
+    // Handle Subject Teacher modal close/hidden to reset form
+    const subjectModal = document.getElementById('addSubjectTeacher');
+    if (subjectModal) {
+        subjectModal.addEventListener('hidden.bs.modal', function () {
+            // Reset form fields
+            document.getElementById('subjectTeacherFullName').value = '';
+            document.getElementById('subjectTeacherContactNumber').value = '';
+            document.getElementById('subjectTeacherEmailAddress').value = '';
+            document.getElementById('subjectTeacherPassword').value = '';
+            document.getElementById('subjectTeacherSubject').value = '';
+
+            // Reset action type
+            const actionTypeInput = document.querySelector('#addSubjectTeacher input[name="action_type"]');
+            if (actionTypeInput) {
+                actionTypeInput.value = 'add';
+            }
+
+            // Remove hidden input if exists
+            const nameInput = document.getElementById('originalstName');
+            if (nameInput) {
+                nameInput.remove();
+            }
+
+            // Reset modal title and button text
+            document.getElementById('addSubjectTeacherLabel').innerText = 'Create New Subject Teacher Account';
+            const submitButton = document.querySelector('#addSubjectTeacher button[type="submit"]');
+            if (submitButton) {
+                submitButton.innerText = 'Register';
+            }
+
+            // Reset form action
+            const subjectForm = document.querySelector('#addSubjectTeacher form');
+            if (subjectForm) {
+                subjectForm.action = '../PHP/subjectTeacherRegister.php';
+            }
+        });
+    }
 });
 
 function removeAdviser(adviserFullName) {
@@ -145,14 +235,27 @@ function removeAdviser(adviserFullName) {
     }
 }
 
-/*document.addEventListener("DOMContentLoaded", function () {
-    const nextBtn = document.getElementById("nextBtn");
-    const part1 = document.getElementById("part1");
-    const part2 = document.getElementById("part2");
+// Add function to remove subject teacher
+function removeSubjectTeacher(stFullName) {
+    if (confirm("Are you sure you want to remove this subject teacher?")) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "../PHP/subjectTeacherRemove.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    nextBtn.addEventListener("click", function () {
-        // Hide part 1 and show part 2
-        part1.style.display = "none";
-        part2.style.display = "block";
-    });
-});*/
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                console.log("Server response:", xhr.responseText); // Debug line
+                alert(xhr.responseText);
+                if (xhr.responseText.includes("successfully")) {
+                    location.reload();
+                }
+            } else {
+                alert("An error occurred while removing the subject teacher.");
+            }
+        };
+
+        // Debug line
+        console.log("Sending request with stFullName:", stFullName);
+        xhr.send("stFullName=" + encodeURIComponent(stFullName));
+    }
+}

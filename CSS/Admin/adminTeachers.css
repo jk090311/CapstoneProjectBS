@@ -144,3 +144,15 @@ body {
       gap: 10px;
   }
 }
+
+/* Add these new styles at the end of the file */
+.button-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.card-header .btn {
+    white-space: nowrap;
+    margin: 0;
+}

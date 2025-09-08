@@ -15,10 +15,10 @@ if ($conn->connect_error) {
 }
 
 // Fetch subject teacher's full name
-$fullName = "Teacher"; // Default fallback
+$stFullName = "Teacher"; // Default fallback
 if (isset($_SESSION['user_email'])) {
     $userEmail = $_SESSION['user_email'];
-    $query = "SELECT fullName FROM subject_teachers WHERE email = ?";
+    $query = "SELECT stFullName FROM subject_teachers WHERE stEmail = ?";
 
     if ($stmt = $conn->prepare($query)) {
         $stmt->bind_param("s", $userEmail);
@@ -26,7 +26,7 @@ if (isset($_SESSION['user_email'])) {
         $result = $stmt->get_result();
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $fullName = htmlspecialchars($row['fullName']); // Sanitize output
+            $stFullName = htmlspecialchars($row['stFullName']); // Sanitize output
         }
         $stmt->close();
     } else {
@@ -67,7 +67,7 @@ if (isset($_SESSION['user_email'])) {
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">
-                    <?php echo $fullName; ?>
+                    <?php echo $stFullName; ?>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>

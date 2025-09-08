@@ -26,7 +26,7 @@ if (isset($_POST['adviserRegister'])) {
     }
 
     // Hash the password
-    $hashedPassword = password_hash($adviserPassword, PASSWORD_DEFAULT);
+    $hashedPassword = password_hash($adviserPassword, PASSWORD_BCRYPT);
 
     // Start transaction
     mysqli_begin_transaction($connection);
