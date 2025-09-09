@@ -1,7 +1,6 @@
 <?php
 include "subjectTeacherNavbar.php"; 
 
-
 // Check if user is logged in
 if (!isset($_SESSION['user_email'])) {
     // Not logged in, redirect to login page
@@ -35,7 +34,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch adviser's full name
+// Fetch teacher's full name
 $stFullName = "Teacher"; // Default fallback
 if (isset($_SESSION['user_email'])) {
     $userEmail = $_SESSION['user_email'];
@@ -51,7 +50,7 @@ if (isset($_SESSION['user_email'])) {
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $adviserFullName = htmlspecialchars($row['stFullName']); // Sanitize output
+            $stFullName = htmlspecialchars($row['stFullName']); // Changed from $adviserFullName to $stFullName
         }
         $stmt->close();
     } else {
@@ -105,7 +104,7 @@ if (isset($_SESSION['user_email'])) {
 <body>
     <div class="container">
         <div class="section">
-            <h2>Welcome, Adviser <?php echo $stFullName; ?> !</h2>
+            <h2>Welcome, Subject Teacher <?php echo $stFullName; ?> !</h2>
             <p>Welcome to your dashboard. Here you can find the quick access to various sections.</p>
         </div>
        <!-- <div class="section">
