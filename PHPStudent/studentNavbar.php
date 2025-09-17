@@ -63,7 +63,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/Admin/adminNavbar.css">
+    <link rel="stylesheet" href="../CSS/Student/studentNavbar.css">
 </head>
 <body>
   <nav class="navbar bg-body-tertiary fixed-top">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+x <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../CSS/Admin/adminNavbar.css">
 </head>
 <body>
+    <div class="overlay"></div>
   <nav class="navbar bg-body-tertiary fixed-top">
     <div class="container-fluid d-flex align-items-center">
       <div class="d-flex align-items-center gap-2">
