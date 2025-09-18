@@ -186,6 +186,16 @@ $result = $stmt->get_result();
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         transition: all 0.3s ease;
     }
+
+    .grade-pass {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .grade-fail {
+        color: #dc3545;
+        font-weight: bold;
+    }
 </style>
 
 <a href="reportSystem.php" class="back-button">← Back to Subjects</a>
@@ -204,6 +214,7 @@ $result = $stmt->get_result();
                 <th>Quarter 3</th>
                 <th>Quarter 4</th>
                 <th>Final Grade</th>
+                <th>Remarks</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -228,11 +239,31 @@ $result = $stmt->get_result();
                             <span class="final-grade">
                                 <?php
                                 if (isset($row['q1']) && isset($row['q2']) && isset($row['q3']) && isset($row['q4'])) {
-                                    // Changed from number_format to round
-                                    echo round(($row['q1'] + $row['q2'] + $row['q3'] + $row['q4']) / 4);
+                                    $final_grade = round(($row['q1'] + $row['q2'] + $row['q3'] + $row['q4']) / 4);
+                                    echo "<span class='" . ($final_grade >= 75 ? 'grade-pass' : 'grade-fail') . "'>" . $final_grade . "</span>";
                                 }
                                 ?>
                             </span>
+                        </td>
+                        <td>
+                            <?php
+                            if (isset($row['q1']) && isset($row['q2']) && isset($row['q3']) && isset($row['q4'])) {
+                                $final_grade = round(($row['q1'] + $row['q2'] + $row['q3'] + $row['q4']) / 4);
+                                if ($final_grade >= 98 && $final_grade <= 100) {
+                                    echo "WITH HIGHEST HONOR";
+                                } elseif ($final_grade >= 94 && $final_grade <= 97) {
+                                    echo "WITH HIGH HONOR";
+                                } elseif ($final_grade >= 90 && $final_grade <= 93) {
+                                    echo "WITH HONOR";
+                                } elseif ($final_grade >= 75 && $final_grade <= 89) {
+                                    echo "PASSED";
+                                } else {
+                                    echo "FAILED";
+                                }
+                            } else {
+                                echo "PENDING";
+                            }
+                            ?>
                         </td>
                         <td class="action-buttons">
                             <button class="edit-grade-btn" data-student-id="<?php echo $row['student_id']; ?>">Edit</button>

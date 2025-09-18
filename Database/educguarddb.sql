@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 19, 2025 at 09:04 AM
+-- Generation Time: Sep 17, 2025 at 03:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -159,15 +159,6 @@ CREATE TABLE `grades` (
   `date_recorded` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `grades`
---
-
-INSERT INTO `grades` (`grade_id`, `student_id`, `subject_id`, `quarter_id`, `grade`, `remarks`, `date_recorded`) VALUES
-(55, 75, 38, 1, 90.00, NULL, '2025-05-23 01:04:55'),
-(58, 75, 38, 2, 92.00, NULL, '2025-05-23 01:05:13'),
-(61, 75, 38, 3, 95.00, NULL, '2025-05-23 01:05:51');
-
 -- --------------------------------------------------------
 
 --
@@ -317,6 +308,28 @@ INSERT INTO `subjects` (`subject_id`, `subject_name`, `subject_picture`, `create
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subject_teachers`
+--
+
+CREATE TABLE `subject_teachers` (
+  `stID` int(11) NOT NULL,
+  `stFullName` varchar(150) NOT NULL,
+  `stContactNumber` varchar(20) NOT NULL,
+  `stEmail` varchar(100) NOT NULL,
+  `stSubject` varchar(100) NOT NULL,
+  `stPassword` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `subject_teachers`
+--
+
+INSERT INTO `subject_teachers` (`stID`, `stFullName`, `stContactNumber`, `stEmail`, `stSubject`, `stPassword`) VALUES
+(1, 'Lance Turqueza', '09176547789', 'lance@gmail.com', 'TechSup', '$2y$10$ImjeoI6nOj/IyUFnNwTQBOUFicBkzqHjzjdjOeFPRMAIqb6atp2bq');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_acc`
 --
 
@@ -365,7 +378,8 @@ INSERT INTO `user_acc` (`user_id`, `user_email`, `user_password`, `user_role`) V
 (81, 'pawi@gmail.com', '$2y$10$GLwCNsEisWoL7Syjla.oX.LSBLmbUj5.AvtoaoWlw04rFo7.JL4iu', 'adviser'),
 (82, 'norie@gmail.com', '$2y$10$.40bzwOoMyx1diGdnerVr.pjtMUl7n7LdDVvW9KBvbGN7AJhsUTcm', 'adviser'),
 (83, 'jacob@gmail.com', '$2y$10$y.aGNs49UgSa7pdP7hGdMusp/mu6AwOgs6qOZl5Kl/3uOgM/mFM.G', 'adviser'),
-(84, 'vince@gmail.com', '$2y$10$rcV33naJWtLcmHkqWGAXfu74aSE5VABlyCmNpIXfK4JnDR1miXBXu', 'student');
+(84, 'vince@gmail.com', '$2y$10$rcV33naJWtLcmHkqWGAXfu74aSE5VABlyCmNpIXfK4JnDR1miXBXu', 'student'),
+(85, 'lance@gmail.com', '$2y$10$ImjeoI6nOj/IyUFnNwTQBOUFicBkzqHjzjdjOeFPRMAIqb6atp2bq', 'subject_teacher');
 
 --
 -- Indexes for dumped tables
@@ -442,6 +456,13 @@ ALTER TABLE `subjects`
   ADD PRIMARY KEY (`subject_id`);
 
 --
+-- Indexes for table `subject_teachers`
+--
+ALTER TABLE `subject_teachers`
+  ADD PRIMARY KEY (`stID`),
+  ADD UNIQUE KEY `stEmail` (`stEmail`);
+
+--
 -- Indexes for table `user_acc`
 --
 ALTER TABLE `user_acc`
@@ -479,7 +500,7 @@ ALTER TABLE `class_section`
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `mesages`
@@ -500,10 +521,16 @@ ALTER TABLE `subjects`
   MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
+-- AUTO_INCREMENT for table `subject_teachers`
+--
+ALTER TABLE `subject_teachers`
+  MODIFY `stID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `user_acc`
 --
 ALTER TABLE `user_acc`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- Constraints for dumped tables
