@@ -82,8 +82,8 @@ if ($row = mysqli_fetch_assoc($result)) {
     <div id="loginBox">
         <div class="left-side">
             <h2>Student Grades and Attendance System</h2>
-            <p>Personalized education management for teachers, administrators, and students</p>
-            <p>Effortless tracking of classes, grades, attendance, and more</p>
+            <p>It's a personalized digital platform that modernized and simplify the way how to manage academic records and tracks attendance </p>
+            <p>With it's user friendly interface and easy access of information and ensuring secure platform</p>
             <ul class="feature-list">
                 <li>Real-time grade tracking</li>
                 <li>Attendance monitoring</li>
@@ -91,6 +91,11 @@ if ($row = mysqli_fetch_assoc($result)) {
                 <li>Secure data management</li>
             </ul>
         </div>
+        
+        <div class="logo-container">
+            <img src="/CapstoneProjectBS/assets/111.png" alt="System Logo">
+        </div>
+        
         <div class="right-side">
             <h1 id="loginText">Welcome Back</h1>
             <p class="formFormat">Sign in to your account</p>

@@ -24,7 +24,7 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-  margin-top: 20px;  /* Add this line to existing #loginBox style */
+  margin-top: 80px;  /* Increased margin to make room for logo */
 }
 
 header {
@@ -201,6 +201,30 @@ footer {
 .feature-list li:before {
   content: '✓';
   margin-right: 10px;
+}
+
+.logo-container {
+  position: absolute;
+  left: 50%;
+  top: -60px;
+  transform: translate(-50%, 0);
+  z-index: 9999; /* Increased z-index to ensure it stays on top */
+  background: white;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 120px; /* Added fixed width */
+  height: 120px; /* Added fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: contain;
 }
 
 @keyframes slideDown {

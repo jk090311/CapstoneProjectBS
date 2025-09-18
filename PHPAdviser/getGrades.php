@@ -230,7 +230,7 @@ $result = $stmt->get_result();
                                     data-student-id="<?php echo $row['student_id']; ?>"
                                     data-quarter="<?php echo $q; ?>"
                                     value="<?php echo $row['q' . $q]; ?>"
-                                    min="75"
+                                    min="0"
                                     max="100"
                                     <?php echo !empty($row['q' . $q]) ? 'disabled' : ''; ?> />
                             </td>
@@ -249,17 +249,7 @@ $result = $stmt->get_result();
                             <?php
                             if (isset($row['q1']) && isset($row['q2']) && isset($row['q3']) && isset($row['q4'])) {
                                 $final_grade = round(($row['q1'] + $row['q2'] + $row['q3'] + $row['q4']) / 4);
-                                if ($final_grade >= 98 && $final_grade <= 100) {
-                                    echo "WITH HIGHEST HONOR";
-                                } elseif ($final_grade >= 94 && $final_grade <= 97) {
-                                    echo "WITH HIGH HONOR";
-                                } elseif ($final_grade >= 90 && $final_grade <= 93) {
-                                    echo "WITH HONOR";
-                                } elseif ($final_grade >= 75 && $final_grade <= 89) {
-                                    echo "PASSED";
-                                } else {
-                                    echo "FAILED";
-                                }
+                                echo $final_grade >= 75 ? "PASSED" : "FAILED";
                             } else {
                                 echo "PENDING";
                             }
@@ -337,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let isValid = true;
             Object.values(grades).forEach(grade => {
-                if (grade < 75 || grade > 100) {
+                if (grade < 0 || grade > 100) {
                     isValid = false;
                 }
             });
