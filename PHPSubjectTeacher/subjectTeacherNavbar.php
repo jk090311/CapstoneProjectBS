@@ -87,7 +87,7 @@ if (isset($_SESSION['user_email'])) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white " aria-current="page" href="">
+                        <a class="nav-link active text-white " aria-current="page" href="../PHPSubjectTeacher/STattendance.php">
                             <img id="iconLeft" src="../Assets/student.png">
                             Attendance</a>
                     </li>
