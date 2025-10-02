@@ -83,6 +83,7 @@ while ($row = $result->fetch_assoc()) {
     }
 }
 
+
 // GWA row
 $gwa = count($finals) ? (int) round(array_sum($finals)/count($finals)) : '';
 fputcsv($output, []);

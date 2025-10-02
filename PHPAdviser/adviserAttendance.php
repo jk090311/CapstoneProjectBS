@@ -1,5 +1,5 @@
 <?php 
-include "subjectTeacherNavbar.php"; 
+include "teacherNavbar.php"; 
 include "../PHP/insertAttendance.php"; // This might close $conn
 
 //Reopen the connection
@@ -29,7 +29,8 @@ if ($conn->connect_error) {
     <p class="datetimeAlign" id="date">Loading</p>
 </div>
 
-<div id="inputContainer">   
+<div id="inputContainer">
+  
     <div id="dateContainer">
         <input type="date" id="filterDate" onchange="loadAttendanceData()">
     </div>

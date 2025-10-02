@@ -84,16 +84,21 @@ if (isset($_SESSION['user_email'])) {
               Dashboard
             </a>
           </li>
-          <li class="nav-item">
+          <!--li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/subjectTeacher.php">
             <img id="iconLeft" src="../Assets/student.png">   
             Subject Teachers</a>
-          </li>
+          </li -->
           <li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/studentList.php">
             <img id="iconLeft" src="../Assets/student.png">   
             Students</a>
           </li>
+          <li class="nav-item">
+                        <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/adviserAttendance.php">
+                            <img id="iconLeft" src="../Assets/student.png">
+                            Attendance</a>
+                    </li>
           <li class="nav-item">
             <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/reportSystem.php">
               <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
