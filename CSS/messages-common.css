@@ -1,0 +1,302 @@
+/* Shared messaging styles for Adviser / SubjectTeacher / Student pages */
+:root{
+  --card-bg: #ffffff;
+  --accent: #0d6efd;
+  --incoming-bg:#f1f7ff;
+  --outgoing-bg:#dff7e6;
+}
+.messages-page{
+  /* keep content below the top navbar (adjust this value if your header height differs) */
+  min-height: calc(100vh - 92px);
+  display:flex;
+  justify-content:center; /* center the content horizontally */
+  align-items:flex-start; /* align items to the top */
+  padding:92px 12px 20px 12px; /* increased top padding so chat sits lower under header */
+  box-sizing:border-box;
+}
+
+/* Prevent accidental horizontal overflow which can create a white gutter on the right */
+html,body{width:100%;overflow-x:hidden}
+
+
+/* central wrapper to limit width and keep layout centered */
+.messages-page .messages-inner{
+  display:flex;
+  gap:12px;
+  max-width:980px;
+  width:100%;
+  height: calc(100vh - 140px);
+}
+
+/* ensure inner container respects box sizing and won't overflow its parent */
+.messages-page .messages-inner{box-sizing:border-box;max-width:100%;}
+
+.messages-panel{ margin-left:0 }
+.messages-sidebar{
+  width:220px; /* slightly wider sidebar for larger names */
+  margin-right:16px;
+  flex: 0 0 220px;
+}
+
+/* make the student/adviser list compact and scrollable (about 10 items) */
+.adviser-list .list-group{
+  /* show exactly 8 visible items and scroll for the rest */
+  height: calc(64px * 8); /* 8 rows at 64px each */
+  overflow-y:auto;
+  padding-right:6px; /* keep room for scrollbar */
+  box-sizing: border-box; /* include padding/border in height calc */
+}
+
+/* Ensure the adviser list container reserves space for the header and exactly 10 rows.
+   This fixes cases where the list grows beyond visible area on tall viewports. */
+.adviser-list{
+  display:flex;
+  flex-direction:column;
+  /* header (approx 48px) + 8 rows (64px each) */
+  height: calc(48px + (64px * 8));
+  box-sizing:border-box;
+}
+.adviser-list .list-group{
+  /* make list-group fill remaining space inside the fixed-height container */
+  max-height: none;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+.adviser-list .list-group::-webkit-scrollbar{ width:8px }
+.adviser-list .list-group::-webkit-scrollbar-thumb{ background:rgba(0,0,0,0.06); border-radius:6px }
+
+/* make each student list item compact and consistent */
+.adviser-list .list-group-item{
+  height:64px; /* larger rows for clearer selection */
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  white-space:nowrap; /* avoid accidental wrapping */
+  font-size:1.06rem; /* readable text */
+  line-height:1.1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  text-transform:none;
+  box-sizing: border-box; /* ensure borders/padding counted inside height */
+  margin:6px 6px; /* small gap to create rounded tiles */
+  border-radius:8px;
+  background: rgba(255,255,255,0.9);
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+
+.adviser-list h5{ font-size:1.02rem; margin:12px 8px 6px 12px; font-weight:600 }
+.adviser-list .list-group-item:hover{ transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.08) }
+.adviser-list .list-group-item.active{ background:var(--accent); color:#fff; box-shadow: 0 8px 28px rgba(13,110,253,0.14) }
+.messages-panel{
+  /* let panel take remaining space */
+  flex: 1 1 auto;
+  min-width:300px;
+  max-width:100%; /* allow panel to use full available column width */
+  display:flex;
+  flex-direction:column;
+  /* allow the panel to stretch to the container height */
+  height:100%;
+  min-height:0;
+  background:var(--card-bg);
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,0.04);
+}
+.messages-panel .card-chat{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.messages-panel .card-chat .chat-header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#fff;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-top-left-radius:8px;
+  border-top-right-radius:8px;
+}
+.messages-panel .card-chat .chat-header h5{ margin:0; font-size:1.1rem }
+.messages-panel .card-chat .chat-body{
+  padding:14px;
+  background: linear-gradient(180deg,#fbfdff,#f7f7f7);
+  flex:1 1 auto;
+  overflow-y:auto;
+}
+.messages-panel .card-chat .chat-footer{
+  padding:12px;
+  border-top:1px solid rgba(0,0,0,0.04);
+  background:#fff;
+}
+
+/* Message bubbles */
+.chat-box .message-row { display:flex; width:100%; margin:8px 0; }
+.chat-box .incoming-msg { justify-content:flex-start }
+.chat-box .outgoing-msg { justify-content:flex-end }
+.chat-box .message-bubble{
+  display:inline-block;
+  padding:10px 12px;
+  border-radius:18px;
+  max-width:70%;
+  word-break:break-word;
+  font-size:0.95rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+.chat-box .incoming-msg .message-bubble{ background: #f1f3f6; color:#0b0b0b; border-bottom-left-radius:6px }
+.chat-box .outgoing-msg .message-bubble{ background: #dcf8c6; color:#083212; border-bottom-right-radius:6px }
+.chat-box .message-meta{ display:block; font-size:0.72rem; color:#7a7a7a; margin-top:6px; }
+
+/* fixed input area */
+.typing-area.fixed{
+  /* use flex layout to keep the input at the bottom of the card */
+  position:static;
+  background:#fff;
+  padding:12px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex: 0 0 auto;
+}
+.typing-area.fixed .input-field{ flex:1; border-radius:24px; padding:10px 14px; border:1px solid #e0e0e0 }
+.typing-area.fixed button{ border-radius:20px; padding:8px 14px; background:var(--accent); color:#fff; border:none }
+
+/* Fix: ensure send button doesn't wrap (Student page uses input-group with .btn) */
+.messages-panel .typing-area.fixed .input-group .btn,
+.messages-panel .typing-area.fixed button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  white-space:nowrap; /* prevent text split */
+  min-width:56px; /* ensure a comfortable tap target */
+  height:40px;
+  padding:0 12px;
+}
+
+/* Ensure input-group input and button share the same height and complementary radii */
+.messages-panel .typing-area.fixed .input-group .form-control{
+  height:40px;
+  padding:8px 12px;
+  border-radius:20px 0 0 20px; /* left-rounded input */
+  box-sizing:border-box;
+}
+.messages-panel .typing-area.fixed .input-group .btn{
+  border-radius:0 20px 20px 0; /* right-rounded button */
+  height:40px;
+}
+
+.messages-panel .chat-box{
+  /* fallback chat-box styling (for pages using .card-chat) */
+  flex: 1 1 auto;
+  overflow-y:auto;
+  padding:10px; /* tighter padding */
+  background:linear-gradient(180deg,#fbfdff,#f7f7f7);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+/* Ensure .card containers behave as full-height flex columns so chat-body/chat-box and footer align */
+.messages-panel .card{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  min-height:0;
+  /* ensure the Bootstrap column doesn't add extra horizontal padding that shows as white space */
+  width:100%;
+}
+.messages-panel .card > .card-body{
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+  min-height:0; /* allows child .chat-box to scroll */
+  padding:0; /* chat-box handles padding */
+}
+.messages-panel .card > .card-body > .chat-box{
+  flex:1 1 auto;
+  overflow-y:auto;
+  padding:14px;
+  /* Ensure chat messages area can shrink on small screens and never push footer out of view */
+  min-height:0;
+}
+.message-row{display:flex;margin:10px 0;width:100%;align-items:flex-start}
+/* Your server-side templates place message text directly in .incoming-msg / .outgoing-msg elements.
+   Style those elements directly so bubbles are uniform. */
+.chat-box > .incoming-msg,
+.chat-box > .outgoing-msg{
+  display:flex; /* allow avatar + content */
+  align-items:flex-end;
+  gap:8px;
+  box-sizing:border-box;
+  width:100%;
+  margin:6px 0;
+}
+
+/* avatar */
+.chat-box .msg-avatar{
+  width:28px; /* smaller avatar */
+  height:28px;
+  border-radius:50%;
+  object-fit:cover;
+  flex: 0 0 28px;
+}
+
+/* message content container (bubble) */
+.chat-box .message-content{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  max-width: min(45%, 280px); /* even more compact bubble */
+}
+.chat-box .message-text{
+  padding:6px 8px; /* smaller padding */
+  border-radius:10px;
+  line-height:1.18;
+  font-size:0.82rem; /* smaller text */
+  word-break:break-word;
+  white-space:pre-wrap;
+}
+.chat-box > .incoming-msg .message-text{background:var(--incoming-bg); border-bottom-left-radius:6px}
+.chat-box > .outgoing-msg .message-text{background:var(--outgoing-bg); border-bottom-right-radius:6px}
+.chat-box .message-time{
+  font-size:0.68rem;
+  color:#666;
+  align-self:flex-end;
+}
+
+/* keep the row compact on narrow layouts */
+@media (min-width:901px){
+  .chat-box > .incoming-msg .message-content,
+  .chat-box > .outgoing-msg .message-content{ max-width: min(45%, 280px); }
+}
+.typing-area{display:flex;padding:12px;border-top:1px solid #eee;background:#fff}
+.typing-area input{flex:1;padding:10px 14px;border-radius:20px;border:1px solid #ddd;margin-right:10px;background:#fff}
+.typing-area button{background:var(--accent);border:none;color:#fff;padding:8px 14px;border-radius:8px;box-shadow:0 4px 10px rgba(13,110,253,0.12)}
+.adviser-list .list-group-item{cursor:pointer}
+
+/* keep compatibility with existing class names */
+.chat-box .incoming-msg{ display:flex }
+.chat-box .outgoing-msg{ display:flex; justify-content:flex-end }
+
+@media (max-width:900px){
+  .messages-page{flex-direction:column;padding:100px 10px}
+  .messages-sidebar{width:100%;margin-bottom:12px;flex:0 0 auto}
+  /* On small screens make panel full-width */
+  .messages-panel{width:100%;padding:0}
+  .messages-panel .chat-box{padding:12px}
+  /* bubbles should be full width on mobile */
+  .chat-box > .incoming-msg,
+  .chat-box > .outgoing-msg{flex-direction:row;align-items:flex-start}
+  .chat-box .message-content{max-width:100%}
+  .chat-box .message-text{padding:8px 10px}
+}
+
+/* visible thin scrollbar */
+.messages-panel .chat-box{ scrollbar-width:thin }
+.messages-panel .chat-box::-webkit-scrollbar{ width:8px }
+.messages-panel .chat-box::-webkit-scrollbar-thumb{ background:rgba(0,0,0,0.08); border-radius:6px }

@@ -1,21 +1,16 @@
 <?php
-session_start();
+// Start session only if one isn't already active to avoid duplicate session_start notices
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
 // Add debugging
 error_log("Session email: " . (isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'not set'));
 
-// Database connection
-$servername = "localhost"; // Replace with your database server name
-$username = "root";        // Replace with your database username
-$password = "";            // Replace with your database password
-$dbname = "educguarddb";   // Replace with your database name
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Use existing DB connection if available; otherwise include the shared connection file
+if (!isset($conn) || !$conn) {
+  // dbconnection.php creates $conn
+  require_once __DIR__ . '/../PHP/dbconnection.php';
 }
 // Fetch student's full name
 $studentFullName = "Student"; // Default fallback
@@ -43,17 +38,16 @@ if (isset($_SESSION['user_email'])) {
         } else {
             error_log("No student found for email: " . $userEmail);
         }
-        $stmt->close();
-    } else {
-        error_log("Query preparation failed: " . $conn->error);
-    }
+    $stmt->close();
+  } else {
+    error_log("Query preparation failed: " . $conn->error);
+  }
 } else {
-    error_log("No user email in session");
+  error_log("No user email in session");
 }
 
-// Add this before closing the connection
+// Do not close $conn here: caller owns the connection lifecycle.
 error_log("Final student name value: " . $studentFullName);
-$conn->close();
 ?>
 
 
@@ -102,6 +96,11 @@ $conn->close();
             <a class="nav-link active" aria-current="page" href="../PHPStudent/gradeStudent.php">
             <img id="iconLeft" src="../Assets/report_6896653.png">  
             Grade</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../PHPStudent/StudentMessage.php">
+            <img id="iconLeft" src="../Assets/message_4129700.png">   
+            Messages</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="../PHPAdviser/adviserUserList.php">

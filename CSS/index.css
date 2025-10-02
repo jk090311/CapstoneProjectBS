@@ -12,6 +12,8 @@ body {
   align-items: center;
   flex: 1;
   padding: 20px;
+  padding-top: 80px;  /* Increased padding to accommodate logo */
+  position: relative;  /* Added for logo positioning */
 }
 
 #loginBox {
@@ -24,7 +26,7 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-  margin-top: 80px;  /* Increased margin to make room for logo */
+  margin-top: 60px;  /* Added margin for logo space */
 }
 
 header {
@@ -206,15 +208,15 @@ footer {
 .logo-container {
   position: absolute;
   left: 50%;
-  top: -60px;
+  top: 100px;  /* Adjusted to position at the top */
   transform: translate(-50%, 0);
-  z-index: 9999; /* Increased z-index to ensure it stays on top */
+  z-index: 2;  /* Ensure logo stays on top */
   background: white;
   border-radius: 50%;
   padding: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  width: 120px; /* Added fixed width */
-  height: 120px; /* Added fixed height */
+  box-shadow: 0 25px 15px rgba(0, 0, 0, 0.1);
+  width: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
