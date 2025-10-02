@@ -14,10 +14,13 @@ if(isset($_POST['login']))
     $u_password = $_POST['password'];
 
     // Use prepared statement to prevent SQL injection
-$stmt = mysqli_prepare($conn, "SELECT u.user_id, u.user_email, u.user_password, u.user_role, s.student_id 
-    FROM user_acc u 
-    LEFT JOIN students s ON u.user_email = s.email 
-    WHERE u.user_email = ?");
+    $stmt = mysqli_prepare($conn, "SELECT u.user_id, u.user_email, u.user_password, u.user_role, 
+        s.student_id, a.ID AS adviser_id, st.stID AS st_id
+        FROM user_acc u
+        LEFT JOIN students s ON u.user_email = s.email
+        LEFT JOIN advisers a ON u.user_email = a.adviserEmailAddress
+        LEFT JOIN subject_teachers st ON u.user_email = st.stEmail
+        WHERE u.user_email = ?");
 mysqli_stmt_bind_param($stmt, "s", $u_email);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
@@ -30,6 +33,25 @@ if ($row = mysqli_fetch_assoc($result)) {
         $_SESSION['user_id'] = $row['user_id']; // Store user ID in session
         $_SESSION['user_email'] = $u_email;
         $_SESSION['user_role'] = $row['user_role'];
+
+        // Store role-specific IDs
+        if ($row['user_role'] == 'student') {
+            if (!empty($row['student_id'])) $_SESSION['student_id'] = $row['student_id'];
+        } else if ($row['user_role'] == 'adviser') {
+            // Use advisers.ID as the unique_id because messages reference adviser IDs from `advisers` table
+            if (!empty($row['adviser_id'])) {
+                $_SESSION['unique_id'] = $row['adviser_id'];
+            } else {
+                // fallback to user_id if advisers table isn't populated
+                $_SESSION['unique_id'] = $row['user_id'];
+            }
+        } else if ($row['user_role'] == 'subject_teacher') {
+            if (!empty($row['st_id'])) {
+                $_SESSION['unique_id'] = $row['st_id'];
+            } else {
+                $_SESSION['unique_id'] = $row['user_id'];
+            }
+        }
 
         // Store student_id in session if user is a student
         if ($row['user_role'] == "student") {

@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Start session only if one isn't already active to avoid duplicate session_start notices
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 // Database connection
 $servername = "localhost";
 $username = "root";

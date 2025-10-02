@@ -1,0 +1,39 @@
+/* Modern dashboard cards used by adviser/subject-teacher/admin dashboards */
+:root{
+    --card-bg:#fff;
+    --primary:#2d9a4a;
+    --accent:#1e90ff;
+    --muted:#6c757d;
+}
+.dashboard-wrap{
+  max-width:980px;
+  margin:0 auto;
+  background:var(--card-bg);
+  padding:28px;
+  border-radius:6px;
+  box-shadow:0 6px 30px rgba(0,0,0,0.25);
+}
+
+/* Page main wrapper keeps the white panel centered in the viewport (below the navbar) */
+.page-main{
+  min-height:calc(100vh - 72px); /* adjust if your navbar is taller */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  box-sizing:border-box;
+}
+.dashboard-hero h1{margin:0 0 6px 0;font-size:1.6rem;color:#222}
+.dashboard-hero p{margin:0 0 18px 0;color:var(--muted)}
+.cards-row{display:flex;gap:18px;flex-wrap:wrap}
+.info-card{flex:1 1 48%;display:flex;align-items:center;justify-content:space-between;padding:18px;border-radius:8px;color:#fff}
+.info-card .left{display:block}
+.info-card .label{font-size:0.8rem;opacity:0.95}
+.info-card .value{font-weight:700;font-size:1.5rem;margin-top:6px}
+.info-card .icon{font-size:2.6rem;opacity:0.95}
+.info-card.green{background:linear-gradient(90deg,#2d9a4a,#27ae60)}
+.info-card.blue{background:linear-gradient(90deg,#2196f3,#1e90ff)}
+@media(max-width:720px){
+  .info-card{flex-basis:100%}
+  .dashboard-wrap{margin:18px;padding:16px}
+}
