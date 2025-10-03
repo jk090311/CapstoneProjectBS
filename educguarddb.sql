@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 20, 2025 at 12:28 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Sep 30, 2025 at 06:23 PM
+-- Server version: 8.4.3
+-- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin_acc` (
-  `admin_id` int(11) NOT NULL,
-  `admin_email` varchar(255) NOT NULL,
-  `admin_password` varchar(255) NOT NULL
+  `admin_id` int NOT NULL,
+  `admin_email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -40,14 +40,14 @@ CREATE TABLE `admin_acc` (
 --
 
 CREATE TABLE `advisers` (
-  `ID` int(11) NOT NULL,
-  `user_role` varchar(50) DEFAULT 'adviser',
-  `adviserFullName` varchar(250) DEFAULT NULL,
-  `adviserContactNumber` varchar(15) DEFAULT NULL,
-  `adviserEmailAddress` varchar(250) DEFAULT NULL,
-  `adviserPassword` varchar(255) DEFAULT NULL,
-  `adviserGrLvl` varchar(10) DEFAULT NULL,
-  `adviserSection` varchar(250) DEFAULT NULL
+  `ID` int NOT NULL,
+  `user_role` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'adviser',
+  `adviserFullName` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `adviserContactNumber` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `adviserEmailAddress` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `adviserPassword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `adviserGrLvl` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `adviserSection` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -63,7 +63,8 @@ INSERT INTO `advisers` (`ID`, `user_role`, `adviserFullName`, `adviserContactNum
 (58, 'adviser', 'Johann Kirby Ragasajo', '09784563210', 'ybrik@gmail.com', '$2y$10$07gisNTieHmB0UyM8VdI0e9gLUMBdtbmWl0pP38VcwqGBXDn53/8u', '7', 'GOOGLE'),
 (59, 'adviser', 'Paulene Tutas', '09167894513', 'pawi@gmail.com', '$2y$10$GLwCNsEisWoL7Syjla.oX.LSBLmbUj5.AvtoaoWlw04rFo7.JL4iu', '7', 'THINKVISION'),
 (60, 'adviser', 'Norie Natividad', '09127896543', 'norie@gmail.com', '$2y$10$.40bzwOoMyx1diGdnerVr.pjtMUl7n7LdDVvW9KBvbGN7AJhsUTcm', '7', 'ROBOT'),
-(61, 'adviser', 'Jacob Cruz', '0978941345', 'jacob@gmail.com', '$2y$10$y.aGNs49UgSa7pdP7hGdMusp/mu6AwOgs6qOZl5Kl/3uOgM/mFM.G', '7', 'VALENZUELA');
+(61, 'adviser', 'Jacob Cruz', '0978941345', 'jacob@gmail.com', '$2y$10$y.aGNs49UgSa7pdP7hGdMusp/mu6AwOgs6qOZl5Kl/3uOgM/mFM.G', '7', 'VALENZUELA'),
+(62, 'adviser', 'marvin', '1521251251', 'Marvin@gmail.com', '$2y$10$fHH5fUh9Bppjrc/VGNlXyetCd.QfKBXu46vWxeOXVNAxkcv2v2ww6', '7', 'YOUTUBE');
 
 -- --------------------------------------------------------
 
@@ -72,10 +73,10 @@ INSERT INTO `advisers` (`ID`, `user_role`, `adviserFullName`, `adviserContactNum
 --
 
 CREATE TABLE `attendance` (
-  `id` int(11) NOT NULL,
-  `rfid_number` varchar(20) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
+  `id` int NOT NULL,
+  `rfid_number` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `first_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `time_in` time DEFAULT NULL,
   `time_out` time DEFAULT NULL,
   `date_logged` date DEFAULT NULL
@@ -101,11 +102,11 @@ INSERT INTO `attendance` (`id`, `rfid_number`, `first_name`, `last_name`, `time_
 --
 
 CREATE TABLE `class_section` (
-  `section_id` int(11) NOT NULL,
-  `section_name` varchar(100) DEFAULT NULL,
-  `section_grade_level` varchar(50) DEFAULT NULL,
-  `section_year_start_level` year(4) DEFAULT NULL,
-  `section_year_end_level` year(4) DEFAULT NULL
+  `section_id` int NOT NULL,
+  `section_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `section_grade_level` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `section_year_start_level` year DEFAULT NULL,
+  `section_year_end_level` year DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -135,13 +136,13 @@ INSERT INTO `class_section` (`section_id`, `section_name`, `section_grade_level`
 --
 
 CREATE TABLE `final_grades` (
-  `final_grade_id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
-  `school_year` varchar(20) DEFAULT NULL,
+  `final_grade_id` int NOT NULL,
+  `student_id` int NOT NULL,
+  `subject_id` int NOT NULL,
+  `school_year` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `final_grade` decimal(5,2) NOT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
-  `date_computed` timestamp NOT NULL DEFAULT current_timestamp()
+  `remarks` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `date_computed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -151,13 +152,13 @@ CREATE TABLE `final_grades` (
 --
 
 CREATE TABLE `grades` (
-  `grade_id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
-  `quarter_id` int(11) NOT NULL,
+  `grade_id` int NOT NULL,
+  `student_id` int NOT NULL,
+  `subject_id` int NOT NULL,
+  `quarter_id` int NOT NULL,
   `grade` decimal(5,2) NOT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
-  `date_recorded` timestamp NOT NULL DEFAULT current_timestamp()
+  `remarks` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `date_recorded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -204,7 +205,11 @@ INSERT INTO `grades` (`grade_id`, `student_id`, `subject_id`, `quarter_id`, `gra
 (148, 38, 32, 1, 98.00, NULL, '2025-09-18 09:05:41'),
 (149, 38, 32, 2, 98.00, NULL, '2025-09-18 09:05:41'),
 (150, 38, 32, 3, 98.00, NULL, '2025-09-18 09:05:41'),
-(151, 38, 32, 4, 98.00, NULL, '2025-09-18 09:05:41');
+(151, 38, 32, 4, 98.00, NULL, '2025-09-18 09:05:41'),
+(152, 46, 17, 1, 98.00, NULL, '2025-09-30 16:56:53'),
+(153, 46, 17, 2, 98.00, NULL, '2025-09-30 16:56:53'),
+(154, 46, 17, 3, 98.00, NULL, '2025-09-30 16:56:53'),
+(155, 46, 17, 4, 86.00, NULL, '2025-09-30 16:56:53');
 
 -- --------------------------------------------------------
 
@@ -213,29 +218,31 @@ INSERT INTO `grades` (`grade_id`, `student_id`, `subject_id`, `quarter_id`, `gra
 --
 
 CREATE TABLE `mesages` (
-  `msg_id` int(11) NOT NULL,
-  `incoming_msg_id` int(255) NOT NULL,
-  `outgoing_msg_id` int(255) NOT NULL,
-  `msg` varchar(1000) NOT NULL
+  `msg_id` int NOT NULL,
+  `incoming_msg_id` int NOT NULL,
+  `outgoing_msg_id` int NOT NULL,
+  `msg` varchar(1000) COLLATE utf8mb4_general_ci NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `mesages`
 --
 
-INSERT INTO `mesages` (`msg_id`, `incoming_msg_id`, `outgoing_msg_id`, `msg`) VALUES
-(1, 0, 0, 'Hello'),
-(2, 0, 0, 'Hi'),
-(3, 0, 0, 'Ha'),
-(4, 0, 0, 'Ho'),
-(5, 0, 0, 'Hu'),
-(6, 0, 0, 'Wow'),
-(7, 0, 0, 'Ba'),
-(8, 0, 0, 'fsdfsdfsd'),
-(9, 0, 0, 'dasdasda'),
-(10, 0, 0, 'dsadas'),
-(11, 0, 0, 'sadasd'),
-(12, 0, 0, 'sadas');
+INSERT INTO `mesages` (`msg_id`, `incoming_msg_id`, `outgoing_msg_id`, `msg`, `is_read`, `created_at`) VALUES
+(28, 38, 57, 'hello student', 0, '2025-09-30 16:54:01'),
+(29, 57, 38, 'hello maam', 0, '2025-09-30 16:54:59'),
+(30, 62, 38, 'hello sir', 0, '2025-09-30 17:45:05'),
+(31, 38, 2, 'hi', 0, '2025-09-30 17:45:13'),
+(32, 38, 2, 'nice', 0, '2025-09-30 17:49:15'),
+(33, 2, 38, 'hello', 0, '2025-09-30 17:54:05'),
+(34, 57, 38, 'h', 0, '2025-09-30 18:18:04'),
+(35, 57, 38, 'h', 0, '2025-09-30 18:18:06'),
+(36, 57, 38, 'h', 0, '2025-09-30 18:18:07'),
+(37, 57, 38, 'h', 0, '2025-09-30 18:18:08'),
+(38, 57, 38, 'h', 0, '2025-09-30 18:18:10'),
+(39, 57, 38, 'h', 0, '2025-09-30 18:18:11');
 
 -- --------------------------------------------------------
 
@@ -244,11 +251,11 @@ INSERT INTO `mesages` (`msg_id`, `incoming_msg_id`, `outgoing_msg_id`, `msg`) VA
 --
 
 CREATE TABLE `quarters` (
-  `quarter_id` int(11) NOT NULL,
-  `quarter_name` varchar(20) NOT NULL,
+  `quarter_id` int NOT NULL,
+  `quarter_name` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
-  `school_year` varchar(20) DEFAULT NULL
+  `school_year` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -268,27 +275,27 @@ INSERT INTO `quarters` (`quarter_id`, `quarter_name`, `start_date`, `end_date`, 
 --
 
 CREATE TABLE `students` (
-  `student_id` int(11) NOT NULL,
-  `lrn` varchar(15) NOT NULL,
-  `rfid_number` varchar(20) DEFAULT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `middle_name` varchar(50) DEFAULT NULL,
-  `last_name` varchar(50) NOT NULL,
+  `student_id` int NOT NULL,
+  `lrn` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `rfid_number` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `first_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `middle_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date DEFAULT NULL,
-  `sex` enum('Male','Female') DEFAULT NULL,
-  `contact_number` varchar(15) DEFAULT NULL,
-  `grade_level` varchar(20) DEFAULT NULL,
-  `year_level` varchar(20) DEFAULT NULL,
-  `address` text DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `parent_guardian_name` varchar(100) DEFAULT NULL,
-  `parent_guardian_number` varchar(15) DEFAULT NULL,
-  `parent_guardian_email` varchar(100) DEFAULT NULL,
-  `student_username` varchar(50) DEFAULT NULL,
-  `status` enum('Active','Inactive') DEFAULT 'Active',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `section` varchar(255) DEFAULT NULL,
-  `student_password` varchar(50) DEFAULT NULL
+  `sex` enum('Male','Female') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `contact_number` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `grade_level` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `year_level` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_general_ci,
+  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `parent_guardian_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `parent_guardian_number` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `parent_guardian_email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `student_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `status` enum('Active','Inactive') COLLATE utf8mb4_general_ci DEFAULT 'Active',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `section` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `student_password` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -329,11 +336,11 @@ INSERT INTO `students` (`student_id`, `lrn`, `rfid_number`, `first_name`, `middl
 --
 
 CREATE TABLE `subjects` (
-  `subject_id` int(11) NOT NULL,
-  `subject_name` varchar(255) NOT NULL,
-  `subject_picture` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `link` varchar(255) DEFAULT NULL
+  `subject_id` int NOT NULL,
+  `subject_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `subject_picture` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `link` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -359,12 +366,12 @@ INSERT INTO `subjects` (`subject_id`, `subject_name`, `subject_picture`, `create
 --
 
 CREATE TABLE `subject_teachers` (
-  `stID` int(11) NOT NULL,
-  `stFullName` varchar(150) NOT NULL,
-  `stContactNumber` varchar(20) NOT NULL,
-  `stEmail` varchar(100) NOT NULL,
-  `stSubject` varchar(100) NOT NULL,
-  `stPassword` varchar(255) NOT NULL
+  `stID` int NOT NULL,
+  `stFullName` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `stContactNumber` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `stEmail` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `stSubject` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `stPassword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -372,7 +379,9 @@ CREATE TABLE `subject_teachers` (
 --
 
 INSERT INTO `subject_teachers` (`stID`, `stFullName`, `stContactNumber`, `stEmail`, `stSubject`, `stPassword`) VALUES
-(1, 'Lance Turqueza', '09176547789', 'lance@gmail.com', 'TechSup', '$2y$10$ImjeoI6nOj/IyUFnNwTQBOUFicBkzqHjzjdjOeFPRMAIqb6atp2bq');
+(1, 'Lance Turqueza', '09176547789', 'lance@gmail.com', 'TechSup', '$2y$10$ImjeoI6nOj/IyUFnNwTQBOUFicBkzqHjzjdjOeFPRMAIqb6atp2bq'),
+(2, 'marvin', '568568568658', 'marvinpalomar@gmail.com', 'Math', '$2y$10$HBoVxpgcFQOl3SO9Z1gCKuTD4SvE5Ic5o0qNvvK5UcLKPBCCjbQgO'),
+(4, 'marvin', '4234234232', 'marvinr@gmail.com', 'Mathematics', '$2y$10$6zo9HP7QqrnUmeISn7dQduGdokz8qXhl8Idt7pMaCm0LvKpGaDYlO');
 
 -- --------------------------------------------------------
 
@@ -381,10 +390,10 @@ INSERT INTO `subject_teachers` (`stID`, `stFullName`, `stContactNumber`, `stEmai
 --
 
 CREATE TABLE `user_acc` (
-  `user_id` int(11) NOT NULL,
-  `user_email` varchar(50) DEFAULT NULL,
-  `user_password` varchar(250) DEFAULT NULL,
-  `user_role` varchar(50) DEFAULT NULL
+  `user_id` int NOT NULL,
+  `user_email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_password` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_role` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -426,7 +435,10 @@ INSERT INTO `user_acc` (`user_id`, `user_email`, `user_password`, `user_role`) V
 (82, 'norie@gmail.com', '$2y$10$.40bzwOoMyx1diGdnerVr.pjtMUl7n7LdDVvW9KBvbGN7AJhsUTcm', 'adviser'),
 (83, 'jacob@gmail.com', '$2y$10$y.aGNs49UgSa7pdP7hGdMusp/mu6AwOgs6qOZl5Kl/3uOgM/mFM.G', 'adviser'),
 (84, 'vince@gmail.com', '$2y$10$rcV33naJWtLcmHkqWGAXfu74aSE5VABlyCmNpIXfK4JnDR1miXBXu', 'student'),
-(85, 'lance@gmail.com', '$2y$10$ImjeoI6nOj/IyUFnNwTQBOUFicBkzqHjzjdjOeFPRMAIqb6atp2bq', 'subject_teacher');
+(85, 'lance@gmail.com', '$2y$10$ImjeoI6nOj/IyUFnNwTQBOUFicBkzqHjzjdjOeFPRMAIqb6atp2bq', 'subject_teacher'),
+(86, 'marvinpalomar@gmail.com', '$2y$10$HBoVxpgcFQOl3SO9Z1gCKuTD4SvE5Ic5o0qNvvK5UcLKPBCCjbQgO', 'subject_teacher'),
+(87, 'Marvin@gmail.com', '$2y$10$fHH5fUh9Bppjrc/VGNlXyetCd.QfKBXu46vWxeOXVNAxkcv2v2ww6', 'adviser'),
+(88, 'marvinr@gmail.com', '$2y$10$6zo9HP7QqrnUmeISn7dQduGdokz8qXhl8Idt7pMaCm0LvKpGaDYlO', 'subject_teacher');
 
 --
 -- Indexes for dumped tables
@@ -523,61 +535,61 @@ ALTER TABLE `user_acc`
 -- AUTO_INCREMENT for table `admin_acc`
 --
 ALTER TABLE `admin_acc`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `admin_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `advisers`
 --
 ALTER TABLE `advisers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=236;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=236;
 
 --
 -- AUTO_INCREMENT for table `class_section`
 --
 ALTER TABLE `class_section`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `section_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `grade_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `mesages`
 --
 ALTER TABLE `mesages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `msg_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `student_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `subject_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `subject_teachers`
 --
 ALTER TABLE `subject_teachers`
-  MODIFY `stID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `stID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_acc`
 --
 ALTER TABLE `user_acc`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- Constraints for dumped tables

@@ -15,7 +15,15 @@ if (isset($_POST['subjectTeacherRegister'])) {
     $stContactNumber = mysqli_real_escape_string($connection, $_POST['stContactNumber']);
     $stEmail = mysqli_real_escape_string($connection, $_POST['stEmail']);
     $stPassword = mysqli_real_escape_string($connection, $_POST['stPassword']);
-    $stSubject = mysqli_real_escape_string($connection, $_POST['stSubject']);
+    // Accept subject IDs from the admin form (stSubject1 required, stSubject2 optional)
+    $stSubject1 = isset($_POST['stSubject1']) ? intval($_POST['stSubject1']) : 0;
+    $stSubject2 = isset($_POST['stSubject2']) ? intval($_POST['stSubject2']) : 0;
+
+    // Build stSubject as comma-separated subject_id(s)
+    $subjectsArr = [];
+    if ($stSubject1 > 0) $subjectsArr[] = $stSubject1;
+    if ($stSubject2 > 0 && $stSubject2 !== $stSubject1) $subjectsArr[] = $stSubject2;
+    $stSubject = implode(',', $subjectsArr);
 
     // Hash the password
     $stHashedPassword = password_hash($stPassword, PASSWORD_BCRYPT);
@@ -25,12 +33,38 @@ if (isset($_POST['subjectTeacherRegister'])) {
 
     try {
         // Insert into subject_teachers table
-        $insert_teacher_query = "INSERT INTO subject_teachers (stFullName, stContactNumber, stEmail, stPassword, stSubject)
-                        VALUES ('$stFullName', '$stContactNumber', '$stEmail', '$stHashedPassword', '$stSubject')";
+    // For backwards compatibility with the database schema where stSubject and stSubject2 are INTs,
+    // store primary and secondary subject ids (secondary may be NULL).
+    $primarySub = intval($stSubject1);
+    $secondarySub = ($stSubject2 > 0) ? intval($stSubject2) : 'NULL';
+    $insert_teacher_query = "INSERT INTO subject_teachers (stFullName, stContactNumber, stEmail, stPassword, stSubject, stSubject2)
+        VALUES ('$stFullName', '$stContactNumber', '$stEmail', '$stHashedPassword', $primarySub, " . ($secondarySub === 'NULL' ? 'NULL' : $secondarySub) . ")";
         $insert_teacher_query_run = mysqli_query($connection, $insert_teacher_query);
 
         if (!$insert_teacher_query_run) {
             throw new Exception("Subject Teacher insert failed: " . mysqli_error($connection));
+        }
+
+        // Insert relation rows for assigned subjects (mapping table)
+        $teacherId = mysqli_insert_id($connection);
+        if ($teacherId > 0) {
+            $insertRelStmt = mysqli_prepare($connection,
+                "INSERT IGNORE INTO subject_teacher_subjects (subject_teacher_id, subject_id) VALUES (?, ?)");
+            if ($insertRelStmt === false) {
+                throw new Exception("Prepare failed for relation insert: " . mysqli_error($connection));
+            }
+
+            $subs = [];
+            if ($stSubject1 > 0) $subs[] = $stSubject1;
+            if ($stSubject2 > 0 && $stSubject2 !== $stSubject1) $subs[] = $stSubject2;
+
+            foreach ($subs as $sid) {
+                mysqli_stmt_bind_param($insertRelStmt, 'ii', $teacherId, $sid);
+                if (!mysqli_stmt_execute($insertRelStmt)) {
+                    throw new Exception("Relation insert failed: " . mysqli_stmt_error($insertRelStmt));
+                }
+            }
+            mysqli_stmt_close($insertRelStmt);
         }
 
         // Insert into user_acc table

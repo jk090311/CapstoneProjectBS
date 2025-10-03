@@ -182,8 +182,49 @@ session_start();
                                         <input type="text" id="subjectTeacherPassword" name="stPassword" class="form-control" placeholder="Password" required>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="subjectTeacherSubject" class="form-label">Subject</label>
-                                        <input type="text" id="subjectTeacherSubject" name="stSubject" class="form-control" placeholder="Subject" required>
+                                        <label for="subjectTeacherSubject1" class="form-label">Subject 1</label>
+                                        <?php
+                                        // Fetch subjects to populate dropdowns
+                                        $subConn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                        if (!$subConn) {
+                                            echo '<select class="form-control" id="subjectTeacherSubject1" name="stSubject1"><option value="">DB error</option></select>';
+                                        } else {
+                                            $subQ = "SELECT subject_id, subject_name FROM subjects ORDER BY subject_name ASC";
+                                            $subR = mysqli_query($subConn, $subQ);
+                                            $subjectOptions = '';
+                                            if ($subR && mysqli_num_rows($subR) > 0) {
+                                                while ($srow = mysqli_fetch_assoc($subR)) {
+                                                        $safeName = htmlspecialchars($srow['subject_name']);
+                                                        $sid = (int)$srow['subject_id'];
+                                                        $subjectOptions .= '<option value="' . $sid . '">' . $safeName . '</option>';
+                                                    }
+                                            } else {
+                                                $subjectOptions = '<option value="">No Subjects Available</option>';
+                                            }
+                                            // First select (required)
+                                            echo '<select id="subjectTeacherSubject1" name="stSubject1" class="form-control" required>';
+                                            echo '<option value="">Select Subject</option>';
+                                            echo $subjectOptions;
+                                            echo '</select>';
+                                        }
+                                        ?>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="subjectTeacherSubject2" class="form-label">Subject 2 (optional)</label>
+                                        <?php
+                                        if (isset($subjectOptions)) {
+                                            echo '<select id="subjectTeacherSubject2" name="stSubject2" class="form-control">';
+                                            echo '<option value="">Select Subject (optional)</option>';
+                                            echo $subjectOptions;
+                                            echo '</select>';
+                                        } else {
+                                            // In case the previous DB connection failed, show a disabled select
+                                            echo '<select id="subjectTeacherSubject2" name="stSubject2" class="form-control"><option value="">No Subjects Available</option></select>';
+                                        }
+                                        // Close subConn if it was opened
+                                        if (isset($subConn) && $subConn) { mysqli_close($subConn); }
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -258,8 +299,14 @@ session_start();
                                 <?php
                             }
 
-                            // Show Subject Teachers
-                            $fetch_subject_query = "SELECT * FROM subject_teachers ORDER BY stFullName ASC";
+                            // Show Subject Teachers (with subject names from relation table)
+                            $fetch_subject_query = "SELECT st.stID, st.stFullName, st.stContactNumber, st.stEmail, st.stPassword, st.stSubject, st.stSubject2,
+                                COALESCE(GROUP_CONCAT(s.subject_name ORDER BY s.subject_name SEPARATOR ', '), '') AS subject_names
+                                FROM subject_teachers st
+                                LEFT JOIN subject_teacher_subjects sts ON sts.subject_teacher_id = st.stID
+                                LEFT JOIN subjects s ON s.subject_id = sts.subject_id
+                                GROUP BY st.stID
+                                ORDER BY st.stFullName ASC";
                             $fetch_subject_query_run = mysqli_query($connection, $fetch_subject_query);
 
                             if (mysqli_num_rows($fetch_subject_query_run) > 0) {
@@ -270,7 +317,7 @@ session_start();
                                         <td><?php echo $row['stContactNumber'] ?></td>
                                         <td><?php echo $row['stEmail'] ?></td>
                                         <td>***********</td> <!-- Do not display plain passwords -->
-                                        <td><?php echo $row['stSubject'] ?></td>
+                                        <td><?php echo htmlspecialchars($row['subject_names']) ?></td>
                                         <td>-</td>
                                         <td>
                                             <div class="d-flex gap-2">
@@ -279,7 +326,8 @@ session_start();
                                                     data-name="<?php echo $row['stFullName']; ?>"
                                                     data-contact="<?php echo $row['stContactNumber']; ?>"
                                                     data-email="<?php echo $row['stEmail']; ?>"
-                                                    data-subject="<?php echo $row['stSubject']; ?>"
+                                                    data-subject1="<?php echo $row['stSubject']; ?>"
+                                                    data-subject2="<?php echo $row['stSubject2']; ?>"
                                                     data-password="<?php echo $row['stPassword']; ?>" data-bs-toggle="modal"
                                                     data-bs-target="#addSubjectTeacher">
                                                     <i class="fas fa-edit"></i>
