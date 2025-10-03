@@ -3,30 +3,13 @@
 // Use the central DB connection file used across the project
 require_once __DIR__ . '/../PHP/dbconnection.php';
 
-// Accept either student_id or student_lrn. Prefer student_id when provided.
-$student_lrn = null;
-if (isset($_GET['student_id']) && !empty($_GET['student_id'])) {
-    $student_id = intval($_GET['student_id']);
-} elseif (isset($_GET['student_lrn']) && !empty($_GET['student_lrn'])) {
-    $student_lrn = trim($_GET['student_lrn']);
-    // Resolve to student_id
-    $stmtL = $conn->prepare('SELECT student_id FROM students WHERE lrn = ? LIMIT 1');
-    $stmtL->bind_param('s', $student_lrn);
-    $stmtL->execute();
-    $resL = $stmtL->get_result();
-    if ($resL && $resL->num_rows > 0) {
-        $student_id = (int) $resL->fetch_assoc()['student_id'];
-    } else {
-        http_response_code(404);
-        echo "Student not found";
-        exit;
-    }
-    $stmtL->close();
-} else {
+if (!isset($_GET['student_id']) || empty($_GET['student_id'])) {
     http_response_code(400);
-    echo "Missing student identifier";
+    echo "Missing student_id";
     exit;
 }
+
+$student_id = intval($_GET['student_id']);
 
 // dbconnection.php creates a mysqli instance in $conn
 $mysqli = $conn;
@@ -63,7 +46,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 // Prepare CSV headers
-$filename = 'student_grades_' . $student_id . ($student_lrn ? '_'.preg_replace('/[^a-zA-Z0-9_-]/','', $student_lrn) : '') . '_' . date('Ymd') . '.csv';
+$filename = 'student_grades_' . $student_id . '_' . date('Ymd') . '.csv';
 header('Content-Type: text/csv; charset=UTF-8');
 header('Content-Disposition: attachment; filename="' . $filename . '"');
 
@@ -99,6 +82,7 @@ while ($row = $result->fetch_assoc()) {
         $finals[] = (int) $final;
     }
 }
+
 
 // GWA row
 $gwa = count($finals) ? (int) round(array_sum($finals)/count($finals)) : '';

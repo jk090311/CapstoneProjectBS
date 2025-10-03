@@ -1,49 +1,59 @@
-.datetimeBox{
+.datetimeBox {
     border-radius: 50px;
-    width: 100%; /* Makes it match the navbar width */
-    max-width: 1600px; /* Adjust based on navbar width */
-    height: 80px; /* Reduce height to fit better */
-    background-color:  rgba(228, 13, 13, 0.8);;
-    background-color:  rgba(25, 38, 224, 0.8);;
-    align-items: center;
-    margin-top: 100px;
-  }
-  
-  .datetimeAlign{
+    width: 80%; /* Reduce width */
+    max-width: 600px; /* Set a max-width for larger screens */
+    height: 100px; /* Adjust height */
+    background-color: rgba(25, 38, 224, 0.8);
+    margin: 100px auto 20px auto; /* Center horizontally and add vertical margins */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
-    height: 20%; 
-    margin: 20px;
-    padding: 15px;
-  }
+    align-items: center;
+    padding: 10px;
+}
 
-  #clock{
+.datetimeAlign {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Remove margins */
+    padding: 5px; /* Reduce padding */
+    width: 100%;
+    height: auto;
+}
+
+#clock {
     font-size: 2.5em;
     color: #fff;
     font-weight: bold;
     text-align: center;
-  }
+    margin: 0; /* Remove margins */
+    line-height: 1.2; /* Adjust line height */
+}
 
-  #date{
+#date {
     font-size: 1.5em;
     color: #fff;
     font-weight: bold;
     text-align: center;
-  }
-  @media (max-width: 768px) {
+    margin: 0; /* Remove margins */
+    line-height: 1.2; /* Adjust line height */
+}
+
+/* Update media query for responsive design */
+@media (max-width: 768px) {
     .datetimeBox {
-        max-width: 95%;
+        width: 90%;
         height: auto;
+        padding: 15px;
     }
 
     #clock {
-        font-size: 1.8em;
+        font-size: 2em;
     }
 
     #date {
-        font-size: 1em;
+        font-size: 1.2em;
     }
 }
 

@@ -8,28 +8,12 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 $conn = new mysqli('localhost', 'root', '', 'educguarddb');
 if ($conn->connect_error) { if ($isAjax) echo 'DB error'; else die('Connection failed: ' . $conn->connect_error); }
 
-// Accept either student_id or student_lrn. Prefer student_id when provided.
-if (isset($_GET['student_id'])) {
-    $student_id = (int) $_GET['student_id'];
-} elseif (isset($_GET['student_lrn'])) {
-    $student_lrn = trim($_GET['student_lrn']);
-    // Resolve LRN to student_id
-    $stmtL = $conn->prepare('SELECT student_id FROM students WHERE lrn = ? LIMIT 1');
-    $stmtL->bind_param('s', $student_lrn);
-    $stmtL->execute();
-    $resL = $stmtL->get_result();
-    if ($resL && $resL->num_rows > 0) {
-        $rowL = $resL->fetch_assoc();
-        $student_id = (int) $rowL['student_id'];
-    } else {
-        if ($isAjax) { echo '<p>No student found with that LRN.</p>'; } else { echo '<p>Student LRN not found.</p>'; }
-        exit;
-    }
-    $stmtL->close();
-} else {
-    if ($isAjax) { echo '<p>Please provide a student ID or LRN.</p>'; } else { echo '<p>Student identifier required.</p>'; }
+if (!isset($_GET['student_id'])) {
+    if ($isAjax) { echo '<p>Please provide a student ID.</p>'; } else { echo '<p>Student ID required.</p>'; }
     exit;
 }
+
+$student_id = (int) $_GET['student_id'];
 
 // Fetch student
 $stmt = $conn->prepare('SELECT first_name, middle_name, last_name FROM students WHERE student_id = ?');
@@ -65,7 +49,7 @@ ob_start();
 ?>
 <div class="card" style="padding:14px;">
     <h3 style="margin-top:0;">Student Grades</h3>
-    <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;"><div><strong>Student:</strong> <?php echo $fullName?> (ID: <?php echo $student_id?>)</div><div><button id="exportStudentBtn" data-student-id="<?php echo $student_id?>" <?php if (!empty($student_lrn)) echo 'data-student-lrn="'.htmlspecialchars($student_lrn).'"'; ?> style="padding:8px 12px; background:#0f7a8a; color:#fff; border-radius:6px; border:none; cursor:pointer;">Export to Excel</button></div></div>
+    <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;"><div><strong>Student:</strong> <?php echo $fullName?> (ID: <?php echo $student_id?>)</div><div><button id="exportStudentBtn" data-student-id="<?php echo $student_id?>" style="padding:8px 12px; background:#0f7a8a; color:#fff; border-radius:6px; border:none; cursor:pointer;">Export to Excel</button></div></div>
     <div style="overflow:auto;">
     <table class="student-grades-table" style="width:100%; border-collapse:collapse;">
         <thead>

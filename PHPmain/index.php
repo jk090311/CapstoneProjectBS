@@ -101,6 +101,9 @@ if ($row = mysqli_fetch_assoc($result)) {
 
 </header>
 <div class="container">
+    <div class="logo-container">
+        <img src="/CapstoneProjectBS/assets/111.png" alt="System Logo">
+    </div>
     <div id="loginBox">
         <div class="left-side">
             <h2>Student Grades and Attendance System</h2>
@@ -112,10 +115,6 @@ if ($row = mysqli_fetch_assoc($result)) {
                 <li>Student progress reports</li>
                 <li>Secure data management</li>
             </ul>
-        </div>
-        
-        <div class="logo-container">
-            <img src="/CapstoneProjectBS/assets/111.png" alt="System Logo">
         </div>
         
         <div class="right-side">

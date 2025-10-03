@@ -1,25 +1,19 @@
-<?php include "teacherNavbar.php" ?>
 <?php
+// Start output buffering
+ob_start();
+
+include "teacherNavbar.php";
+
 // Database connection
 $conn = new mysqli("localhost", "root", "", "educguarddb");
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Get adviser's section
-$adviser_email = $_SESSION['user_email'];
-$adviser_section_query = "SELECT adviserSection FROM advisers WHERE adviserEmailAddress = ?";
-$stmt = $conn->prepare($adviser_section_query);
-$stmt->bind_param("s", $adviser_email);
-$stmt->execute();
-$adviser_result = $stmt->get_result();
-$adviser_section = ($adviser_result && $adviser_result->num_rows > 0) ? $adviser_result->fetch_assoc()['adviserSection'] : null;
-$stmt->close();
-
-// Handle grade submission
+// Handle grade submission first, before any HTML output
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset($_POST['quarter']) && isset($_POST['grade']) && isset($_POST['subject_id'])) {
+    // Clear any buffered output
+    ob_clean();
+    
+    header('Content-Type: application/json');
+    
     $student_id = $_POST['student_id'];
     $quarter_id = $_POST['quarter'];
     $grade = $_POST['grade'];
@@ -60,13 +54,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset
         $success = $stmt->execute();
         $stmt->close();
 
+        // Make sure no output has been sent before this point
+        ob_clean(); // Clear any output buffers
         echo json_encode(['success' => $success]);
         exit;
     } catch (Exception $e) {
+        ob_clean(); // Clear any output buffers
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
         exit;
     }
 }
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get adviser's section
+$adviser_email = $_SESSION['user_email'];
+$adviser_section_query = "SELECT adviserSection FROM advisers WHERE adviserEmailAddress = ?";
+$stmt = $conn->prepare($adviser_section_query);
+$stmt->bind_param("s", $adviser_email);
+$stmt->execute();
+$adviser_result = $stmt->get_result();
+$adviser_section = ($adviser_result && $adviser_result->num_rows > 0) ? $adviser_result->fetch_assoc()['adviserSection'] : null;
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset
         body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #0f3340; color: #222; }
         .background-image { position:fixed; inset:0; background: url('../Assets/malinta.jpg') center/cover no-repeat; opacity:0.14; z-index:0; }
         .page-content { position:relative; z-index:1; padding:40px 16px; display:flex; justify-content:center; }
-        .panel { max-width:1100px; width:100%; display:flex; flex-direction:column; gap:18px; }
+        .panel { max-width:1100px; width:100%; display:flex; flex-direction:column}
 
         /* Card wrapper for the main content */
     .card { background: rgba(255,255,255,0.98); border-radius:12px; box-shadow: 0 8px 28px rgba(2,12,26,0.35); padding:20px; position:relative; }
@@ -178,7 +190,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset
                 <div id="student-panel" class="card">
                     <h3 style="margin-top:0;">Student Grades</h3>
                     <div style="display:flex; gap:8px; margin-bottom:12px; align-items:center;">
-                        <input id="studentSearchMain" type="text" placeholder="Enter student LRN (e.g. 22-0540)" style="flex:1; padding:10px 12px; border-radius:8px; border:1px solid #d7e3e5;">
+                        <input id="studentSearchMain" type="text" placeholder="Enter student ID (numeric)..." style="flex:1; padding:10px 12px; border-radius:8px; border:1px solid #d7e3e5;">
                         <button id="searchStudentBtn" style="padding:10px 12px; border-radius:8px; border:1px solid #0f7a8a; background:#0f7a8a; color:#fff; cursor:pointer;">Search</button>
                     </div>
                     <div id="studentGridMain">
@@ -189,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset
             </div>
         </div>
     </div>
-
+ 
     <script>
         $(document).ready(function() {
             const tabSubjectsBtn = document.getElementById('tabSubjectsBtn');
@@ -290,19 +302,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset
                                 if (!isValid) { showNotification('Grades must be between 0 and 100', 'error'); return; }
 
                                 fetch('getGrades.php', {
-                                    method: 'POST', headers: {'Content-Type':'application/json'},
-                                    body: JSON.stringify({ student_id: studentId, subject_id: subjectId, grades: grades })
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        student_id: studentId,
+                                        subject_id: subjectId,
+                                        grades: grades
+                                    })
                                 })
-                                .then(r => r.json())
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return response.json();
+                                })
                                 .then(data => {
                                     if (data.success) {
                                         showNotification('Grades submitted successfully', 'success');
-                                        setTimeout(() => { window.location.reload(true); }, 500);
+                                        setTimeout(() => {
+                                            window.location.reload(true);
+                                        }, 500);
                                     } else {
                                         showNotification('Error submitting grades: ' + (data.error || 'Unknown'), 'error');
                                     }
                                 })
-                                .catch(err => showNotification('Error: ' + err, 'error'));
+                             
                             });
                         });
 
@@ -350,33 +377,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset
             }
 
             bindSubjectClicks();
-            // Student search behavior (by LRN)
-            let lastSearchLrn = null;
+            // Student search behavior
             document.getElementById('searchStudentBtn').addEventListener('click', function(){
                 const val = document.getElementById('studentSearchMain').value.trim();
-                if (!val) { alert('Please enter the student LRN'); return; }
-                lastSearchLrn = val;
-                const url = 'getStudentGrades.php?ajax=1&student_lrn=' + encodeURIComponent(val);
+                if (!val || isNaN(val)) { alert('Please enter a numeric student ID'); return; }
+                const url = 'getStudentGrades.php?ajax=1&student_id=' + encodeURIComponent(val);
                 const target = document.getElementById('studentGridMain');
                 target.innerHTML = '<p>Loading student ' + val + '...</p>';
                 fetch(url).then(r=>r.text()).then(html=>{ target.innerHTML = html; }).catch(err=>{ target.innerHTML = '<p class="error">Error loading student grades.</p>'; console.error(err); });
-
+                
                 // Delegated handler for export button inside the injected student fragment
                 const studentGrid = document.getElementById('studentGridMain');
                 if (studentGrid && !studentGrid._exportHandlerAdded) {
                     studentGrid.addEventListener('click', function(ev){
                         const btn = ev.target.closest && ev.target.closest('#exportStudentBtn');
                         if (!btn) return;
-                        // If the fragment provides a student_id data attribute prefer it, otherwise use lastSearchLrn
                         const sid = btn.getAttribute('data-student-id');
-                        let url2 = null;
-                        if (sid) {
-                            url2 = 'getStudentGradesExport.php?student_id=' + encodeURIComponent(sid);
-                        } else if (lastSearchLrn) {
-                            url2 = 'getStudentGradesExport.php?student_lrn=' + encodeURIComponent(lastSearchLrn);
-                        } else {
-                            return alert('Missing student identifier for export');
-                        }
+                        if (!sid) return alert('Missing student id');
+                        const url2 = 'getStudentGradesExport.php?student_id=' + encodeURIComponent(sid);
                         window.open(url2, '_blank');
                     });
                     studentGrid._exportHandlerAdded = true;
