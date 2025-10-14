@@ -1,17 +1,21 @@
-x <!DOCTYPE html>
+x
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/Admin/adminNavbar.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../CSS/Admin/adminNavbar.css">
 </head>
+
 <body>
-    <div class="overlay"></div>
+  <div class="overlay"></div>
   <nav class="navbar bg-body-tertiary fixed-top">
     <div class="container-fluid d-flex align-items-center">
       <div class="d-flex align-items-center gap-2">
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand d-flex align-items-center">
@@ -21,12 +25,13 @@ x <!DOCTYPE html>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <a href="../PHPmain/logout.php">
-        <button class="btn btn-danger" type="button">Log Out</button>
+          <button class="btn btn-danger" type="button">Log Out</button>
         </a>
       </div>
     </div>
 
-    <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title text-white " id="offcanvasNavbarLabel">ADMIN</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -35,28 +40,34 @@ x <!DOCTYPE html>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
             <a class="nav-link active text-white" aria-current="page" href="dashboardAdmin.php">
-            <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
-            Dashboard</a>
+              <img id="iconLeft" src="../Assets/data-analysis_12959229.png">
+              Dashboard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="adminTeachers.php">
-            <img id="iconLeft" src="../Assets/woman_15286529.png">  
-            Teachers</a>
+              <img id="iconLeft" src="../Assets/woman_15286529.png">
+              Teachers</a>
           <li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="AdminAddSection.php">
-            <img id="iconLeft" src="../Assets/section.jpg">   
-            Sections</a>
+              <img id="iconLeft" src="../Assets/section.jpg">
+              Sections</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="StudentIDRegister.php">
-            <img id="iconLeft" src="../Assets/student.png">   
-            Students</a>
+              <img id="iconLeft" src="../Assets/student.png">
+              Students</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="AdminSubject.php">
+              <img id="iconLeft" src="../Assets/books.png" alt="Subject Icon">
+              Subject
+            </a>
           </li>
           </li>
           <li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="attendanceTracking.php">
-            <img id="iconLeft" src="../Assets/appointment_18491830.png">   
-            Attendance</a>
+              <img id="iconLeft" src="../Assets/appointment_18491830.png">
+              Attendance</a>
           </li>
         </ul>
       </div>
@@ -64,4 +75,5 @@ x <!DOCTYPE html>
   </nav>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

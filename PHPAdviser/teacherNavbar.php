@@ -1,17 +1,13 @@
 <?php
-session_start();
-// Database connection
-$servername = "localhost"; // Replace with your database server name
-$username = "root";        // Replace with your database username
-$password = "";            // Replace with your database password
-$dbname = "educguarddb";   // Replace with your database name
+// start session if none exists
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Use existing DB connection if present, otherwise include the shared connection
+if (!isset($conn) || !$conn) {
+  // dbconnection.php creates $conn
+  require_once __DIR__ . '/../PHP/dbconnection.php';
 }
 // Fetch adviser's full name
 $adviserFullName = "Teacher"; // Default fallback
@@ -88,16 +84,21 @@ if (isset($_SESSION['user_email'])) {
               Dashboard
             </a>
           </li>
-          <li class="nav-item">
+          <!--li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/subjectTeacher.php">
             <img id="iconLeft" src="../Assets/student.png">   
             Subject Teachers</a>
-          </li>
+          </li -->
           <li class="nav-item">
             <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/studentList.php">
             <img id="iconLeft" src="../Assets/student.png">   
             Students</a>
           </li>
+          <li class="nav-item">
+                        <a class="nav-link active text-white " aria-current="page" href="../PHPAdviser/adviserAttendance.php">
+                            <img id="iconLeft" src="../Assets/student.png">
+                            Attendance</a>
+                    </li>
           <li class="nav-item">
             <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/reportSystem.php">
               <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
@@ -105,15 +106,9 @@ if (isset($_SESSION['user_email'])) {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/adviserUserList.php">
-              <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
+            <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/TeacherMessages.php">
+              <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Message Icon">
               Message
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="../PHPAdviser/adviserSubject.php">
-              <img id="iconLeft" src="../Assets/books.png" alt="Subject Icon">
-              Subject
             </a>
           </li>
         </ul>

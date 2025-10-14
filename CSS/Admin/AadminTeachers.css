@@ -1,0 +1,163 @@
+body {
+  background-image: url("/CapstoneProjectBS/Assets/background.jpg");
+  background-size: 1950px 1100px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-top: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
+  background-color: #103a4e;
+  background-blend-mode: lighten;
+}
+
+/* Center the entire table container */
+.container-fluid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Card styling */
+.card {
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+/* Card header with flexbox for alignment */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Styling for the header title */
+.card-header h4 {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Full width row but centered content */
+.row.justify-content-center {
+  width: 100%;
+  max-width: 1400px;
+  margin: 100px auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  table-layout: fixed;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  table-layout: auto; /* Allow columns to adjust based on content */
+}
+.table th:nth-child(1), .table td:nth-child(1) { /* Full Name */
+  text-align: center; /* Align text to the left for readability */
+  font-weight: bolder; /* Make the full name bold */
+}
+
+/* Column alignment adjustments */
+.table th:nth-child(2), .table td:nth-child(2) { /* Full Name */
+  text-align: center; /* Align text to the left for readability */
+}
+
+.table th:nth-child(3), .table td:nth-child(3) { /* Contact Number */
+  text-align: center; /* Center-align for uniformity */
+}
+
+.table th:nth-child(4), .table td:nth-child(4) { /* Grade Level */
+  text-align: center;
+}
+
+.table th:nth-child(5), .table td:nth-child(5) { /* Email */
+  text-align: center; /* Align email to the left for better readability */
+}
+
+.table th:nth-child(6), .table td:nth-child(6) { /* Password */
+  text-align: center;
+}
+
+.table th:nth-child(7), .table td:nth-child(7) { /* Section */
+  text-align: center;
+}
+
+.table th:nth-child(8), .table td:nth-child(8) { /* Action */
+  align-content: center;
+  text-align: center;
+  width: 15%; /* Fixed width for the action buttons */
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adjust spacing between buttons */
+}
+
+.gap-2 {
+  gap: 10px; /* Adjust spacing between buttons */
+}
+
+/* Button styling */
+.btn-edit {
+  width: 70px; /* Adjust the width for the Edit button */
+}
+
+.btn-remove {
+  width: 70px; /* Adjust the width for the Remove button */
+}
+
+.btn-edit, .btn-remove {
+  min-width: 70px; /* Minimum width for both buttons */
+  text-align: center;
+}
+
+/* Ensure Bootstrap column takes appropriate width */
+.col-md-8 {
+  width: 100%;
+  flex: 0 0 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+      width: 100%;
+  }
+  
+  .col-md-8 {
+      max-width: 100%;
+  }
+  
+  .card-header {
+      flex-direction: column;
+      gap: 10px;
+  }
+}
+
+/* Add these new styles at the end of the file */
+.button-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.card-header .btn {
+    white-space: nowrap;
+    margin: 0;
+}

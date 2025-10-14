@@ -133,7 +133,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const contact = this.getAttribute('data-contact');
             const email = this.getAttribute('data-email');
             const password = this.getAttribute('data-password');
-            const subject = this.getAttribute('data-subject');
+            const subject1 = this.getAttribute('data-subject1');
+            const subject2 = this.getAttribute('data-subject2');
 
             console.log('Data retrieved:', {name, contact, email, password, subject}); // Debug log
 
@@ -142,7 +143,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('subjectTeacherContactNumber').value = contact || '';
             document.getElementById('subjectTeacherEmailAddress').value = email || '';
             document.getElementById('subjectTeacherPassword').value = password || '';
-            document.getElementById('subjectTeacherSubject').value = subject || '';
+            // If the modal uses select elements for subject1/subject2, pre-select them
+            const sel1 = document.getElementById('subjectTeacherSubject1');
+            const sel2 = document.getElementById('subjectTeacherSubject2');
+            if (sel1) sel1.value = subject1 || '';
+            if (sel2) sel2.value = subject2 || '';
 
             // Set action type to edit - find the hidden input in the subject teacher form
             const actionTypeInput = document.querySelector('#addSubjectTeacher input[name="action_type"]');
@@ -175,6 +180,21 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    // Prevent selecting the same subject in both selects (client-side guard)
+    const s1 = document.getElementById('subjectTeacherSubject1');
+    const s2 = document.getElementById('subjectTeacherSubject2');
+    if (s1 && s2) {
+        function preventDuplicate() {
+            if (s1.value && s1.value === s2.value) {
+                // clear the second select if it matches the first
+                s2.value = '';
+                alert('Please select a different subject for Subject 2.');
+            }
+        }
+        s1.addEventListener('change', preventDuplicate);
+        s2.addEventListener('change', preventDuplicate);
+    }
 
     // Handle Subject Teacher modal close/hidden to reset form
     const subjectModal = document.getElementById('addSubjectTeacher');

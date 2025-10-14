@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Start session only if one isn't already active to avoid duplicate session_start notices
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -14,11 +17,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch subject teacher's full name
+// Fetch subject teacher's full name and ID
 $stFullName = "Teacher"; // Default fallback
+$stID = ""; // Default fallback
 if (isset($_SESSION['user_email'])) {
     $userEmail = $_SESSION['user_email'];
-    $query = "SELECT stFullName FROM subject_teachers WHERE stEmail = ?";
+    $query = "SELECT stFullName, stID FROM subject_teachers WHERE stEmail = ?";
 
     if ($stmt = $conn->prepare($query)) {
         $stmt->bind_param("s", $userEmail);
@@ -27,6 +31,7 @@ if (isset($_SESSION['user_email'])) {
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $stFullName = htmlspecialchars($row['stFullName']); // Sanitize output
+            $stID = htmlspecialchars($row['stID']); // Sanitize output
         }
         $stmt->close();
     } else {
@@ -66,7 +71,7 @@ if (isset($_SESSION['user_email'])) {
         <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">
+                <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Teacher
                     <?php echo $stFullName; ?>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -81,7 +86,7 @@ if (isset($_SESSION['user_email'])) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="../PHPSubjectTeacher/STSubject.php">
+                        <a class="nav-link active text-white" aria-current="page" href="../PHPSubjectTeacher/STSubject.php?stID=<?php echo $stID; ?>">
                             <img id="iconLeft" src="../Assets/books.png" alt="Subject Icon">
                             Subject
                         </a>
@@ -90,12 +95,6 @@ if (isset($_SESSION['user_email'])) {
                         <a class="nav-link active text-white " aria-current="page" href="../PHPSubjectTeacher/STattendance.php">
                             <img id="iconLeft" src="../Assets/student.png">
                             Attendance</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="../PHPSubjectTeacher/STGrade.php">
-                            <img id="iconLeft" src="../Assets/appointment_18491830.png" alt="Grade Icon">
-                            Grades
-                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active text-white" aria-current="page" href="../PHPSubjectTeacher/STMessage.php">

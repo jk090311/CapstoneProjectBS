@@ -15,6 +15,7 @@ if (isset($_POST['adviserRegister'])) {
     $adviserContactNumber = mysqli_real_escape_string($connection, $_POST['adviserContactNumber']);
     $adviserGrLvl = mysqli_real_escape_string($connection, $_POST['adviserGrLvl']);
     $adviserSection = mysqli_real_escape_string($connection, $_POST['adviserSection']);
+    $adviserSubject = mysqli_real_escape_string($connection, $_POST['adviserSubject']);
     $adviserEmailAddress = mysqli_real_escape_string($connection, $_POST['adviserEmailAddress']);
     $adviserPassword = mysqli_real_escape_string($connection, $_POST['adviserPassword']);
 
@@ -33,8 +34,8 @@ if (isset($_POST['adviserRegister'])) {
 
     try {
         // Insert into advisers
-        $insert_adviser_query = "INSERT INTO advisers (adviserFullName, adviserContactNumber, adviserGrLvl, adviserEmailAddress, adviserPassword, adviserSection)
-                                 VALUES ('$adviserFullName', '$adviserContactNumber', '$adviserGrLvl', '$adviserEmailAddress', '$hashedPassword', '$adviserSection')";
+        $insert_adviser_query = "INSERT INTO advisers (adviserFullName, adviserContactNumber, adviserGrLvl, adviserEmailAddress, adviserPassword, adviserSection, adviserSubject)
+                                 VALUES ('$adviserFullName', '$adviserContactNumber', '$adviserGrLvl', '$adviserEmailAddress', '$hashedPassword', '$adviserSection', '$adviserSubject')";
         $insert_adviser_query_run = mysqli_query($connection, $insert_adviser_query);
 
         if (!$insert_adviser_query_run) {

@@ -29,12 +29,9 @@ if ($conn->connect_error) {
     <p class="datetimeAlign" id="date">Loading</p>
 </div>
 
-<div id="inputContainer">
-    <div id="rfidContainer">
-        <input type="text" id="rfidInput" placeholder="Scan RFID here" autofocus>
-    </div>
+<div id="inputContainer">   
     <div id="dateContainer">
-        <input type="date" id="filterDate" onchange="loadAttendance()">
+        <input type="date" id="filterDate" onchange="loadAttendanceData()">
     </div>
 </div>
 
@@ -48,50 +45,12 @@ if ($conn->connect_error) {
             <th>Time Out</th>
             <th>Date Logged</th>
         </tr>
-        <?php
-        $dateFilter = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
-        $query = "SELECT * FROM attendance WHERE date_logged = ? ORDER BY time_in ASC";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("s", $dateFilter);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>
-                        <td>{$row['rfid_number']}</td>
-                        <td>{$row['first_name']} {$row['last_name']}</td>
-                        <td>{$row['section']}</td>
-                        <td>{$row['time_in']}</td>
-                        <td>{$row['time_out']}</td>
-                        <td>{$row['date_logged']}</td>
-                      </tr>";
-            }
-        } else {
-            echo "<tr><td colspan='5'>Error preparing statement.</td></tr>";
-        }
-        ?>
+        <!-- Data will be loaded via JavaScript -->
     </table>
 </div>
 
 <script src="/CapstoneProjectBS/JS/rfidScan.js"></script>
 <script src="/CapstoneProjectBS/JS/AttendanceTracking.js"></script>
-<script src="/CapstoneProjectBS/JS/datetime.js"></script>
-<script>
-    const tableBody = document.querySelector("#attendanceTable tbody");
-    data.forEach(row => {
-        console.log("Adding row:", row); // Debugging
-        let newRow = document.createElement("tr");
-        newRow.innerHTML = `
-            <td>${row.rfid_number}</td>
-            <td>${row.name}</td>
-            <td>${row.section || 'N/A'}</td>
-            <td>${row.time_in || 'N/A'}</td>
-            <td>${row.time_out || 'N/A'}</td>
-            <td>${row.date_logged}</td>
-        `;
-        tableBody.appendChild(newRow);
-    });
-</script>
 
 </body>
 </html>

@@ -52,9 +52,6 @@ if (isset($_SESSION['user_email'])) {
             $adviserFullName = htmlspecialchars($row['adviserFullName']); // Sanitize output
         }
         $stmt->close();
-    } else {
-        // Handle query preparation error
-        error_log("Database query failed: " . $conn->error);
     }
 }
 ?>
@@ -65,71 +62,55 @@ if (isset($_SESSION['user_email'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffffff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            width: 80%;
-            max-width: 800px;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .section h2 {
-            margin-top: 0;
-        }
-        .quick-links a {
-            display: block;
-            margin-bottom: 10px;
-            color: #007BFF;
-            text-decoration: none;
-        }
-        .quick-links a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/dashboard-cards.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
 </head>
 <body>
-    <div class="container">
-        <div class="section">
-            <h2>Welcome, Adviser <?php echo $adviserFullName; ?> !</h2>
+    <main class="page-main">
+    <div class="dashboard-wrap">
+        <div class="dashboard-hero">
+            <h1>Welcome, Adviser <?php echo $adviserFullName; ?> !</h1>
             <p>Welcome to your dashboard. Here you can find the quick access to various sections.</p>
         </div>
-       <!-- <div class="section">
-            <h2>Recent Messages</h2>
-            <div class="messages">
-                 Display recent messages here
-                <p>No new messages.</p>
+
+        <?php
+        // Use the same queries as admin dashboard
+        $totalStudents = 0;
+        $totalSections = 0;
+        $r = $conn->query("SELECT COUNT(*) AS cnt FROM students");
+        if($r){ $totalStudents = (int)$r->fetch_assoc()['cnt']; }
+        $r3 = $conn->query("SELECT COUNT(*) AS cnt FROM class_section");
+        if($r3){ $totalSections = (int)$r3->fetch_assoc()['cnt']; }
+        ?>
+
+        <div class="cards-row" style="margin-top:12px;margin-bottom:18px;">
+            <div class="info-card green">
+                <div class="left">
+                    <div class="label">TOTAL STUDENTS</div>
+                    <div class="value"><?php echo isset($totalStudents) ? intval($totalStudents) : '0'; ?></div>
+                </div>
+                <div class="icon"><i class="fa-solid fa-user-graduate"></i></div>
+            </div>
+
+            <div class="info-card blue">
+                <div class="left">
+                    <div class="label">TOTAL SECTIONS</div>
+                    <div class="value"><?php echo isset($totalSections) ? intval($totalSections) : '0'; ?></div>
+                </div>
+                <div class="icon"><i class="fa-solid fa-layer-group"></i></div>
             </div>
         </div>
-        <div class="section">
-            <h2>Upcoming Events</h2>
-            <div class="events">
-               Display upcoming events here
-                <p>No upcoming events.</p>
-            </div>
-        </div> -->
-        <div class="section">
-            <h2>Quick Links</h2>
-            <div class="quick-links">
-               <!-- <a href="TeacherMessages.php">Messages</a> -->
-                <a href="../PHPAdviser/studentList.php">Students</a>
-                <a href="reportSystem.php">Grades</a>
-                <a href="subjectTeacher.php">Teachers</a>
-                <a href="../PHPAdviser/adviserSubject.php">Subject</a>
-            </div>
-        </div>
+
+        <h3 style="margin-top:6px;color:#222">Quick Links</h3>
+        <ul style="padding-left:18px;color:#0a58ca">
+            <li><a href="../PHPAdviser/studentList.php">Students</a></li>
+            <li><a href="reportSystem.php">Grades</a></li>
+            <li><a href="subjectTeacher.php">Teachers</a></li>
+            <li><a href="../PHPAdviser/adviserSubject.php">Subject</a></li>
+        </ul>
     </div>
+    </main>
+
 </body>
 </html>

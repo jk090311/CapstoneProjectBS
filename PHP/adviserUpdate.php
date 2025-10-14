@@ -15,6 +15,7 @@ if(isset($_POST['adviserFullName']) && $_POST['action_type'] === 'edit') {
     $adviserEmailAddress = mysqli_real_escape_string($connection, $_POST['adviserEmailAddress']);
     $adviserPassword = mysqli_real_escape_string($connection, $_POST['adviserPassword']);
     $adviserSection = mysqli_real_escape_string($connection, $_POST['adviserSection']);
+    $adviserSubject = mysqli_real_escape_string($connection, $_POST['adviserSubject']);
 
     if (empty($adviserFullName) || empty($adviserContactNumber) || empty($adviserGrLvl) || empty($adviserEmailAddress) || empty($adviserPassword) || empty($adviserSection)) {
         $_SESSION['status'] = "One or more fields are missing. Please fill all the fields.";
@@ -29,7 +30,8 @@ if(isset($_POST['adviserFullName']) && $_POST['action_type'] === 'edit') {
                     adviserGrLvl = '$adviserGrLvl', 
                     adviserEmailAddress = '$adviserEmailAddress',
                     adviserPassword = '$adviserPassword',
-                    adviserSection = '$adviserSection'
+                    adviserSection = '$adviserSection',
+                    adviserSubject = '$adviserSubject'
                     WHERE adviserFullName = '$originalAdviserName'";
     
     $update_query_run = mysqli_query($connection, $update_query);
