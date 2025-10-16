@@ -298,7 +298,7 @@ $stmt->close();
                                 gradeInputs.forEach(input => { const quarter = input.dataset.quarter; const grade = input.value; if (grade) grades[quarter] = grade; });
 
                                 let isValid = true;
-                                Object.values(grades).forEach(grade => { if (grade < 60 || grade > 100) isValid = false; });
+                                Object.values(grades).forEach(grade => { if (grade < 0 || grade > 100) isValid = false; });
                                 if (!isValid) { showNotification('Grades must be between 0 and 100', 'error'); return; }
 
                                 fetch('getGrades.php', {
@@ -349,7 +349,7 @@ $stmt->close();
                             input.addEventListener('input', function() {
                                 const row = this.closest('tr'); updateFinalGrade(row);
                                 const value = parseInt(this.value);
-                                if (value < 60 || value > 100) { this.style.backgroundColor = '#ffebee'; showNotification('Grade must be between 60 and 100', 'error'); }
+                                if (value < 0 || value > 100) { this.style.backgroundColor = '#ffebee'; showNotification('Grade must be between 0 and 100', 'error'); }
                                 else this.style.backgroundColor = 'white';
                             });
                         });

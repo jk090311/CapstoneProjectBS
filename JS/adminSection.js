@@ -1,4 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Year filter functionality
+    const yearFilter = document.getElementById('year_filter');
+    yearFilter.addEventListener('change', function() {
+        const selectedYear = this.value;
+        const rows = document.querySelectorAll('tbody tr');
+        
+        rows.forEach(row => {
+            const yearCell = row.querySelector('td:nth-child(3)');
+            if (yearCell) {
+                const yearText = yearCell.textContent.trim();
+                if (!selectedYear) {
+                    // Show all rows when "All Years" is selected
+                    row.style.display = '';
+                } else {
+                    // Compare the exact year range string
+                    const normalizedYearText = yearText.replace(/\s+/g, ''); // Remove all spaces
+                    const normalizedSelectedYear = selectedYear.replace(/\s+/g, '');
+                    
+                    if (normalizedYearText === normalizedSelectedYear) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            }
+        });
+    });
+
     const editButtons = document.querySelectorAll('.edit_data');
 
     editButtons.forEach(button => {

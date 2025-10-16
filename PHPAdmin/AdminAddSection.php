@@ -130,6 +130,18 @@ error_reporting(E_ALL);
                         <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
                             data-bs-target="#addSection">Add Section</button>
                     </div>
+                    
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="year_filter" class="form-label">Filter by School Year:</label>
+                            <select id="year_filter" class="form-select" style="width: auto; display: inline-block; margin-right: 10px;">
+                                <option value="">All Years</option>
+                                <option value="2024-2025">2024-2025</option>
+                                <option value="2025-2026">2025-2026</option>
+                                <option value="2026-2027">2026-2027</option>
+                            </select>
+                        </div>
+                    </div>
 
                     <table class="table table-bordered">
                         <thead>
