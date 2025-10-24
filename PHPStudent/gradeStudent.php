@@ -1,5 +1,25 @@
 <?php
 include "studentNavbar.php";
+session_start();
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    // Not logged in, redirect to login page
+    error_log("User not logged in, redirecting to login");
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
+
+
+$required_role = "student"; 
+if ($_SESSION['user_role'] != $required_role) {
+    
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdmin/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "adviser") {
+        header("Location: ../PHPStudent/dashboardStudent.php");
+    }
+    exit();
+}
 // Database connection 
 $conn = new mysqli("localhost", "root", "", "educguarddb");
 
@@ -210,9 +230,21 @@ if ($result) {
                     echo "</tr>";
                 }
 
-                // Calculate and display GWA
-                if ($subject_count > 0) {
-                    $gwa = round($total_grades / $subject_count);
+                // Calculate GWA by dividing sum of final grades by total number of subjects
+                $total_subjects = $result->num_rows; // Get total number of subjects
+                $final_total = 0;
+                
+                // Get the sum of all final grades
+                $result->data_seek(0); // Reset result pointer to start
+                while ($row = $result->fetch_assoc()) {
+                    if ($row['q1'] && $row['q2'] && $row['q3'] && $row['q4']) {
+                        $final_grade = round(($row['q1'] + $row['q2'] + $row['q3'] + $row['q4']) / 4);
+                        $final_total += $final_grade; // Add each final grade to the total
+                    }
+                }
+                
+                if ($final_total > 0) {
+                    $gwa = round($final_total / $total_subjects, 2); // Round to 2 decimal places
                     echo "<tr class='gwa-row'>";
                     echo "<td class='gwa-label'>General Weighted Average</td>";
                     // Add empty cells for quarters
@@ -220,27 +252,46 @@ if ($result) {
                     // Display GWA in the Final Grade column
                     $gwa_class = $gwa >= 75 ? 'grade-pass' : 'grade-fail';
                     echo "<td class='gwa-value $gwa_class'>" . $gwa . "</td>";
-                    // Display remarks for GWA
-                    echo "<td>" . ($gwa >= 75 ? 'PASSED' : 'FAILED') . "</td>";
+                    
+                    // Check if all subjects have final grades
+                    $all_subjects_completed = true;
+                    $result->data_seek(0);
+                    while ($row = $result->fetch_assoc()) {
+                        if (!($row['q1'] && $row['q2'] && $row['q3'] && $row['q4'])) {
+                            $all_subjects_completed = false;
+                            break;
+                        }
+                    }
+                    
+                    // Only show remarks if all subjects are completed
+                    if ($all_subjects_completed) {
+                        echo "<td>" . ($gwa >= 75 ? 'PASSED' : 'FAILED') . "</td>";
+                    } else {
+                        echo "<td></td>"; // Empty cell if not all subjects are completed
+                    }
                     echo "</tr>";
                     
-                    // Add new row with academic honors
+                    // Add new row with academic honors only if all subjects are completed
                     echo "<tr>";
                     echo "<td colspan='6'></td>";
-                    // Determine academic honor based on GWA
-                    $academic_honor = "";
-                    if ($gwa >= 98 && $gwa <= 100) {
-                        $academic_honor = "WITH HIGHEST HONOR";
-                    } elseif ($gwa >= 94 && $gwa <= 97) {
-                        $academic_honor = "WITH HIGH HONOR";
-                    } elseif ($gwa >= 90 && $gwa <= 93) {
-                        $academic_honor = "WITH HONOR";
-                    } elseif ($gwa >= 75 && $gwa <= 89) {
-                        $academic_honor = "PASSED";
+                    if ($all_subjects_completed) {
+                        // Determine academic honor based on GWA
+                        $academic_honor = "";
+                        if ($gwa >= 98 && $gwa <= 100) {
+                            $academic_honor = "WITH HIGHEST HONOR";
+                        } elseif ($gwa >= 94 && $gwa <= 97) {
+                            $academic_honor = "WITH HIGH HONOR";
+                        } elseif ($gwa >= 90 && $gwa <= 93) {
+                            $academic_honor = "WITH HONOR";
+                        } elseif ($gwa >= 75 && $gwa <= 89) {
+                            $academic_honor = "PASSED";
+                        } else {
+                            $academic_honor = "FAILED";
+                        }
+                        echo "<td>" . $academic_honor . "</td>";
                     } else {
-                        $academic_honor = "FAILED";
+                        echo "<td></td>"; // Empty cell if not all subjects are completed
                     }
-                    echo "<td>" . $academic_honor . "</td>";
                     echo "</tr>";
                 }
             } else {

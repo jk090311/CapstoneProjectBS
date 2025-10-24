@@ -1,5 +1,29 @@
 <?php include "../PHPAdmin/adminNavbar.php"; ?>
-<?php session_start(); ?>
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    // Not logged in, redirect to login page
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
+
+
+$required_role = "admin"; 
+if ($_SESSION['user_role'] != $required_role) {
+    
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdmin/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "adviser") {
+        header("Location: ../PHPAdviser/dashboardTeacher.php");
+    } else if ($_SESSION['user_role'] == "student") {
+        header("Location: dashboardStudent.php");
+    }
+    exit();
+}
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +48,7 @@
             unset($_SESSION['success_message']); // Clear the message after displaying it
         }
         ?>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
             <div class="card w-75 p-4"> <!-- Added padding -->
                 <div class="card-header bg-primary text-white">
                     <h2 class="mb-0">Subjects</h2>

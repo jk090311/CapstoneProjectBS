@@ -1,6 +1,27 @@
 <?php include "adminNavbar.php" ?>
 <?php
 session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    // Not logged in, redirect to login page
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
+
+
+$required_role = "admin"; 
+if ($_SESSION['user_role'] != $required_role) {
+    
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdmin/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "adviser") {
+        header("Location: ../PHPAdviser/dashboardTeacher.php");
+    } else if ($_SESSION['user_role'] == "student") {
+        header("Location: dashboardStudent.php");
+    }
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,8 +162,9 @@ session_start();
             <div class="col-12 col-lg-11 mx-auto">
                 <?php
                 if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+                    $alertClass = strpos($_SESSION['status'], 'Error') !== false ? 'alert-danger' : 'alert-success';
                 ?>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <div class="alert <?php echo $alertClass; ?> alert-dismissible fade show" role="alert">
                         <?php echo $_SESSION['status']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
@@ -583,7 +605,7 @@ session_start();
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <!-- Edit Button with Icon -->
-                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
+                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_adviser"
                                                         data-name="<?php echo $row['adviserFullName']; ?>"
                                                         data-contact="<?php echo $row['adviserContactNumber']; ?>"
                                                         data-email="<?php echo $row['adviserEmailAddress']; ?>"
@@ -611,13 +633,23 @@ session_start();
                                 }
 
                                 // Show Subject Teachers (with subject names from relation table)
-                                $fetch_subject_query = "SELECT B.section_id, B.section_name, st.stID, st.stFullName, st.stContactNumber, st.stEmail, st.stGradelvl, st.stSection ,st.stPassword, st.stSubject,st.stSection2,st.stSection3, st.stSubject2,st.stSubject3,
-                                    COALESCE(GROUP_CONCAT(s.subject_name ORDER BY s.subject_name SEPARATOR ', '), '') AS subject_names
+                                $fetch_subject_query = "SELECT 
+                                    st.stID, 
+                                    st.stFullName, 
+                                    st.stContactNumber, 
+                                    st.stEmail, 
+                                    st.stGradelvl,
+                                    st.stSection,
+                                    cs.section_id,
+                                    cs.section_name,
+                                    GROUP_CONCAT(DISTINCT s.subject_id) as subject_ids,
+                                    GROUP_CONCAT(DISTINCT s.subject_name ORDER BY s.subject_name SEPARATOR ', ') as subject_names
                                     FROM subject_teachers st
-                                    LEFT JOIN class_section B ON B.section_id = st.stSection
+                                    LEFT JOIN class_section cs ON cs.section_id = st.stSection
                                     LEFT JOIN subject_teacher_subjects sts ON sts.subject_teacher_id = st.stID
                                     LEFT JOIN subjects s ON s.subject_id = sts.subject_id
-                                    GROUP BY st.stID
+                                    GROUP BY st.stID, st.stFullName, st.stContactNumber, st.stEmail, st.stGradelvl, 
+                                             st.stSection, cs.section_id, cs.section_name
                                     ORDER BY st.stFullName ASC";
 
 
@@ -628,22 +660,25 @@ session_start();
                                     ?>
                                         <tr>
                                             <td>Subject Teacher</td>
-                                            <td><?php echo $row['stFullName'] ?></td>
-                                            <td><?php echo $row['stContactNumber'] ?></td>
-                                            <td><?php echo $row['stEmail'] ?></td>
-                                            <td><?php echo $row['stGradelvl'] ?></td>
+                                            <td><?php echo htmlspecialchars($row['stFullName']) ?></td>
+                                            <td><?php echo htmlspecialchars($row['stContactNumber']) ?></td>
+                                            <td><?php echo htmlspecialchars($row['stEmail']) ?></td>
+                                            <td><?php echo htmlspecialchars($row['stGradelvl']) ?></td>
                                             <td><?php echo htmlspecialchars($row['subject_names']) ?></td>
                                             <td><?php echo htmlspecialchars($row['section_name']) ?></td>
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <!-- Edit Button with Icon -->
-                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_data"
-                                                        data-name="<?php echo $row['stFullName']; ?>"
-                                                        data-contact="<?php echo $row['stContactNumber']; ?>"
-                                                        data-email="<?php echo $row['stEmail']; ?>"
-                                                        data-subject1="<?php echo $row['stSubject']; ?>"
-                                                        data-subject2="<?php echo $row['stSubject2']; ?>"
-                                                        data-bs-target="#addSubjectTeacher">
+                                                    <a href="#" class="btn btn-warning btn-edit btn-sm edit_subject_teacher"
+                                                        data-id="<?php echo htmlspecialchars($row['stID']); ?>"
+                                                        data-name="<?php echo htmlspecialchars($row['stFullName']); ?>"
+                                                        data-contact="<?php echo htmlspecialchars($row['stContactNumber']); ?>"
+                                                        data-email="<?php echo htmlspecialchars($row['stEmail']); ?>"
+                                                        data-gradelevel="<?php echo htmlspecialchars($row['stGradelvl']); ?>"
+                                                        data-section="<?php echo htmlspecialchars($row['section_id']); ?>"
+                                                        data-subject="<?php echo htmlspecialchars($row['subject_ids']); ?>"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#editSubjectTeacher">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <!-- Remove Button with Icon -->
@@ -678,56 +713,98 @@ session_start();
 
 
 
-    <script src="../JS/adviserList.js"></script>
-
-</body>
-
-</html>
-
-<!-- Edit Subject Teacher Modal -->
-<div class="modal fade" id="editSubjectTeacher" tabindex="-1" aria-labelledby="editSubjectTeacherLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editSubjectTeacherLabel">Edit Subject Teacher Account</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Edit Subject Teacher Modal -->
+    <div class="modal fade" id="editSubjectTeacher" tabindex="-1" aria-labelledby="editSubjectTeacherLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editSubjectTeacherLabel">Edit Subject Teacher Account</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="../PHP/subjectTeacherUpdate.php" method="POST">
+                    <input type="hidden" name="stID" id="edit_stID">
+                    <input type="hidden" name="action_type" value="edit">
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="edit_stFullName">Full Name</label>
+                            <input type="text" class="form-control" id="edit_stFullName"
+                                name="stFullName" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_stContactNumber">Contact Number</label>
+                            <input type="tel" class="form-control" id="edit_stContactNumber"
+                                name="stContactNumber" required minlength="11" maxlength="11" pattern="\d{11}"
+                                inputmode="numeric" oninput="this.value = this.value.replace(/\D/g,'');">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_stEmail">Email Address</label>
+                            <input type="email" class="form-control" id="edit_stEmail"
+                                name="stEmail" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_stPassword">Password</label>
+                            <input type="text" class="form-control" id="edit_stPassword"
+                                name="stPassword">
+                            <small class="text-muted">Leave blank to keep current password</small>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_stGradelvl">Grade Level</label>
+                            <select id="edit_stGradelvl" name="stGradelvl" class="form-control" required>
+                                <option value="">Select Grade Level</option>
+                                <option value="7">Grade 7</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_stSection">Section</label>
+                            <select id="edit_stSection" name="stSection" class="form-control" required>
+                                <option value="">Select Section</option>
+                                <?php
+                                $conn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                if ($conn) {
+                                    $query = "SELECT section_id, section_name FROM class_section ORDER BY section_name ASC";
+                                    $result = mysqli_query($conn, $query);
+                                    if ($result && mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '<option value="'.$row['section_id'].'">'.$row['section_name'].'</option>';
+                                        }
+                                    }
+                                    mysqli_close($conn);
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_stSubject">Subject</label>
+                            <select id="edit_stSubject" name="stSubject" class="form-control" required>
+                                <option value="">Select Subject</option>
+                                <?php
+                                $conn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                if ($conn) {
+                                    $query = "SELECT subject_id, subject_name FROM subjects ORDER BY subject_name ASC";
+                                    $result = mysqli_query($conn, $query);
+                                    if ($result && mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '<option value="'.$row['subject_id'].'">'.$row['subject_name'].'</option>';
+                                        }
+                                    }
+                                    mysqli_close($conn);
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="updateSubjectTeacher" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
             </div>
-            <form action="../PHP/subjectTeacherUpdate.php" method="POST">
-                <input type="hidden" name="action_type" value="add">
-                <div class="modal-body">
-                    <div class="form-group mb-3">
-                        <label for="subjectTeacherFullName">Full Name</label>
-                        <input type="text" class="form-control" id="subjectTeacherFullName"
-                            name="subjectTeacherFullName" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="subjectTeacherContactNumber">Contact Number</label>
-                        <input type="tel" class="form-control" id="subjectTeacherContactNumber"
-                            name="subjectTeacherContactNumber" required minlength="11" maxlength="11" pattern="\d{11}"
-                            inputmode="numeric" oninput="this.value = this.value.replace(/\D/g,'');">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="subjectTeacherEmailAddress">Email Address</label>
-                        <input type="email" class="form-control" id="subjectTeacherEmailAddress"
-                            name="subjectTeacherEmailAddress" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="subjectTeacherPassword">Password</label>
-                        <input type="password" class="form-control" id="subjectTeacherPassword"
-                            name="subjectTeacherPassword" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="subjectTeacherSubject">Subject</label>
-                        <input type="text" class="form-control" id="subjectTeacherSubject" name="subjectTeacherSubject"
-                            required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
+
+    <script src="../JS/adviserList.js"></script>
+    <script src="../JS/subjectTeacherEdit_new.js"></script>
+
+</body>
+</html>

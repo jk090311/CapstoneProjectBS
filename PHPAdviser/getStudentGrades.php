@@ -8,15 +8,59 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 $conn = new mysqli('localhost', 'root', '', 'educguarddb');
 if ($conn->connect_error) { if ($isAjax) echo 'DB error'; else die('Connection failed: ' . $conn->connect_error); }
 
-if (!isset($_GET['student_id'])) {
-    if ($isAjax) { echo '<p>Please provide a student ID.</p>'; } else { echo '<p>Student ID required.</p>'; }
-    exit;
+// Accept either student_id (numeric) or lrn (string). Prefer LRN search from UI.
+if (isset($_GET['lrn']) && $_GET['lrn'] !== '') {
+    $provided_lrn = trim($_GET['lrn']);
+    // Resolve LRN to numeric student_id
+    $stmt = $conn->prepare('SELECT student_id FROM students WHERE lrn = ? LIMIT 1');
+    $stmt->bind_param('s', $provided_lrn);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    if ($res && $res->num_rows > 0) {
+        $student_id = (int) $res->fetch_assoc()['student_id'];
+    } else {
+        echo '<p>No student found with that LRN.</p>';
+        exit;
+    }
+    $stmt->close();
+} elseif (isset($_GET['student_id'])) {
+    $student_id = (int) $_GET['student_id'];
+} else {
+    die($isAjax ? 'No student identifier provided' : 'Error: Student identifier required');
 }
 
-$student_id = (int) $_GET['student_id'];
+// Get student name first
+$student_query = "SELECT CONCAT(first_name, ' ', last_name) as student_name FROM students WHERE student_id = ?";
+$stmt = $conn->prepare($student_query);
+$stmt->bind_param('s', $student_id);
+$stmt->execute();
+$student_result = $stmt->get_result();
+$student_name = ($student_result && $student_result->num_rows > 0) ? $student_result->fetch_assoc()['student_name'] : 'Unknown Student';
+$stmt->close();
+
+// Use the improved query from gradeStudent.php
+$sql = "SELECT 
+    s.subject_id, 
+    s.subject_name,
+    MAX(CASE WHEN g.quarter_id = 1 THEN g.grade END) as q1,
+    MAX(CASE WHEN g.quarter_id = 2 THEN g.grade END) as q2,
+    MAX(CASE WHEN g.quarter_id = 3 THEN g.grade END) as q3,
+    MAX(CASE WHEN g.quarter_id = 4 THEN g.grade END) as q4
+FROM 
+    subjects s
+LEFT JOIN 
+    grades g ON s.subject_id = g.subject_id AND g.student_id = ?
+WHERE 
+    g.student_id = ? OR g.student_id IS NULL
+GROUP BY 
+    s.subject_id, s.subject_name
+ORDER BY 
+    s.subject_name ASC";
+
+$student_id = (int) $student_id;
 
 // Fetch student
-$stmt = $conn->prepare('SELECT first_name, middle_name, last_name FROM students WHERE student_id = ?');
+$stmt = $conn->prepare('SELECT first_name, middle_name, last_name, lrn FROM students WHERE student_id = ? LIMIT 1');
 $stmt->bind_param('i', $student_id);
 $stmt->execute();
 $res = $stmt->get_result();
@@ -49,7 +93,7 @@ ob_start();
 ?>
 <div class="card" style="padding:14px;">
     <h3 style="margin-top:0;">Student Grades</h3>
-    <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;"><div><strong>Student:</strong> <?php echo $fullName?> (ID: <?php echo $student_id?>)</div><div><button id="exportStudentBtn" data-student-id="<?php echo $student_id?>" style="padding:8px 12px; background:#0f7a8a; color:#fff; border-radius:6px; border:none; cursor:pointer;">Export to Excel</button></div></div>
+    <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;"><div><strong>Student:</strong> <?php echo $fullName?> (LRN: <?php echo htmlspecialchars($stu['lrn'] ?? '') ?>)</div><div><button id="exportStudentBtn" data-student-id="<?php echo $student_id?>" data-student-lrn="<?php echo htmlspecialchars($stu['lrn'] ?? '')?>" style="padding:8px 12px; background:#0f7a8a; color:#fff; border-radius:6px; border:none; cursor:pointer;">Export to Excel</button></div></div>
     <div style="overflow:auto;">
     <table class="student-grades-table" style="width:100%; border-collapse:collapse;">
         <thead>
@@ -99,11 +143,23 @@ ob_start();
                 <td style="padding:10px; font-weight:800; color:#0b7a43; text-align:center;"><?php echo (count($finals) ? (int) round(array_sum($finals)/count($finals)) : ''); ?></td>
                 <td style="padding:10px; text-align:center; font-weight:700;"><?php echo (count($finals) ? ((int)round(array_sum($finals)/count($finals)) >= 75 ? 'PASSED' : 'FAILED') : ''); ?></td>
             </tr>
-            <?php if (count($finals) && (int)round(array_sum($finals)/count($finals)) >= 90): ?>
-            <tr>
-                <td colspan="7" style="padding:10px; text-align:right; font-weight:700;">WITH HONOR</td>
-            </tr>
-            <?php endif; ?>
+            <?php 
+            if (count($finals)) {
+                $gwa = (int)round(array_sum($finals)/count($finals));
+                $academic_honor = "";
+                if ($gwa >= 98 && $gwa <= 100) {
+                    $academic_honor = "WITH HIGHEST HONOR";
+                } elseif ($gwa >= 94 && $gwa <= 97) {
+                    $academic_honor = "WITH HIGH HONOR";
+                } elseif ($gwa >= 90 && $gwa <= 93) {
+                    $academic_honor = "WITH HONOR";
+                }
+                if ($academic_honor): ?>
+                <tr>
+                    <td colspan="7" style="padding:10px; text-align:right; font-weight:700; color:#0b7a43;"><?php echo $academic_honor; ?></td>
+                </tr>
+                <?php endif;
+            } ?>
         </tfoot>
     </table>
     </div>

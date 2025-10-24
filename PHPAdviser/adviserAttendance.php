@@ -1,6 +1,23 @@
 <?php 
 include "teacherNavbar.php"; 
 include "../PHP/insertAttendance.php"; // This might close $conn
+session_start();
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    // Not logged in, redirect to login page
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
+
+$required_role = "adviser";
+if ($_SESSION['user_role'] != $required_role) {
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdviser/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "student") {
+        header("Location: dashboardStudent.php");
+    }
+    exit();
+}
 
 //Reopen the connection
 $servername = "localhost";

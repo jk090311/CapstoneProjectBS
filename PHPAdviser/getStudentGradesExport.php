@@ -3,13 +3,30 @@
 // Use the central DB connection file used across the project
 require_once __DIR__ . '/../PHP/dbconnection.php';
 
-if (!isset($_GET['student_id']) || empty($_GET['student_id'])) {
+// Accept either student_id or lrn
+if (isset($_GET['lrn']) && $_GET['lrn'] !== '') {
+    $provided_lrn = trim($_GET['lrn']);
+    require_once __DIR__ . '/../PHP/dbconnection.php';
+    $mysqli = $conn;
+    $stmt = $mysqli->prepare('SELECT student_id FROM students WHERE lrn = ? LIMIT 1');
+    $stmt->bind_param('s', $provided_lrn);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    if ($res && $res->num_rows > 0) {
+        $student_id = (int) $res->fetch_assoc()['student_id'];
+    } else {
+        http_response_code(404);
+        echo "Student not found for provided LRN";
+        exit;
+    }
+    $stmt->close();
+} elseif (!isset($_GET['student_id']) || empty($_GET['student_id'])) {
     http_response_code(400);
     echo "Missing student_id";
     exit;
+} else {
+    $student_id = intval($_GET['student_id']);
 }
-
-$student_id = intval($_GET['student_id']);
 
 // dbconnection.php creates a mysqli instance in $conn
 $mysqli = $conn;

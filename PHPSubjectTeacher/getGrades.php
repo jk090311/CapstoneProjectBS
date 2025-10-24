@@ -7,6 +7,24 @@ $isAjax = isset($_GET['ajax']) && $_GET['ajax'] === '1';
 // Ensure session exists (teacherNavbar may start a session too)
 if (session_status() == PHP_SESSION_NONE) session_start();
 
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
+
+$required_role = "subject_teacher";
+if ($_SESSION['user_role'] != $required_role) {
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdviser/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "adviser") {
+        header("Location: ../PHPAdviser/dashboardAdviser.php");
+    } else if ($_SESSION['user_role'] == "student") {
+        header("Location: ../PHPStudent/dashboardStudent.php");
+    }
+    exit();
+}
+
 if (!$isAjax) {
     // include full navbar only for full page requests
     include 'subjectteacherNavbar.php';

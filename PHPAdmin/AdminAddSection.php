@@ -3,7 +3,31 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ?>
-<?php session_start(); ?>
+<?php 
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    // Not logged in, redirect to login page
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
+
+
+$required_role = "admin"; 
+if ($_SESSION['user_role'] != $required_role) {
+    
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdmin/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "adviser") {
+        header("Location: ../PHPAdviser/dashboardTeacher.php");
+    } else if ($_SESSION['user_role'] == "student") {
+        header("Location: dashboardStudent.php");
+    }
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,6 +153,18 @@ error_reporting(E_ALL);
                         <h4>Malinta National High School Sections</h4>
                         <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
                             data-bs-target="#addSection">Add Section</button>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="year_filter" class="form-label">Filter by School Year:</label>
+                            <select id="year_filter" class="form-select" style="width: auto; display: inline-block; margin-right: 10px;">
+                                <option value="">All Years</option>
+                                <option value="2024-2025">2024-2025</option>
+                                <option value="2025-2026">2025-2026</option>
+                                <option value="2026-2027">2026-2027</option>
+                            </select>
+                        </div>
                     </div>
 
                     <table class="table table-bordered">

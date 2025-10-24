@@ -3,7 +3,23 @@
 // ob_start();
 
 include "teacherNavbar.php";
+session_start();
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    // Not logged in, redirect to login page
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
 
+$required_role = "adviser";
+if ($_SESSION['user_role'] != $required_role) {
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdviser/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "student") {
+        header("Location: dashboardStudent.php");
+    }
+    exit();
+}
 // Database connection
 $conn = new mysqli("localhost", "root", "", "educguarddb");
 
@@ -190,7 +206,7 @@ $stmt->close();
                 <div id="student-panel" class="card">
                     <h3 style="margin-top:0;">Student Grades</h3>
                     <div style="display:flex; gap:8px; margin-bottom:12px; align-items:center;">
-                        <input id="studentSearchMain" type="text" placeholder="Enter student ID (numeric)..." style="flex:1; padding:10px 12px; border-radius:8px; border:1px solid #d7e3e5;">
+                        <input id="studentSearchMain" type="text" placeholder="Enter student LRN (e.g. 123456789)..." style="flex:1; padding:10px 12px; border-radius:8px; border:1px solid #d7e3e5;">
                         <button id="searchStudentBtn" style="padding:10px 12px; border-radius:8px; border:1px solid #0f7a8a; background:#0f7a8a; color:#fff; cursor:pointer;">Search</button>
                     </div>
                     <div id="studentGridMain">
@@ -298,7 +314,7 @@ $stmt->close();
                                 gradeInputs.forEach(input => { const quarter = input.dataset.quarter; const grade = input.value; if (grade) grades[quarter] = grade; });
 
                                 let isValid = true;
-                                Object.values(grades).forEach(grade => { if (grade < 60 || grade > 100) isValid = false; });
+                                Object.values(grades).forEach(grade => { if (grade < 0 || grade > 100) isValid = false; });
                                 if (!isValid) { showNotification('Grades must be between 0 and 100', 'error'); return; }
 
                                 fetch('getGrades.php', {
@@ -349,7 +365,7 @@ $stmt->close();
                             input.addEventListener('input', function() {
                                 const row = this.closest('tr'); updateFinalGrade(row);
                                 const value = parseInt(this.value);
-                                if (value < 60 || value > 100) { this.style.backgroundColor = '#ffebee'; showNotification('Grade must be between 60 and 100', 'error'); }
+                                if (value < 0 || value > 100) { this.style.backgroundColor = '#ffebee'; showNotification('Grade must be between 0 and 100', 'error'); }
                                 else this.style.backgroundColor = 'white';
                             });
                         });
@@ -384,8 +400,9 @@ $stmt->close();
             // Student search behavior
             document.getElementById('searchStudentBtn').addEventListener('click', function(){
                 const val = document.getElementById('studentSearchMain').value.trim();
-                if (!val || isNaN(val)) { alert('Please enter a numeric student ID'); return; }
-                const url = 'getStudentGrades.php?ajax=1&student_id=' + encodeURIComponent(val);
+                if (!val) { alert('Please enter a student LRN'); return; }
+                // Search by LRN (preferred) -- backend accepts either 'lrn' or 'student_id'
+                const url = 'getStudentGrades.php?ajax=1&lrn=' + encodeURIComponent(val);
                 const target = document.getElementById('studentGridMain');
                 target.innerHTML = '<p>Loading student ' + val + '...</p>';
                 fetch(url).then(r=>r.text()).then(html=>{ target.innerHTML = html; }).catch(err=>{ target.innerHTML = '<p class="error">Error loading student grades.</p>'; console.error(err); });
@@ -396,10 +413,20 @@ $stmt->close();
                     studentGrid.addEventListener('click', function(ev){
                         const btn = ev.target.closest && ev.target.closest('#exportStudentBtn');
                         if (!btn) return;
+                        // Export supports either data-student-lrn or data-student-id (fallback)
+                        const lrn = btn.getAttribute('data-student-lrn');
                         const sid = btn.getAttribute('data-student-id');
-                        if (!sid) return alert('Missing student id');
-                        const url2 = 'getStudentGradesExport.php?student_id=' + encodeURIComponent(sid);
-                        window.open(url2, '_blank');
+                        if (lrn) {
+                            const url2 = 'getStudentGradesExport.php?lrn=' + encodeURIComponent(lrn);
+                            window.open(url2, '_blank');
+                            return;
+                        }
+                        if (sid) {
+                            const url2 = 'getStudentGradesExport.php?student_id=' + encodeURIComponent(sid);
+                            window.open(url2, '_blank');
+                            return;
+                        }
+                        return alert('Missing student identifier (LRN or ID)');
                     });
                     studentGrid._exportHandlerAdded = true;
                 }

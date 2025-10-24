@@ -1,5 +1,28 @@
 <?php include "adminNavbar.php" ?>
+<?php
+session_start();
 
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    // Not logged in, redirect to login page
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
+
+
+$required_role = "admin"; 
+if ($_SESSION['user_role'] != $required_role) {
+    
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdmin/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "adviser") {
+        header("Location: ../PHPAdviser/dashboardTeacher.php");
+    } else if ($_SESSION['user_role'] == "student") {
+        header("Location: dashboardStudent.php");
+    }
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

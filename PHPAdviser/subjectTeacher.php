@@ -1,5 +1,6 @@
 <?php
 include "teacherNavbar.php"; 
+session_start();
 // Check if user is logged in
 if (!isset($_SESSION['user_email'])) {
     header("Location: ../PHPmain/index.php");
@@ -36,10 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         body {
             background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
         .card {
-            margin-top: 50px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .container {
+            margin-top: auto;
+            margin-bottom: auto;
         }
     </style>
 </head>

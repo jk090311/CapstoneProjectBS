@@ -1,5 +1,25 @@
-<?php include "subjectTeacherNavbar.php" ?>
 <?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_email'])) {
+    header("Location: ../PHPmain/index.php");
+    exit();
+}
+
+$required_role = "subject_teacher";
+if ($_SESSION['user_role'] != $required_role) {
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: ../PHPAdviser/dashboardAdmin.php");
+    } else if ($_SESSION['user_role'] == "adviser") {
+        header("Location: ../PHPAdviser/dashboardAdviser.php");
+    } else if ($_SESSION['user_role'] == "student") {
+        header("Location: ../PHPStudent/dashboardStudent.php");
+    }
+    exit();
+}
+
+include "subjectTeacherNavbar.php";
 include "../PHP/dbconnection.php"; // Include your database connection file
 
 // Fetch sections, subject teacher and adviser info

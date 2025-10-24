@@ -1,6 +1,6 @@
 <?php
 include "subjectTeacherNavbar.php"; 
-
+session_start();
 // Check if user is logged in
 if (!isset($_SESSION['user_email'])) {
     header("Location: ../PHPmain/index.php");
@@ -91,9 +91,9 @@ if (isset($_SESSION['user_email'])) {
 
         <h3 style="margin-top:6px;color:#222">Quick Links</h3>
         <ul style="padding-left:18px;color:#0a58ca">
-         <!--   <li><a href="../PHPAdviser/studentList.php">Subject Grade</a></li>
-            <li><a href="reportSystem.php">Attendance</a></li>
-            <li><a href="subjectTeacher.php">Message</a></li> !-->
+         <li><a href="../PHPSubjectTeacher/STSubject.php">Subject Grade</a></li>
+            <li><a href="../PHPSubjectTeacher/STattendance.php">Attendance</a></li>
+            <li><a href="../PHPSubjectTeacher/STMessage.php">Message</a></li>
         </ul>
     </div>
     </main>

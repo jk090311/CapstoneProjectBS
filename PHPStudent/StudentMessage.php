@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 // Ensure student is logged in
 if (!isset($_SESSION['student_id'])) {
     header('Location: ../PHPmain/index.php');
