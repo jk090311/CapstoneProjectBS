@@ -45,7 +45,7 @@ if ($conn->connect_error) {
             <th>Name</th>
             <th>Section</th>
             <th>Time In</th>
-            <th>Time Out</th>
+            <th>Time Out</th>   
             <th>Date Logged</th>
         </tr>
         <!-- Data will be loaded via JavaScript -->

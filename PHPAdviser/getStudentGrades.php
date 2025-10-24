@@ -8,11 +8,26 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 $conn = new mysqli('localhost', 'root', '', 'educguarddb');
 if ($conn->connect_error) { if ($isAjax) echo 'DB error'; else die('Connection failed: ' . $conn->connect_error); }
 
-if (!isset($_GET['student_id'])) {
-    die($isAjax ? 'No student ID provided' : 'Error: Student ID required');
+// Accept either student_id (numeric) or lrn (string). Prefer LRN search from UI.
+if (isset($_GET['lrn']) && $_GET['lrn'] !== '') {
+    $provided_lrn = trim($_GET['lrn']);
+    // Resolve LRN to numeric student_id
+    $stmt = $conn->prepare('SELECT student_id FROM students WHERE lrn = ? LIMIT 1');
+    $stmt->bind_param('s', $provided_lrn);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    if ($res && $res->num_rows > 0) {
+        $student_id = (int) $res->fetch_assoc()['student_id'];
+    } else {
+        echo '<p>No student found with that LRN.</p>';
+        exit;
+    }
+    $stmt->close();
+} elseif (isset($_GET['student_id'])) {
+    $student_id = (int) $_GET['student_id'];
+} else {
+    die($isAjax ? 'No student identifier provided' : 'Error: Student identifier required');
 }
-
-$student_id = $_GET['student_id'];
 
 // Get student name first
 $student_query = "SELECT CONCAT(first_name, ' ', last_name) as student_name FROM students WHERE student_id = ?";
@@ -42,15 +57,10 @@ GROUP BY
 ORDER BY 
     s.subject_name ASC";
 
-if (!isset($_GET['student_id'])) {
-    if ($isAjax) { echo '<p>Please provide a student ID.</p>'; } else { echo '<p>Student ID required.</p>'; }
-    exit;
-}
-
-$student_id = (int) $_GET['student_id'];
+$student_id = (int) $student_id;
 
 // Fetch student
-$stmt = $conn->prepare('SELECT first_name, middle_name, last_name FROM students WHERE student_id = ?');
+$stmt = $conn->prepare('SELECT first_name, middle_name, last_name, lrn FROM students WHERE student_id = ? LIMIT 1');
 $stmt->bind_param('i', $student_id);
 $stmt->execute();
 $res = $stmt->get_result();
@@ -83,7 +93,7 @@ ob_start();
 ?>
 <div class="card" style="padding:14px;">
     <h3 style="margin-top:0;">Student Grades</h3>
-    <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;"><div><strong>Student:</strong> <?php echo $fullName?> (ID: <?php echo $student_id?>)</div><div><button id="exportStudentBtn" data-student-id="<?php echo $student_id?>" style="padding:8px 12px; background:#0f7a8a; color:#fff; border-radius:6px; border:none; cursor:pointer;">Export to Excel</button></div></div>
+    <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;"><div><strong>Student:</strong> <?php echo $fullName?> (LRN: <?php echo htmlspecialchars($stu['lrn'] ?? '') ?>)</div><div><button id="exportStudentBtn" data-student-id="<?php echo $student_id?>" data-student-lrn="<?php echo htmlspecialchars($stu['lrn'] ?? '')?>" style="padding:8px 12px; background:#0f7a8a; color:#fff; border-radius:6px; border:none; cursor:pointer;">Export to Excel</button></div></div>
     <div style="overflow:auto;">
     <table class="student-grades-table" style="width:100%; border-collapse:collapse;">
         <thead>

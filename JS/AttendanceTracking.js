@@ -7,7 +7,7 @@ function updateClock() {
     let minutes = now.getMinutes().toString().padStart(2, '0');
     let seconds = now.getSeconds().toString().padStart(2, '0');
 
-    let options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     let formattedDate = now.toLocaleDateString(undefined, options);
 
     document.getElementById("clock").innerText = `${hours}:${minutes}:${seconds}:${ampm}`;
