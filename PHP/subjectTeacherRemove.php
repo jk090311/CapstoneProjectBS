@@ -1,7 +1,7 @@
 <?php
 // === adviserRemove.php (Fixed for AJAX Requests) ===
 session_start();
-$connection = mysqli_connect("localhost", "root", "", "educguarddb");
+$connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
 
 // Check connection
 if (!$connection) {

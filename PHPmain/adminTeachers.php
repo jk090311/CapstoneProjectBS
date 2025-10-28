@@ -59,7 +59,7 @@ session_start();
                                 <select id="adviserSection" name="adviserSection" class="form-control" required>
                                     <?php
                                     // Connect to the database
-                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+                                    $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
 
                                     // Check connection
                                     if (!$connection) {
@@ -166,7 +166,7 @@ session_start();
                             <tbody>
                                 <?php
 
-                                $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+                                $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
                                 $fetch_query = "SELECT * FROM advisers";
                                 $fetch_query_run = mysqli_query($connection, $fetch_query);
 

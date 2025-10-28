@@ -5,7 +5,7 @@
 $isAjax = isset($_GET['ajax']) && $_GET['ajax'] === '1';
 if (session_status() == PHP_SESSION_NONE) session_start();
 
-$conn = new mysqli('localhost', 'root', '', 'educguarddb');
+$conn = new mysqli('sql211.infinityfree.com', 'if0_40275155', 'EduGuard202526', 'if0_40275155_eduguarddb');
 if ($conn->connect_error) { if ($isAjax) echo 'DB error'; else die('Connection failed: ' . $conn->connect_error); }
 
 // Accept either student_id (numeric) or lrn (string). Prefer LRN search from UI.

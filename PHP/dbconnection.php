@@ -1,10 +1,10 @@
 <?php
-$servername = "localhost";  // Change if necessary
-$username = "root";         // Your database username
-$password = "";             // Your database password
-$database = "educguarddb"; // Your actual database name
+$servername = "sql211.infinityfree.com";
+$username = "if0_40275155";
+$password = "EduGuard202526";
+$dbname = "if0_40275155_eduguarddb";
 
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
