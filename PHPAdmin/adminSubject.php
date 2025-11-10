@@ -34,6 +34,7 @@ if ($_SESSION['user_role'] != $required_role) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../CSS/Admin/adminNavbar.css"> <!-- Link to custom CSS -->
+    <link rel="stylesheet" href="../CSS/Admin/adminSubject.css"> <!-- Link to subject page CSS -->
 </head>
 
 <body>

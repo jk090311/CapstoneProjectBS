@@ -1,6 +1,5 @@
 <?php 
 include "teacherNavbar.php";
-session_start();
 // Check if user is logged in
 if (!isset($_SESSION['user_email'])) {
     // Not logged in, redirect to login page

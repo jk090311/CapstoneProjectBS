@@ -1,11 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const modal = new bootstrap.Modal(document.getElementById('addTeacher'));
+    const addTeacherModal = new bootstrap.Modal(document.getElementById('addTeacher'));
 
     // Function to show the selected part of the modal
     function showPart(partNumber) { 
         const parts = document.querySelectorAll('.part');
         parts.forEach(part => part.style.display = 'none');
         document.getElementById('part' + partNumber).style.display = 'block';
+        
+        // Auto-generate password when moving to part 2
+        if (partNumber === 2) {
+            generateAdviserPassword();
+        }
     }
 
     // Show the first part by default when modal opens
@@ -15,55 +20,51 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Make showPart globally accessible
     window.showPart = showPart;
-});
 
-document.addEventListener('DOMContentLoaded', function () {
     // Handle Edit button click for Advisers
-    const editButtons = document.querySelectorAll('.edit_data[data-bs-target="#addTeacher"]');
+    const editButtons = document.querySelectorAll('.edit_adviser');
+    console.log('Found edit adviser buttons:', editButtons.length);
+    
     editButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function (e) {
+            console.log('Edit button clicked');
+            
             // Get data from data attributes
             const name = this.getAttribute('data-name');
             const contact = this.getAttribute('data-contact');
             const email = this.getAttribute('data-email');
-            const password = this.getAttribute('data-password');
             const grade = this.getAttribute('data-grade');
             const section = this.getAttribute('data-section');
+            const subject = this.getAttribute('data-subject');
 
-            // Populate the form
-            document.getElementById('adviserFullName').value = name;
-            document.getElementById('adviserContactNumber').value = contact;
-            document.getElementById('adviserEmailAddress').value = email;
-            document.getElementById('adviserPassword').value = password;
-            document.getElementById('adviserGrLvl').value = grade;
-            document.getElementById('adviserSection').value = section;
+            console.log('Adviser data:', { name, contact, email, grade, section, subject });
 
-            // Change action type to edit
-            document.getElementById('action_type').value = 'edit';
+            // Populate the edit form fields
+            const fullNameField = document.getElementById('edit_adviserFullName');
+            const contactField = document.getElementById('edit_adviserContactNumber');
+            const emailField = document.getElementById('edit_adviserEmailAddress');
+            const passwordField = document.getElementById('edit_adviserPassword');
+            const gradeField = document.getElementById('edit_adviserGrLvl');
+            const sectionField = document.getElementById('edit_adviserSection');
+            const subjectField = document.getElementById('edit_adviserSubject');
+            const originalNameField = document.getElementById('edit_originalAdviserName');
 
-            // Change button text
-            document.getElementById('submitBtn').innerText = 'Update';
-            document.getElementById('addTeacherLabel').innerText = 'Edit Teacher Account';
+            if (fullNameField) fullNameField.value = name || '';
+            if (contactField) contactField.value = contact || '';
+            if (emailField) emailField.value = email || '';
+            if (passwordField) passwordField.value = ''; // Clear password field
+            if (gradeField) gradeField.value = grade || '';
+            if (sectionField) sectionField.value = section || '';
+            if (subjectField) subjectField.value = subject || '';
+            if (originalNameField) originalNameField.value = name || '';
 
-            // Add a hidden input to store the adviser's original name for identification in PHP
-            let originalNameInput = document.getElementById('originalAdviserName');
-            if (!originalNameInput) {
-                originalNameInput = document.createElement('input');
-                originalNameInput.type = 'hidden';
-                originalNameInput.name = 'originalAdviserName';
-                originalNameInput.id = 'originalAdviserName';
-                document.querySelector('#addTeacher form').appendChild(originalNameInput);
-            }
-            originalNameInput.value = name;
-
-            // Set the form action to adviserUpdate.php
-            document.querySelector('#addTeacher form').action = '../PHP/adviserUpdate.php';
+            console.log('Form fields populated');
         });
     });
 
     // Handle Adviser modal close/hidden to reset form
-    const modal = document.getElementById('addTeacher');
-    modal.addEventListener('hidden.bs.modal', function () {
+    const adviserModalElement = document.getElementById('addTeacher');
+    adviserModalElement.addEventListener('hidden.bs.modal', function () {
         // Reset form
         document.getElementById('action_type').value = 'add';
         document.getElementById('adviserFullName').value = '';
@@ -279,3 +280,35 @@ function removeSubjectTeacher(stFullName) {
         xhr.send("stFullName=" + encodeURIComponent(stFullName));
     }
 }
+
+// Function to generate a random password for adviser
+function generateAdviserPassword() {
+    const length = 12;
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    let password = "";
+    
+    // Ensure password has at least one of each type
+    password += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[Math.floor(Math.random() * 26)]; // uppercase
+    password += "abcdefghijklmnopqrstuvwxyz"[Math.floor(Math.random() * 26)]; // lowercase
+    password += "0123456789"[Math.floor(Math.random() * 10)]; // number
+    password += "!@#$%^&*"[Math.floor(Math.random() * 8)]; // special char
+    
+    // Fill the rest randomly
+    for (let i = password.length; i < length; i++) {
+        password += charset[Math.floor(Math.random() * charset.length)];
+    }
+    
+    // Shuffle the password to avoid predictable patterns
+    password = password.split('').sort(() => Math.random() - 0.5).join('');
+    
+    // Set the password in the input field
+    const passwordField = document.getElementById('adviserPassword');
+    if (passwordField) {
+        passwordField.value = password;
+    }
+    
+    return password;
+}
+
+// Make the function globally accessible
+window.generateAdviserPassword = generateAdviserPassword;

@@ -1,9 +1,20 @@
 /* Add margin to push the table below the navbar */
 body {
     padding-top: 70px; /* Adjust this value based on your navbar height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px);
 }
 
-/* Center the card horizontally */
+/* Center the container */
+.container.custom-margin {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Center the card and maintain its width */
 .card {
     margin: 0 auto;
+    width: 100% !important;
 }

@@ -117,6 +117,15 @@ body::after {
     padding: 1rem;
 }
 
+.offcanvas-header .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+.offcanvas-header .btn-close:hover {
+    opacity: 1;
+}
+
 .offcanvas-title {
     font-size: 1.2rem;
     letter-spacing: 0.5px;
@@ -140,4 +149,13 @@ body::after {
 
 .navbar-toggler:focus {
     box-shadow: none;
+}
+
+/* Ensure offcanvas is hidden by default */
+.offcanvas {
+    visibility: hidden;
+}
+
+.offcanvas.show {
+    visibility: visible;
 }

@@ -70,26 +70,112 @@ if ($_SESSION['user_role'] != $required_role) {
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-    .info-row{display:flex;gap:20px;margin-top:20px;flex-wrap:wrap}
-    .info-card{flex:1;min-width:260px;padding:18px;border-radius:8px;color:#fff;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 6px rgba(0,0,0,0.08)}
-    .info-left{display:flex;flex-direction:column}
-    .info-left .label{font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:.9}
-    .info-left .big{font-size:28px;font-weight:700;margin-top:8px}
-    .info-icon{font-size:42px;opacity:.95}
-    .info-green{background:#2e8b57}
-    .info-orange{background:#ff9800}
-    .info-blue{background:#1e90ff}
-    .info-purple{background:#7b5cff}
-    @media(max-width:720px){.info-card{min-width:200px}}
+    body {
+        padding-top: 56px;
+    }
+    .main-content {
+        min-height: calc(100vh - 56px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+    }
+    .dashboard-container {
+        background: white;
+        border-radius: 12px;
+        padding: 50px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    .welcome-header {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .welcome-header h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0;
+    }
+    .welcome-subtext {
+        text-align: center;
+        color: #7f8c8d;
+        margin-bottom: 40px;
+        font-size: 16px;
+    }
+    .info-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .info-card {
+        padding: 30px;
+        border-radius: 8px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: transform 0.2s;
+    }
+    .info-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+    .info-left {
+        display: flex;
+        flex-direction: column;
+    }
+    .info-left .label {
+        font-size: 11px;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        opacity: 0.95;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+    .info-left .big {
+        font-size: 38px;
+        font-weight: 700;
+    }
+    .info-icon {
+        font-size: 50px;
+        opacity: 0.9;
+    }
+    .info-green {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    }
+    .info-orange {
+        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    }
+    .info-blue {
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    }
+    .info-purple {
+        background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    }
+    @media(max-width: 768px) {
+        .info-row {
+            grid-template-columns: 1fr;
+        }
+        .dashboard-container {
+            padding: 30px 20px;
+        }
+        .main-content {
+            padding-top: 70px;
+        }
+    }
     </style>
 
-    <div class="container">
-        <div class="section">
-            <h2>Welcome, Admin!</h2>
-            <p>Welcome to your dashboard.</p>
-        </div>
-        <!-- Info cards (wide rectangular style) -->
-        <div class="info-row">
+    <div class="main-content">
+        <div class="dashboard-container">
+            <div class="welcome-header">
+                <h2>Welcome, Admin!</h2>
+            </div>
+            <p class="welcome-subtext">Welcome to your dashboard.</p>
+            
+            <div class="info-row">
             <div class="info-card info-green">
                 <div class="info-left">
                     <div class="label">Total Students</div>

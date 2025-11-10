@@ -112,6 +112,36 @@ if ($_SESSION['user_role'] != $required_role) {
                                     mysqli_close($connection);
                                     ?>
                                 </select>
+
+                                <label for="adviserSubject" class="form-label">Subject</label>
+                                <select id="adviserSubject" name="adviserSubject" class="form-control" required>
+                                    <option value="">Select Subject</option>
+                                    <?php
+                                    // Connect to the database
+                                    $connection2 = mysqli_connect("localhost", "root", "", "educguarddb");
+
+                                    // Check connection
+                                    if (!$connection2) {
+                                        die("Connection failed: " . mysqli_connect_error());
+                                    }
+
+                                    // Fetch all subjects
+                                    $subject_query = "SELECT subject_id, subject_name FROM subjects ORDER BY subject_name ASC";
+                                    $subject_query_run = mysqli_query($connection2, $subject_query);
+
+                                    // Loop through the results and create <option> tags
+                                    if ($subject_query_run && mysqli_num_rows($subject_query_run) > 0) {
+                                        while ($row = mysqli_fetch_assoc($subject_query_run)) {
+                                            echo '<option value="' . htmlspecialchars($row['subject_name']) . '">' . htmlspecialchars($row['subject_name']) . '</option>';
+                                        }
+                                    } else {
+                                        echo '<option value="">No Subjects Available</option>';
+                                    }
+
+                                    // Close the database connection
+                                    mysqli_close($connection2);
+                                    ?>
+                                </select>
                             </div>
 
                             <div class="modal-footer">
@@ -128,7 +158,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                 <div class="form-row">
                                     <div class="form-group mb-3">
                                         <label for="adviserEmailAddress" class="form-label">Email Address</label>
-                                        <input type="text" id="adviserEmailAddress" name="adviserEmailAddress"
+                                        <input type="email" id="adviserEmailAddress" name="adviserEmailAddress"
                                             class="form-control" placeholder="Email Address" required>
                                     </div>
                                 </div>
@@ -136,8 +166,14 @@ if ($_SESSION['user_role'] != $required_role) {
                                 <div class="form-row">
                                     <div class="form-group mb-3">
                                         <label for="adviserPassword" class="form-label">Password</label>
-                                        <input type="text" id="adviserPassword" name="adviserPassword"
-                                            class="form-control" placeholder="Password" required>
+                                        <div class="input-group">
+                                            <input type="text" id="adviserPassword" name="adviserPassword"
+                                                class="form-control" placeholder="Password" required readonly>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="generateAdviserPassword()" title="Generate New Password">
+                                                <i class="fas fa-sync-alt"></i> Generate
+                                            </button>
+                                        </div>
+                                        <small class="text-muted">Password is auto-generated. Click "Generate" for a new one.</small>
                                     </div>
                                 </div>
                             </div>
@@ -155,6 +191,131 @@ if ($_SESSION['user_role'] != $required_role) {
     </div>
     </div>
     </div>
+
+    <!-- Edit Adviser Modal -->
+    <div class="modal fade" id="editAdviser" tabindex="-1" aria-labelledby="editAdviserLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editAdviserLabel">Edit Adviser Account</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="../PHP/adviserUpdate.php" method="POST" id="editAdviserForm">
+                    <input type="hidden" name="action_type" value="edit">
+                    <input type="hidden" name="originalAdviserName" id="edit_originalAdviserName">
+                    
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="edit_adviserFullName" class="form-label">Full Name</label>
+                            <input type="text" id="edit_adviserFullName" name="adviserFullName" class="form-control" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="edit_adviserContactNumber" class="form-label">Contact Number</label>
+                            <input type="tel" id="edit_adviserContactNumber" name="adviserContactNumber"
+                                class="form-control" required minlength="11" maxlength="11" pattern="\d{11}" 
+                                inputmode="numeric" oninput="this.value = this.value.replace(/\D/g,'');">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="edit_adviserGrLvl" class="form-label">Grade Level</label>
+                            <select id="edit_adviserGrLvl" name="adviserGrLvl" class="form-control" required>
+                                <option value="">Select Grade Level</option>
+                                <option value="7">Grade 7</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="edit_adviserSection" class="form-label">Section</label>
+                            <select id="edit_adviserSection" name="adviserSection" class="form-control" required>
+                                <option value="">Select Section</option>
+                                <?php
+                                $conn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                if ($conn) {
+                                    $query = "SELECT section_name FROM class_section ORDER BY section_name ASC";
+                                    $result = mysqli_query($conn, $query);
+                                    if ($result && mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '<option value="' . htmlspecialchars($row['section_name']) . '">' . htmlspecialchars($row['section_name']) . '</option>';
+                                        }
+                                    }
+                                    mysqli_close($conn);
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="edit_adviserSubject" class="form-label">Subject</label>
+                            <select id="edit_adviserSubject" name="adviserSubject" class="form-control">
+                                <option value="">Select Subject</option>
+                                <?php
+                                $conn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                if ($conn) {
+                                    $query = "SELECT subject_id, subject_name FROM subjects ORDER BY subject_name ASC";
+                                    $result = mysqli_query($conn, $query);
+                                    if ($result && mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '<option value="' . htmlspecialchars($row['subject_name']) . '">' . htmlspecialchars($row['subject_name']) . '</option>';
+                                        }
+                                    }
+                                    mysqli_close($conn);
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="edit_adviserEmailAddress" class="form-label">Email Address</label>
+                            <input type="email" id="edit_adviserEmailAddress" name="adviserEmailAddress" class="form-control" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="edit_adviserPassword" class="form-label">Password (Optional)</label>
+                            <input type="password" id="edit_adviserPassword" name="adviserPassword" class="form-control" placeholder="Leave blank to keep current password">
+                            <small class="text-muted">Leave blank to keep current password</small>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="adviserRegister" class="btn btn-primary">Update Adviser</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle edit adviser button clicks - inline script to ensure it runs
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('edit_adviser') || e.target.closest('.edit_adviser')) {
+                const button = e.target.classList.contains('edit_adviser') ? e.target : e.target.closest('.edit_adviser');
+                
+                // Get data attributes
+                const name = button.getAttribute('data-name');
+                const contact = button.getAttribute('data-contact');
+                const email = button.getAttribute('data-email');
+                const grade = button.getAttribute('data-grade');
+                const section = button.getAttribute('data-section');
+                const subject = button.getAttribute('data-subject');
+                
+                console.log('Edit clicked:', { name, contact, email, grade, section, subject });
+                
+                // Populate the edit form
+                document.getElementById('edit_adviserFullName').value = name || '';
+                document.getElementById('edit_adviserContactNumber').value = contact || '';
+                document.getElementById('edit_adviserEmailAddress').value = email || '';
+                document.getElementById('edit_adviserPassword').value = ''; // Clear password field
+                document.getElementById('edit_adviserGrLvl').value = grade || '';
+                document.getElementById('edit_adviserSection').value = section || '';
+                document.getElementById('edit_adviserSubject').value = subject || '';
+                document.getElementById('edit_originalAdviserName').value = name || '';
+                
+                console.log('Form populated successfully');
+            }
+        });
+    </script>
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -611,7 +772,8 @@ if ($_SESSION['user_role'] != $required_role) {
                                                         data-email="<?php echo $row['adviserEmailAddress']; ?>"
                                                         data-grade="<?php echo $row['adviserGrLvl']; ?>"
                                                         data-section="<?php echo $row['adviserSection']; ?>"
-                                                        data-bs-toggle="modal" data-bs-target="#addTeacher">
+                                                        data-subject="<?php echo $row['adviserSubject']; ?>"
+                                                        data-bs-toggle="modal" data-bs-target="#editAdviser">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <!-- Remove Button with Icon -->
@@ -776,7 +938,7 @@ if ($_SESSION['user_role'] != $required_role) {
                         </div>
                         <div class="form-group mb-3">
                             <label for="edit_stSubject">Subject</label>
-                            <select id="edit_stSubject" name="stSubject" class="form-control" required>
+                            <select id="edit_stSubject" name="stSubject" class="form-control">
                                 <option value="">Select Subject</option>
                                 <?php
                                 $conn = mysqli_connect("localhost", "root", "", "educguarddb");

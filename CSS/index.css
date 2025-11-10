@@ -1,9 +1,10 @@
 body {
-  background: linear-gradient(135deg, #6e8efb, #4776E6);
+  background: #f5f7fa;  /* Solid background since it won't be visible */
   min-height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .container {
@@ -11,22 +12,24 @@ body {
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding: 20px;
-  padding-top: 80px;  /* Increased padding to accommodate logo */
-  position: relative;  /* Added for logo positioning */
+  padding: 0;  /* Remove padding for full page design */
+  position: relative;
+  width: 100%;
+  height: 100vh;
 }
 
 #loginBox {
-  width: 900px;
-  min-height: 500px;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
   background: white;
-  border-radius: 20px;
+  border-radius: 0;  /* Remove border radius for full page */
   display: flex;
-  flex-direction: row;  /* Changed to row for side-by-side layout */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  flex-direction: row;
+  box-shadow: none;  /* Remove shadow for full page */
   position: relative;
   overflow: hidden;
-  margin-top: 60px;  /* Added margin for logo space */
+  margin-top: 0;  /* Remove margin for full page */
 }
 
 header {
@@ -67,15 +70,21 @@ header nav ul li a:hover {
 }
 
 footer {
-  background: rgba(0, 0, 0, 0.1);
-  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  color: #666;
+  padding: 15px;
+  text-align: center;
+  z-index: 10;
 }
 
 #loginText {
   color: #333;
   font-size: 32px;
   margin-bottom: 10px;
-  text-align: left;
+  text-align: center;
   margin-top: 0;
 }
 
@@ -84,12 +93,14 @@ footer {
   color: #333;
   font-size: 16px;
   width: 100%;
+  text-align: center;
 }
 
 .formFormat p {
   border-bottom: none;
   color: #666;
   font-weight: normal;
+  text-align: center;
 }
 
 .inputForm {
@@ -103,7 +114,7 @@ footer {
 }
 
 #loginButton {
-  background: #00b09b;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 12px 24px;
   border: none;
@@ -112,11 +123,13 @@ footer {
   cursor: pointer;
   width: 100%;
   margin-top: 20px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 #loginButton:hover {
-  background: #008f7f;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .warning-popup {
@@ -161,43 +174,54 @@ footer {
 
 .left-side {
   flex: 1;
-  background: #00b09b;
-  padding: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 80px 60px 80px 60px;  /* Increased padding for full page */
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .right-side {
   flex: 1;
   background: white;
-  padding: 40px;
+  padding: 80px 60px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  max-width: 500px;  /* Limit width for better form readability */
+  margin: 0 auto;
+  position: relative;
 }
 
 .left-side h2 {
-  font-size: 28px;
+  font-size: 36px;  /* Larger for full page */
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
 .left-side p {
   margin-bottom: 15px;
-  font-size: 16px;
-  opacity: 0.9;
+  font-size: 18px;  /* Slightly larger for full page */
+  opacity: 0.95;
+  max-width: 600px;  /* Limit text width for readability */
 }
 
 .feature-list {
   list-style: none;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 30px;
+  text-align: left;
+  display: inline-block;
 }
 
 .feature-list li {
-  margin: 10px 0;
+  margin: 12px 0;
   display: flex;
   align-items: center;
+  font-size: 17px;
 }
 
 .feature-list li:before {
@@ -206,20 +230,21 @@ footer {
 }
 
 .logo-container {
-  position: absolute;
-  left: 50%;
-  top: 100px;  /* Adjusted to position at the top */
-  transform: translate(-50%, 0);
-  z-index: 2;  /* Ensure logo stays on top */
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  z-index: 10;
   background: white;
   border-radius: 50%;
   padding: 10px;
-  box-shadow: 0 25px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   width: 120px;
   height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto 30px auto;  /* Center horizontally with bottom margin */
 }
 
 .logo-container img {
@@ -246,5 +271,311 @@ footer {
   }
   to {
     opacity: 0;
+  }
+}
+
+/* Responsive Design */
+/* Tablets and smaller laptops (landscape) */
+@media screen and (max-width: 1024px) {
+  .left-side {
+    padding: 60px 40px;
+  }
+
+  .right-side {
+    padding: 60px 40px;
+  }
+
+  .left-side h2 {
+    font-size: 30px;
+  }
+
+  .logo-container {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 25px;
+  }
+
+  .logo-container img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Tablets (portrait) */
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  #loginBox {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .left-side {
+    padding: 80px 30px 40px;
+    order: 1;
+    text-align: center;
+  }
+
+  .right-side {
+    padding: 60px 30px;
+    order: 2;
+    max-width: 100%;
+  }
+
+  .logo-container {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 20px;
+  }
+
+  .logo-container img {
+    width: 70px;
+    height: 70px;
+  }
+
+  #loginText {
+    font-size: 28px;
+    margin-top: 0;
+  }
+
+  .left-side h2 {
+    font-size: 26px;
+    margin-bottom: 15px;
+  }
+
+  .left-side p {
+    font-size: 15px;
+  }
+
+  .feature-list li {
+    font-size: 15px;
+  }
+}
+
+/* Mobile devices (landscape) */
+@media screen and (max-width: 640px) {
+  .left-side {
+    padding: 70px 25px 30px;
+  }
+
+  .right-side {
+    padding: 50px 25px;
+  }
+
+  .logo-container {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+
+  .logo-container img {
+    width: 60px;
+    height: 60px;
+  }
+
+  #loginText {
+    font-size: 24px;
+    margin-top: 0;
+  }
+
+  .left-side h2 {
+    font-size: 22px;
+  }
+
+  .inputForm {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #loginButton {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile devices (portrait) */
+@media screen and (max-width: 480px) {
+  .left-side {
+    padding: 70px 20px 30px;
+  }
+
+  .right-side {
+    padding: 40px 20px;
+  }
+
+  .logo-container {
+    width: 70px;
+    height: 70px;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+
+  .logo-container img {
+    width: 54px;
+    height: 54px;
+  }
+
+  #loginText {
+    font-size: 22px;
+    margin-top: 0;
+  }
+
+  .formFormat {
+    font-size: 14px;
+  }
+
+  .left-side h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .left-side p {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .feature-list {
+    margin-top: 15px;
+  }
+
+  .feature-list li {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+  .warning-popup {
+    padding: 12px 20px;
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+  footer {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+/* Extra small mobile devices */
+@media screen and (max-width: 375px) {
+  .left-side {
+    padding: 60px 15px 25px;
+  }
+
+  .right-side {
+    padding: 35px 15px;
+  }
+
+  .logo-container {
+    width: 60px;
+    height: 60px;
+    padding: 6px;
+    margin-bottom: 15px;
+  }
+
+  .logo-container img {
+    width: 48px;
+    height: 48px;
+  }
+
+  #loginText {
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  .formFormat {
+    margin: 8px 0;
+    font-size: 13px;
+  }
+
+  .inputForm {
+    padding: 9px;
+    font-size: 13px;
+  }
+
+  #loginButton {
+    padding: 9px 18px;
+    font-size: 13px;
+    margin-top: 15px;
+  }
+
+  .left-side h2 {
+    font-size: 18px;
+  }
+
+  .left-side p {
+    font-size: 13px;
+  }
+
+  .feature-list li {
+    font-size: 13px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .left-side {
+    padding: 40px 30px;
+  }
+
+  .right-side {
+    padding: 30px;
+  }
+
+  .logo-container {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+  }
+
+  .logo-container img {
+    width: 45px;
+    height: 45px;
+  }
+
+  #loginText {
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  .left-side h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .left-side p {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .feature-list {
+    margin-top: 10px;
+  }
+
+  .feature-list li {
+    font-size: 12px;
+    margin: 6px 0;
+  }
+
+  .formFormat {
+    margin: 8px 0;
+  }
+
+  .inputForm {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  #loginButton {
+    padding: 8px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  footer {
+    font-size: 11px;
+    padding: 8px;
   }
 }

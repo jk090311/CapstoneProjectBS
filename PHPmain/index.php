@@ -92,7 +92,7 @@ if ($row = mysqli_fetch_assoc($result)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="/CapstoneProjectBS/CSS/index.css" rel="stylesheet">
+    <link href="../CSS/index.css?v=<?php echo time(); ?>" rel="stylesheet">
     <title>Login</title>
 </head>
 
@@ -101,9 +101,6 @@ if ($row = mysqli_fetch_assoc($result)) {
 
 </header>
 <div class="container">
-    <div class="logo-container">
-        <img src="/CapstoneProjectBS/assets/111.png" alt="System Logo">
-    </div>
     <div id="loginBox">
         <div class="left-side">
             <h2>Student Grades and Attendance System</h2>
@@ -118,6 +115,9 @@ if ($row = mysqli_fetch_assoc($result)) {
         </div>
         
         <div class="right-side">
+            <div class="logo-container">
+                <img src="/CapstoneProjectBS/assets/111.png" alt="System Logo">
+            </div>
             <h1 id="loginText">Welcome Back</h1>
             <p class="formFormat">Sign in to your account</p>
 
