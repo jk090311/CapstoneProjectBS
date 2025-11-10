@@ -3,7 +3,7 @@ if (isset($_POST['section'])) {
     $section = $_POST['section'];
 
     // Connect to the database
-    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+    $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
 
     // Check connection
     if (!$connection) {

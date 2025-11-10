@@ -1,7 +1,7 @@
 <?php include "subjectTeacherNavbar.php"; 
 
 // Database connection
-$conn = new mysqli("localhost", "root", "", "educguarddb");
+$conn = new mysqli("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
 
 // Check connection
 if ($conn->connect_error) {

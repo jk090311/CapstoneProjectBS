@@ -30,7 +30,7 @@ if (!$isAjax) {
     include 'subjectteacherNavbar.php';
 }
 
-$conn = new mysqli('localhost', 'root', '', 'educguarddb');
+$conn = new mysqli('sql211.infinityfree.com', 'if0_40275155', 'EduGuard202526', 'if0_40275155_eduguarddb');
 if ($conn->connect_error) die('Connection failed: ' . $conn->connect_error);
 
 // Handle POST submissions

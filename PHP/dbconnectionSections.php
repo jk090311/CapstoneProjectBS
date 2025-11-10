@@ -1,10 +1,11 @@
 <?php
-$servername = "localhost"; // Change if needed
-$username = "root"; // Default for XAMPP
-$password = ""; // Default for XAMPP
-$database = "educguarddb";
+$servername = "sql211.infinityfree.com";
+$username = "if0_40275155";
+$password = "EduGuard202526";
+$dbname = "if0_40275155_eduguarddb";
 
-$conn = new mysqli($servername, $username, $password, $database);
+
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connections
 if ($conn->connect_error) {

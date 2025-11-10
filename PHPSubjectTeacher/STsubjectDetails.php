@@ -5,7 +5,7 @@ ob_start();
 include "subjectTeacherNavbar.php";
 
 // Database connection
-$conn = new mysqli("localhost", "root", "", "educguarddb");
+$conn = new mysqli("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
 
 // Handle grade submission first, before any HTML output
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset($_POST['quarter']) && isset($_POST['grade']) && isset($_POST['subject_id'])) {

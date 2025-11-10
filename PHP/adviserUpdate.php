@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Use the CORRECT database connection credentials
 $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
 if (!$connection) {

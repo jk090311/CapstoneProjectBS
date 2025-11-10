@@ -20,10 +20,10 @@ if ($_SESSION['user_role'] != $required_role) {
 }
 
 // Database connection
-$servername = "localhost"; // Replace with your database server name
-$username = "root";        // Replace with your database username
-$password = "";            // Replace with your database password
-$dbname = "educguarddb";   // Replace with your database name
+$servername = "sql211.infinityfree.com";
+$username = "if0_40275155";
+$password = "EduGuard202526";
+$dbname = "if0_40275155_eduguarddb";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

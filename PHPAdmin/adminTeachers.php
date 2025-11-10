@@ -81,7 +81,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                     <option value="">Select Section</option>
                                     <?php
                                     // Connect to the database
-                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+                                    $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
 
                                     // Check connection
                                     if (!$connection) {
@@ -425,7 +425,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                             <div class="form-group mb-3">
                                                 <?php
                                                 // Open connection to fetch grade/section and subjects for selects
-                                                $stConn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                                $stConn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
                                                 if (!$stConn) {
                                                     echo '<div class="alert alert-danger">Database connection error. Cannot load selects.</div>';
                                                 } else {
@@ -472,7 +472,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                                     1</label>
                                                 <?php
                                                 // Fetch subjects to populate dropdowns
-                                                $subConn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                                $subConn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
                                                 if (!$subConn) {
                                                     echo '<select class="form-control" id="subjectTeacherSubject1" name="stSubject1"><option value="">DB error</option></select>';
                                                 } else {
@@ -522,7 +522,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                             <div class="form-group mb-3">
                                                 <?php
                                                 // Open connection to fetch grade/section and subjects for selects
-                                                $stConn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                                $stConn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
                                                 if (!$stConn) {
                                                     echo '<div class="alert alert-danger">Database connection error. Cannot load selects.</div>';
                                                 } else {
@@ -601,7 +601,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                             <div class="form-group mb-3">
                                                 <?php
                                                 // Open connection to fetch grade/section and subjects for selects
-                                                $stConn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                                $stConn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
                                                 if (!$stConn) {
                                                     echo '<div class="alert alert-danger">Database connection error. Cannot load selects.</div>';
                                                 } else {
@@ -746,7 +746,7 @@ if ($_SESSION['user_role'] != $required_role) {
                             </thead>
                             <tbody>
                                 <?php
-                                $connection = mysqli_connect("localhost", "root", "", "educguarddb");
+                                $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
 
                                 // Show Advisers
                                 $fetch_query = "SELECT * FROM advisers ORDER BY adviserFullName ASC";
@@ -922,7 +922,7 @@ if ($_SESSION['user_role'] != $required_role) {
                             <select id="edit_stSection" name="stSection" class="form-control" required>
                                 <option value="">Select Section</option>
                                 <?php
-                                $conn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                $conn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
                                 if ($conn) {
                                     $query = "SELECT section_id, section_name FROM class_section ORDER BY section_name ASC";
                                     $result = mysqli_query($conn, $query);
@@ -941,7 +941,7 @@ if ($_SESSION['user_role'] != $required_role) {
                             <select id="edit_stSubject" name="stSubject" class="form-control">
                                 <option value="">Select Subject</option>
                                 <?php
-                                $conn = mysqli_connect("localhost", "root", "", "educguarddb");
+                                $conn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
                                 if ($conn) {
                                     $query = "SELECT subject_id, subject_name FROM subjects ORDER BY subject_name ASC";
                                     $result = mysqli_query($conn, $query);
