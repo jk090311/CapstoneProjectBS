@@ -75,7 +75,7 @@ function fetchSectionDetails(section) {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "fetchSectionDetails.php", true);
+    xhr.open("POST", "../PHPAdmin/fetchSectionDetails.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {

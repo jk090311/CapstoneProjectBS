@@ -2,7 +2,7 @@ s
         /* Scoped modern styles for the report system page */
         body {
             font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #0f3340;
+            background: linear-gradient(135deg, #607d8b, #546e7a);
             color: #222;
         }
 
@@ -54,10 +54,10 @@ s
         }
 
         .tabs button.active {
-            background: #0f7a8a;
+            background: linear-gradient(135deg, #607d8b, #546e7a);
             color: #fff;
             border-color: transparent;
-            box-shadow: 0 6px 14px rgba(15, 122, 138, 0.12);
+            box-shadow: 0 6px 14px rgba(96, 125, 139, 0.3);
         }
 
         /* Subjects grid */

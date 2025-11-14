@@ -1,8 +1,8 @@
 <?php
-$servername = "sql211.infinityfree.com";
-$username = "if0_40275155";
-$password = "EduGuard202526";
-$dbname = "if0_40275155_eduguarddb";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "educguarddb";
 
 // Create a connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -52,7 +52,10 @@ if ($stmt->execute()) {
     $userAccStmt->bind_param("sss", $email, $password, $user_role);
 
     if ($userAccStmt->execute()) {
-        echo "<script>alert('Student registered successfully!'); window.location.href='/CapstoneProjectBS/PHPAdviser/studentList.php';</script>";
+        session_start();
+        $_SESSION['status'] = "Student registered successfully!";
+        header("Location: ../PHPAdviser/studentList.php");
+        exit();
     } else {
         echo "Error in user_acc table: " . $userAccStmt->error;
     }
@@ -65,3 +68,8 @@ if ($stmt->execute()) {
 $stmt->close();
 $conn->close();
 ?>
+
+
+
+
+

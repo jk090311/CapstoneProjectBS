@@ -2,7 +2,7 @@
 <?php session_start(); ?>
 <?php
 // Database connection
-$conn = new mysqli("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+$conn = new mysqli("localhost", "root", "", "educguarddb");
 
 // Check connection
 if ($conn->connect_error) {
@@ -52,3 +52,8 @@ $result = $conn->query($sql);
     </div>
 </body>
 </html>
+
+
+
+
+

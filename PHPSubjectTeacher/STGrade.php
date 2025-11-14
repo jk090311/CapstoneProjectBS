@@ -1,7 +1,7 @@
 <?php include "subjectTeacherNavbar.php"; 
 
 // Database connection
-$conn = new mysqli("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+$conn = new mysqli("localhost", "root", "", "educguarddb");
 
 // Check connection
 if ($conn->connect_error) {
@@ -380,3 +380,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id']) && isset
 <?php
 $conn->close();
 ?>
+
+
+
+
+

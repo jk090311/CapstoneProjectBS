@@ -2,7 +2,7 @@
 session_start();
 
 // Database connection
-$connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+$connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
 // Check connection
 if (!$connection) {
@@ -140,3 +140,8 @@ if (isset($_POST['subjectTeacherRegister'])) {
 mysqli_close($connection);
 ?>
 <!--
+
+
+
+
+

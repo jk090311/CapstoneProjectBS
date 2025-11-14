@@ -87,7 +87,7 @@ if ($_SESSION['user_role'] != $required_role) {
                             <select id="edit_studentSection" name="studentSection" class="form-control" required>
                                 <?php
                                 // Connect to the database
-                                $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
                                 // Check connection
                                 if (!$connection) {
@@ -144,10 +144,17 @@ if ($_SESSION['user_role'] != $required_role) {
                 <div class="card">
                     <div class="card-header">
                         <h4>Student</h4>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#addStudentModal">
-                            Add Student
-                        </button>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#addStudentModal">
+                                <i class="fas fa-user-plus"></i> Add Student
+                            </button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#batchUploadModal">
+                                <i class="fas fa-file-excel"></i> Batch Upload
+                            </button>
+                        </div>
+                    </div>
 
                         <!-- Add Student Modal -->
                         <div class="modal fade" id="addStudentModal" tabindex="-1"
@@ -198,7 +205,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                                         <option value="">Select Section</option>
                                                         <?php
                                                         // Connect to the database
-                                                        $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                                        $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
                                                         // Check connection
                                                         if (!$connection) {
@@ -228,7 +235,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                                 <div class="form-group mb-3">
                                                     <label>Grade Level:</label>
                                                     <input type="text" id="section_grade_level"
-                                                        name="section_grade_level" class="form-control" readonly>
+                                                        name="grLvl" class="form-control" readonly required>
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label>Year Level:</label>
@@ -305,6 +312,66 @@ if ($_SESSION['user_role'] != $required_role) {
                             </div>
                         </div>
 
+                        <!-- Batch Upload Modal -->
+                        <div class="modal fade" id="batchUploadModal" tabindex="-1"
+                            aria-labelledby="batchUploadModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="batchUploadModalLabel">Batch Upload Students</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form action="../PHP/batchUploadStudents.php" method="POST" enctype="multipart/form-data">
+                                        <div class="modal-body">
+                                            <div class="alert alert-info">
+                                                <h6><i class="fas fa-info-circle"></i> Instructions:</h6>
+                                                <ol class="mb-0">
+                                                    <li>Download the template below (Excel or CSV format)</li>
+                                                    <li>Fill in student information following the sample row</li>
+                                                    <li>Save the file and upload it here</li>
+                                                    <li>All students will be added to your section: <strong><?php echo $adviser_section ?? 'Your Section'; ?></strong></li>
+                                                </ol>
+                                                <small class="text-muted mt-2 d-block">
+                                                    <strong>Note:</strong> Fields marked with * in the template are required. 
+                                                    Date format must be YYYY-MM-DD (e.g., 2010-05-15).
+                                                </small>
+                                            </div>
+                                            
+                                            <div class="form-group mb-3">
+                                                <label class="form-label">Download Template:</label>
+                                                <br>
+                                                <a href="../PHP/downloadStudentTemplate.php" class="btn btn-outline-primary btn-sm">
+                                                    <i class="fas fa-download"></i> Excel Template (.xls)
+                                                </a>
+                                                <a href="../PHP/downloadStudentTemplateCSV.php" class="btn btn-outline-success btn-sm">
+                                                    <i class="fas fa-download"></i> CSV Template
+                                                </a>
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label for="excelFile" class="form-label">Upload File:</label>
+                                                <input type="file" class="form-control" id="excelFile" name="excelFile" 
+                                                    accept=".xlsx,.xls,.csv" required>
+                                                <small class="text-muted">Accepted formats: .xlsx, .xls, .csv</small>
+                                            </div>
+
+                                            <div id="uploadProgress" class="progress mb-3" style="display: none;">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                                    role="progressbar" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="fas fa-upload"></i> Upload & Process
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card-body">
                             <!-- Gender Filter Dropdown -->
                             <div class="form-group mb-3">
@@ -333,7 +400,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                 <tbody>
                                     <?php
                                     // Database connection
-                                    $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                     if (!$connection) {
                                         die("Connection failed: " . mysqli_connect_error());
                                     }
@@ -417,3 +484,8 @@ if ($_SESSION['user_role'] != $required_role) {
 </body>
 
 </html>
+
+
+
+
+

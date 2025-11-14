@@ -5,7 +5,7 @@
 $isAjax = isset($_GET['ajax']) && $_GET['ajax'] === '1';
 if (session_status() == PHP_SESSION_NONE) session_start();
 
-$conn = new mysqli('sql211.infinityfree.com', 'if0_40275155', 'EduGuard202526', 'if0_40275155_eduguarddb');
+$conn = new mysqli('localhost', 'root', '', 'educguarddb');
 if ($conn->connect_error) { if ($isAjax) echo 'DB error'; else die('Connection failed: ' . $conn->connect_error); }
 
 if (!isset($_GET['student_id'])) {
@@ -117,3 +117,8 @@ $stmt2->close();
 $conn->close();
 
 ?>
+
+
+
+
+

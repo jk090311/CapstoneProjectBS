@@ -28,31 +28,57 @@ document.addEventListener('DOMContentLoaded', function() {
             const name = this.getAttribute('data-name');
             const contact = this.getAttribute('data-contact');
             const email = this.getAttribute('data-email');
-            const gradelevel = this.getAttribute('data-gradelevel');
-            const section = this.getAttribute('data-section');
-            const subject = this.getAttribute('data-subject');
             
-            // Populate the edit modal fields
+            console.log('Edit data:', { id, name, contact, email });
+            
+            // Populate the basic fields
             document.getElementById('edit_stID').value = id || '';
             document.getElementById('edit_stFullName').value = name || '';
             document.getElementById('edit_stContactNumber').value = contact || '';
             document.getElementById('edit_stEmail').value = email || '';
             document.getElementById('edit_stPassword').value = ''; // Clear password field
             
-            // Set the select fields
-            const gradeLvlSelect = document.getElementById('edit_stGradelvl');
-            if (gradeLvlSelect && gradelevel) {
-                gradeLvlSelect.value = gradelevel;
+            // Clear existing subject assignments
+            if (typeof clearSubjectAssignments === 'function') {
+                clearSubjectAssignments();
             }
             
-            const sectionSelect = document.getElementById('edit_stSection');
-            if (sectionSelect && section) {
-                sectionSelect.value = section;
-            }
-            
-            const subjectSelect = document.getElementById('edit_stSubject');
-            if (subjectSelect && subject) {
-                subjectSelect.value = subject;
+            // Fetch subject assignments from server
+            if (id) {
+                fetch(`../PHP/getSubjectTeacherAssignments.php?stID=${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Fetched assignments:', data);
+                        
+                        if (data.success && data.assignments && data.assignments.length > 0) {
+                            data.assignments.forEach(assignment => {
+                                if (typeof addSubjectAssignmentRow === 'function') {
+                                    addSubjectAssignmentRow(
+                                        assignment.grade_level || '',
+                                        assignment.section_id || '',
+                                        assignment.subject_id || ''
+                                    );
+                                }
+                            });
+                        } else {
+                            // If no assignments, add one empty row
+                            if (typeof addSubjectAssignmentRow === 'function') {
+                                addSubjectAssignmentRow('', '', '');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching assignments:', error);
+                        // Add one empty row on error
+                        if (typeof addSubjectAssignmentRow === 'function') {
+                            addSubjectAssignmentRow('', '', '');
+                        }
+                    });
+            } else {
+                // No ID, add one empty row
+                if (typeof addSubjectAssignmentRow === 'function') {
+                    addSubjectAssignmentRow('', '', '');
+                }
             }
             
             // Show the modal

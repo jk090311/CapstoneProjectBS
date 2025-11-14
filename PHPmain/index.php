@@ -1,11 +1,11 @@
 <?php 
 session_start();
 error_reporting(0);
-$conn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "", "if0_40275155_eduguarddb");
+$conn = mysqli_connect("localhost", "root", "", "educguarddb");
 
 
 // Database connection
-$conn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "", "if0_40275155_eduguarddb");
+$conn = mysqli_connect("localhost", "root", "", "educguarddb");
 
 // Check if the form is submitted
 if(isset($_POST['login']))
@@ -170,3 +170,8 @@ if ($row = mysqli_fetch_assoc($result)) {
 <script src="/CapstoneProjectBSBackup/JS/login.js"></script>
 </body>
 </html>
+
+
+
+
+

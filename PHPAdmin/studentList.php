@@ -60,7 +60,7 @@ session_start();
                                 <select id="edit_studentSection" name="studentSection" class="form-control" required>
                                     <?php
                                     // Connect to the database
-                                    $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
                                     // Check connection
                                     if (!$connection) {
@@ -195,7 +195,7 @@ session_start();
                                                     <option value="">Select Section</option>
                                                     <?php
                                                     // Connect to the database
-                                                    $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
                                                     // Check connection
                                                     if (!$connection) {
@@ -356,7 +356,7 @@ session_start();
                             </thead>
                             <tbody>
                                 <?php
-                                $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                $connection = mysqli_connect("localhost", "root", "", "educguarddb");
                                 $fetch_query = "SELECT * FROM students";
 
                                 $fetch_query_run = mysqli_query($connection, $fetch_query);
@@ -419,3 +419,8 @@ session_start();
 </body>
 
 </html>
+
+
+
+
+

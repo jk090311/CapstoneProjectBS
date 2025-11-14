@@ -20,10 +20,7 @@ if ($_SESSION['user_role'] != $required_role) {
     exit();
 }
 //Reopen the connection
-$servername = "sql211.infinityfree.com";
-$username = "if0_40275155";
-$password = "EduGuard202526";
-$dbname = "if0_40275155_eduguarddb";
+$servername = "localhost";$([Environment]::NewLine)$username = "root";$([Environment]::NewLine)$password = "";$([Environment]::NewLine)$dbname = "educguarddb";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -71,3 +68,8 @@ if ($conn->connect_error) {
 
 </body>
 </html>
+
+
+
+
+

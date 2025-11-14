@@ -82,7 +82,7 @@
                     <label for="section">Section</label>
                     <select id="section" name="section" required>
                         <?php
-                        $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                        $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
                         if (!$connection) {
                             die("Connection failed: " . mysqli_connect_error());
@@ -158,3 +158,8 @@
     <script src="/CapstoneProjectBS/JS/studentRegister.js"></script>
 </body>
 </html>
+
+
+
+
+

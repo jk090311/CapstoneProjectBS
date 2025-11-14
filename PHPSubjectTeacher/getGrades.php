@@ -30,7 +30,7 @@ if (!$isAjax) {
     include 'subjectteacherNavbar.php';
 }
 
-$conn = new mysqli('sql211.infinityfree.com', 'if0_40275155', 'EduGuard202526', 'if0_40275155_eduguarddb');
+$conn = new mysqli('localhost', 'root', '', 'educguarddb');
 if ($conn->connect_error) die('Connection failed: ' . $conn->connect_error);
 
 // Handle POST submissions
@@ -466,3 +466,8 @@ $total_pages = $per_page > 0 ? (int)ceil($total_rows / $per_page) : 1;
 $stmt->close();
 $conn->close();
 ?>
+
+
+
+
+

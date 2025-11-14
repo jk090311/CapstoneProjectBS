@@ -21,7 +21,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(31, 81, 255, 0.4); /* Slightly lighter blue */
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.5), rgba(84, 110, 122, 0.5)); /* Teal-gray gradient */
     pointer-events: none;
     z-index: -1; /* Keep it behind the content */
 }
@@ -61,7 +61,7 @@ body::before {
 
 .nav-links a {
     text-decoration: none;
-    color: #03127b;
+    color: #546e7a;
     font-weight: bold;
     padding: 10px 15px;
     border-radius: 5px;
@@ -69,6 +69,6 @@ body::before {
 }
 
 .nav-links a:hover {
-    background-color: #D3D3D3;
+    background: rgba(96, 125, 139, 0.1);
 }
 

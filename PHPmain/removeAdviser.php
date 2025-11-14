@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+$connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
 if (isset($_POST['adviserFullName'])) {
     $adviserFullName = $_POST['adviserFullName'];
@@ -14,3 +14,8 @@ if (isset($_POST['adviserFullName'])) {
     }
 }
 ?>
+
+
+
+
+

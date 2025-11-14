@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json");
 
-$connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+$connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
 if (!$connection) {
     echo json_encode(["error" => "Database connection failed"]);
@@ -29,3 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['grade_level'])) {
 
 mysqli_close($connection);
 ?>
+
+
+
+
+

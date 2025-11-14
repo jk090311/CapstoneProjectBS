@@ -34,7 +34,7 @@ body::after {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(rgba(18, 78, 102, 0.95), rgba(18, 78, 102, 0.95));
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.95), rgba(84, 110, 122, 0.95));
     z-index: -1;
 }
 
@@ -60,7 +60,7 @@ body::after {
 }
 
 .sidebar {
-    background: #124E66 !important;
+    background: linear-gradient(135deg, #607d8b, #546e7a) !important;
     width: 250px !important;
 }
 
@@ -72,7 +72,7 @@ body::after {
 }
 
 .navbar-nav a:hover {
-    background-color: #1a6d8f !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .navbar {
@@ -81,7 +81,7 @@ body::after {
 }
 
 .navbar-brand span {
-    color: #124E66;
+    color: #546e7a;
     font-weight: 600;
 }
 
@@ -97,11 +97,11 @@ body::after {
 }
 
 .sidebar .nav-link:hover {
-    background-color: #1a6d8f !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .sidebar .nav-link.active {
-    background-color: #1a6d8f;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 #iconLeft {
@@ -112,7 +112,7 @@ body::after {
 }
 
 .offcanvas-header {
-    background: #124E66;
+    background: linear-gradient(135deg, #607d8b, #546e7a);
     padding: 1rem;
 }
 

@@ -106,8 +106,8 @@ body {
 
 /* Add Student button styling */
 .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
   color: white;
   font-weight: 500;
   padding: 6px 16px;

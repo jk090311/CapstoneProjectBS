@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_email'])) {
 }       
 
 // Database connection
-$conn = new mysqli("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+$conn = new mysqli("localhost", "root", "", "educguarddb");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -80,3 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
+

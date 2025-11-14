@@ -81,7 +81,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                     <option value="">Select Section</option>
                                     <?php
                                     // Connect to the database
-                                    $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
                                     // Check connection
                                     if (!$connection) {
@@ -425,7 +425,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                             <div class="form-group mb-3">
                                                 <?php
                                                 // Open connection to fetch grade/section and subjects for selects
-                                                $stConn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                                $stConn = mysqli_connect("localhost", "root", "", "educguarddb");
                                                 if (!$stConn) {
                                                     echo '<div class="alert alert-danger">Database connection error. Cannot load selects.</div>';
                                                 } else {
@@ -472,7 +472,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                                     1</label>
                                                 <?php
                                                 // Fetch subjects to populate dropdowns
-                                                $subConn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                                $subConn = mysqli_connect("localhost", "root", "", "educguarddb");
                                                 if (!$subConn) {
                                                     echo '<select class="form-control" id="subjectTeacherSubject1" name="stSubject1"><option value="">DB error</option></select>';
                                                 } else {
@@ -522,7 +522,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                             <div class="form-group mb-3">
                                                 <?php
                                                 // Open connection to fetch grade/section and subjects for selects
-                                                $stConn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                                $stConn = mysqli_connect("localhost", "root", "", "educguarddb");
                                                 if (!$stConn) {
                                                     echo '<div class="alert alert-danger">Database connection error. Cannot load selects.</div>';
                                                 } else {
@@ -601,7 +601,7 @@ if ($_SESSION['user_role'] != $required_role) {
                                             <div class="form-group mb-3">
                                                 <?php
                                                 // Open connection to fetch grade/section and subjects for selects
-                                                $stConn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                                $stConn = mysqli_connect("localhost", "root", "", "educguarddb");
                                                 if (!$stConn) {
                                                     echo '<div class="alert alert-danger">Database connection error. Cannot load selects.</div>';
                                                 } else {
@@ -746,7 +746,7 @@ if ($_SESSION['user_role'] != $required_role) {
                             </thead>
                             <tbody>
                                 <?php
-                                $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+                                $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
                                 // Show Advisers
                                 $fetch_query = "SELECT * FROM advisers ORDER BY adviserFullName ASC";
@@ -878,7 +878,7 @@ if ($_SESSION['user_role'] != $required_role) {
     <!-- Edit Subject Teacher Modal -->
     <div class="modal fade" id="editSubjectTeacher" tabindex="-1" aria-labelledby="editSubjectTeacherLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="editSubjectTeacherLabel">Edit Subject Teacher Account</h1>
@@ -906,55 +906,22 @@ if ($_SESSION['user_role'] != $required_role) {
                         </div>
                         <div class="form-group mb-3">
                             <label for="edit_stPassword">Password</label>
-                            <input type="text" class="form-control" id="edit_stPassword"
-                                name="stPassword">
+                            <input type="password" class="form-control" id="edit_stPassword"
+                                name="stPassword" placeholder="Leave blank to keep current password">
                             <small class="text-muted">Leave blank to keep current password</small>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="edit_stGradelvl">Grade Level</label>
-                            <select id="edit_stGradelvl" name="stGradelvl" class="form-control" required>
-                                <option value="">Select Grade Level</option>
-                                <option value="7">Grade 7</option>
-                            </select>
+
+                        <hr class="my-4">
+                        <h5 class="mb-3">Subject Assignments</h5>
+                        <p class="text-muted small">Each subject can be assigned to a different grade level and section.</p>
+                        
+                        <div id="subjectAssignmentsContainer">
+                            <!-- Dynamic rows will be added here -->
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="edit_stSection">Section</label>
-                            <select id="edit_stSection" name="stSection" class="form-control" required>
-                                <option value="">Select Section</option>
-                                <?php
-                                $conn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
-                                if ($conn) {
-                                    $query = "SELECT section_id, section_name FROM class_section ORDER BY section_name ASC";
-                                    $result = mysqli_query($conn, $query);
-                                    if ($result && mysqli_num_rows($result) > 0) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo '<option value="'.$row['section_id'].'">'.$row['section_name'].'</option>';
-                                        }
-                                    }
-                                    mysqli_close($conn);
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="edit_stSubject">Subject</label>
-                            <select id="edit_stSubject" name="stSubject" class="form-control">
-                                <option value="">Select Subject</option>
-                                <?php
-                                $conn = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
-                                if ($conn) {
-                                    $query = "SELECT subject_id, subject_name FROM subjects ORDER BY subject_name ASC";
-                                    $result = mysqli_query($conn, $query);
-                                    if ($result && mysqli_num_rows($result) > 0) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo '<option value="'.$row['subject_id'].'">'.$row['subject_name'].'</option>';
-                                        }
-                                    }
-                                    mysqli_close($conn);
-                                }
-                                ?>
-                            </select>
-                        </div>
+
+                        <button type="button" class="btn btn-sm btn-success mt-2" onclick="addSubjectAssignmentRow()">
+                            <i class="fas fa-plus"></i> Add Another Subject
+                        </button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -965,8 +932,107 @@ if ($_SESSION['user_role'] != $required_role) {
         </div>
     </div>
 
+    <script>
+        let assignmentRowCounter = 0;
+
+        // Get section and subject options once for reuse
+        const sectionOptions = `<?php
+            $conn = mysqli_connect("localhost", "root", "", "educguarddb");
+            if ($conn) {
+                $query = "SELECT section_id, section_name FROM class_section ORDER BY section_name ASC";
+                $result = mysqli_query($conn, $query);
+                if ($result && mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<option value="'.$row['section_id'].'">'.$row['section_name'].'</option>';
+                    }
+                }
+                mysqli_close($conn);
+            }
+        ?>`;
+
+        const subjectOptions = `<?php
+            $conn = mysqli_connect("localhost", "root", "", "educguarddb");
+            if ($conn) {
+                $query = "SELECT subject_id, subject_name FROM subjects ORDER BY subject_name ASC";
+                $result = mysqli_query($conn, $query);
+                if ($result && mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<option value="'.$row['subject_id'].'">'.$row['subject_name'].'</option>';
+                    }
+                }
+                mysqli_close($conn);
+            }
+        ?>`;
+
+        function addSubjectAssignmentRow(gradeLevel = '', sectionId = '', subjectId = '') {
+            const container = document.getElementById('subjectAssignmentsContainer');
+            const rowId = assignmentRowCounter++;
+            
+            const rowHtml = `
+                <div class="row g-2 mb-3 subject-assignment-row" id="assignment-row-${rowId}">
+                    <div class="col-md-3">
+                        <label class="form-label small">Grade Level</label>
+                        <select name="stGradelvl[]" class="form-control form-control-sm" required>
+                            <option value="">Select</option>
+                            <option value="7" ${gradeLevel == '7' ? 'selected' : ''}>Grade 7</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small">Section</label>
+                        <select name="stSection[]" class="form-control form-control-sm" required>
+                            <option value="">Select Section</option>
+                            ${sectionOptions}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small">Subject</label>
+                        <select name="stSubject[]" class="form-control form-control-sm" required>
+                            <option value="">Select Subject</option>
+                            ${subjectOptions}
+                        </select>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="button" class="btn btn-danger btn-sm w-100" onclick="removeSubjectAssignmentRow(${rowId})" title="Remove">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', rowHtml);
+            
+            // Set the values after the HTML is inserted
+            if (sectionId || subjectId) {
+                const row = document.getElementById(`assignment-row-${rowId}`);
+                if (sectionId) {
+                    row.querySelector('select[name="stSection[]"]').value = sectionId;
+                }
+                if (subjectId) {
+                    row.querySelector('select[name="stSubject[]"]').value = subjectId;
+                }
+            }
+        }
+
+        function removeSubjectAssignmentRow(rowId) {
+            const row = document.getElementById(`assignment-row-${rowId}`);
+            if (row) {
+                row.remove();
+            }
+        }
+
+        function clearSubjectAssignments() {
+            const container = document.getElementById('subjectAssignmentsContainer');
+            container.innerHTML = '';
+            assignmentRowCounter = 0;
+        }
+    </script>
+
     <script src="../JS/adviserList.js"></script>
     <script src="../JS/subjectTeacherEdit_new.js"></script>
 
 </body>
 </html>
+
+
+
+

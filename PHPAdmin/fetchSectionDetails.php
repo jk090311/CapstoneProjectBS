@@ -3,7 +3,7 @@ if (isset($_POST['section'])) {
     $section = $_POST['section'];
 
     // Connect to the database
-    $connection = mysqli_connect("sql211.infinityfree.com", "if0_40275155", "EduGuard202526", "if0_40275155_eduguarddb");
+    $connection = mysqli_connect("localhost", "root", "", "educguarddb");
 
     // Check connection
     if (!$connection) {
@@ -31,3 +31,8 @@ if (isset($_POST['section'])) {
     echo json_encode(['error' => 'No section provided']); // Handle missing section
 }
 ?>
+
+
+
+
+
